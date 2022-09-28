@@ -5,7 +5,7 @@ const HeaderSearchBar = () => {
   return (
     <Wrapper>
       <form>
-        <input type="text" placeholder="Type anything..." />
+        <input type="text" placeholder="Type anything...." />
         <button type="submit">Search</button>
       </form>
     </Wrapper>
