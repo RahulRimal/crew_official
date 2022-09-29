@@ -21,9 +21,12 @@ html{
   :root {
     --primary-white: #fff;
     --primary-black: #000;
+    --primary-gray: #3d3d3d;
+    --secondary-gray: #787878;
     --primary-color: #7048e8;
     --secondary-color: #cec2f2;
     --accent-color: #4c76f5;
+    --primary-red: #ff5555;
   
     /* --primary-color: #6610f2; */
   }
@@ -37,7 +40,7 @@ html{
   
   body {
     
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    font-family: "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
       "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
       sans-serif;
     -webkit-font-smoothing: antialiased;
