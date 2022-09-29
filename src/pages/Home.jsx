@@ -1,9 +1,24 @@
-import React from 'react'
+import React from "react";
+
+import styled from "styled-components";
+
+import { LeftNavbar } from "../components";
 
 const Home = () => {
   return (
-    <div>Home</div>
-  )
-}
+    <Wrapper>
+      <div className="left-sidebar">
+        <LeftNavbar />
+        {/* <FeaturedComponent /> */}
+      </div>
+    </Wrapper>
+  );
+};
 
-export default Home
+const Wrapper = styled.div`
+  .left-sidebar {
+    /* max-width: 25rem; */
+  }
+`;
+
+export default Home;
