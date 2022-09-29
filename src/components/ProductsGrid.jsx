@@ -1,12 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import { ProductsFilter, ProductsGrid } from "../components";
+import { products } from "../data";
+import { Product } from "./index";
 
-const Products = () => {
+const ProductsGrid = () => {
   return (
     <Wrapper>
-      <ProductsFilter className="products-filter" />
-      <ProductsGrid />
+      {products.map((product) => {
+        return <Product info={product} />;
+      })}
     </Wrapper>
   );
 };
@@ -19,9 +21,9 @@ const Products = () => {
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: 1fr 4fr;
-  column-gap: 4.8rem;
-  padding: 4.8rem;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 2.4rem;
+  row-gap: 3rem;
 
   /**************************/
   /* BELOW 1344px (Smaller desktops) */
@@ -57,10 +59,7 @@ const Wrapper = styled.div`
 
   @media (max-width: 34em) {
     grid-template-columns: 1fr;
-    .products-filter {
-      display: none;
-    }
   }
 `;
 
-export default Products;
+export default ProductsGrid;

@@ -53,7 +53,7 @@ const ProductsFilter = () => {
           </div>
         </form>
       </div>
-      <div className="products-grid">showing here</div>
+      {/* <div className="products-grid">showing here</div> */}
     </Wrapper>
   );
 };
@@ -65,11 +65,6 @@ const ProductsFilter = () => {
 // 10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
 
 const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 4fr;
-  column-gap: 4.8rem;
-  padding: 4.8rem;
-
   input,
   select {
     height: 3.6rem;
