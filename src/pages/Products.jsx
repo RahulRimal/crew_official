@@ -6,6 +6,7 @@ import {
   sortProducts,
   getProducts,
   updateFilters,
+  gridView,
 } from "../features/filter/filterSlice";
 
 import { BsFillGridFill, BsList } from "react-icons/bs";
@@ -34,19 +35,11 @@ const Products = () => {
         <div className="products-sort">
           <BsFillGridFill
             className={grid_view ? "grid-view-icon active" : "grid-view-icon"}
-            onClick={() => {
-              let name = "grid_view";
-              let value = true;
-              return dispatch(updateFilters({ name, value }));
-            }}
+            onClick={() => dispatch(gridView(true))}
           />
           <BsList
             className={!grid_view ? "list-view-icon active" : "list-view-icon"}
-            onClick={() => {
-              let name = "grid_view";
-              let value = false;
-              return dispatch(updateFilters({ name, value }));
-            }}
+            onClick={() => dispatch(gridView(false))}
           />
           <p className="products-count">
             {filtered_products.length} Products Found

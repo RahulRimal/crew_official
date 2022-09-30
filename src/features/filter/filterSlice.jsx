@@ -44,6 +44,11 @@ const filterSlice = createSlice({
       state.all_products = action.payload;
       state.filtered_products = action.payload;
     },
+    gridView: (state, action) => {
+      const value = action.payload;
+
+      return { ...state, grid_view: value };
+    },
     sortProducts: (state) => {
       const {
         filters: { sort },
@@ -200,6 +205,7 @@ export const {
   filterProducts,
   updateFilters,
   clearFilters,
+  gridView,
 } = filterSlice.actions;
 
 export default filterSlice.reducer;
