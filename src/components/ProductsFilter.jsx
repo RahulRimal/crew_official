@@ -1,57 +1,120 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import {
+  filterProducts,
+  clearFilters,
+  updateFilters,
+  sortProducts,
+} from "../features/filter/filterSlice";
+import { getUniqueValues } from "../utils/helpers";
 
 const ProductsFilter = () => {
-  const updatePriceRange = (e) => {
-    console.log(e.target.value);
+  const dispatch = useDispatch();
+
+  const {
+    filters,
+    filters: { text, company, category, min_price, max_price, price },
+    all_products,
+  } = useSelector((store) => store.filter);
+
+  const categories = getUniqueValues(all_products, "category");
+  const companies = getUniqueValues(all_products, "company");
+
+  const updateFilter = (e) => {
+    let name = e.target.name;
+    let value = e.target.value;
+    if (name === "category") value = e.target.textContent;
+    if (name === "price") value = Number(value);
+
+    dispatch(updateFilters({ name, value }));
   };
+  useEffect(() => {
+    dispatch(filterProducts());
+  }, [filters]);
 
   return (
     <Wrapper>
       <div className="products-filter">
-        {/* <form onSubmit={(e) => e.preventDefault()}> */}
-        <form>
+        <form onSubmit={(e) => e.preventDefault()}>
           <div className="filter-search">
-            <input type="text" placeholder="Search" />
+            <input
+              type="text"
+              name="text"
+              placeholder="Search"
+              value={text}
+              onChange={updateFilter}
+            />
           </div>
           <div className="filter-category">
             <h3 className="filter-title">Category</h3>
             <ul>
-              <li>All</li>
+              {/* <li>All</li>
               <li>DSLR</li>
               <li>4K, 4K &amp; Beyond</li>
               <li>Camcoder &amp; Video</li>
-              <li>VR, 360 &amp; Mobility</li>
+              <li>VR, 360 &amp; Mobility</li> */}
+
+              {categories.map((c, index) => {
+                return (
+                  <li key={index}>
+                    <button
+                      type="button"
+                      name="category"
+                      className={`${category === c ? "active" : null}`}
+                      onClick={updateFilter}
+                    >
+                      {c}
+                    </button>
+                  </li>
+                );
+              })}
             </ul>
           </div>
           <div className="filter-company">
             <h3 className="filter-title">Company</h3>
-            <select name="filter-by-company" id="filter-by-company">
-              <option value="all">All</option>
+            <select
+              name="company"
+              value={company}
+              onChange={updateFilter}
+              id="filter-by-company"
+            >
+              {/* <option value="all">All</option>
               <option value="red">Red</option>
               <option value="black-magic">Black Magic</option>
               <option value="sony">Sony</option>
-              <option value="cannon">Cannon</option>
+              <option value="cannon">Cannon</option> */}
+              {companies.map((c, index) => {
+                return (
+                  <option key={index} value={c}>
+                    {c}
+                  </option>
+                );
+              })}
             </select>
           </div>
           <div className="filter-price">
             <h3 className="filter-title">Price</h3>
             <p className="selected-price">
-              <span>Rs.</span> 5,000
+              <span>Rs.</span> {price}
             </p>
             <input
               type="range"
-              min="1000"
-              max="100000"
-              value="3000"
-              onChange={updatePriceRange}
+              name="price"
+              min={min_price}
+              max={max_price}
+              value={price}
+              onChange={updateFilter}
             />
           </div>
-
-          <div className="clear-filters">
-            <button type="button">Clear Filters</button>
-          </div>
         </form>
+        <button
+          type="button"
+          className="clear-filters"
+          onClick={() => dispatch(clearFilters())}
+        >
+          Clear Filters
+        </button>
       </div>
       {/* <div className="products-grid">showing here</div> */}
     </Wrapper>
@@ -94,18 +157,21 @@ const Wrapper = styled.div`
     margin-top: 3.2rem;
 
     li {
-      font-size: 1.4rem;
-      font-weight: 700;
-      cursor: pointer;
-      color: var(--secondary-gray);
-      margin: 0.4rem 0;
-      position: relative;
-      text-decoration: none;
-      line-height: 2.4rem;
-    }
-
-    li:hover {
-      text-decoration: underline;
+      button {
+        font-size: 1.4rem;
+        font-weight: 700;
+        cursor: pointer;
+        color: var(--secondary-gray);
+        margin: 0.4rem 0;
+        position: relative;
+        text-decoration: none;
+        line-height: 2.4rem;
+        border: none;
+        background: none;
+      }
+      button:hover {
+        text-decoration: underline;
+      }
     }
   }
 
@@ -125,17 +191,19 @@ const Wrapper = styled.div`
 
   .clear-filters {
     margin-top: 3.2rem;
-    button {
-      background-color: var(--primary-red);
-      border: none;
-      border-radius: 4px;
-      padding: 0.8rem 1.2rem;
-      cursor: pointer;
-      color: var(--primary-white);
-      font-size: 1.4rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-    }
+    background-color: var(--primary-red);
+    border: none;
+    border-radius: 4px;
+    padding: 0.8rem 1.2rem;
+    cursor: pointer;
+    color: var(--primary-white);
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+
+  .active {
+    text-decoration: underline !important;
   }
 `;
 

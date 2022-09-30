@@ -1,13 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { products } from "../data";
-import { Product } from "./index";
+import { GridProduct, Loading } from "./index";
+
+import { getProducts, loadProducts } from "../features/filter/filterSlice";
 
 const ProductsGrid = () => {
+  const { filtered_products, is_loading } = useSelector(
+    (store) => store.filter
+  );
+
+  if (is_loading) {
+    return <Loading />;
+  }
+
+  if (filtered_products.length === 0) {
+    return (
+      <Wrapper>
+        <h3 className="no-products-found">No products found 😣 </h3>
+      </Wrapper>
+    );
+  }
+
   return (
     <Wrapper>
-      {products.map((product) => {
-        return <Product info={product} />;
+      {filtered_products.map((product) => {
+        return <GridProduct info={product} key={product.id} />;
       })}
     </Wrapper>
   );
@@ -24,6 +43,10 @@ const Wrapper = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
   column-gap: 2.4rem;
   row-gap: 3rem;
+
+  .no-products-found {
+    font-size: 3rem;
+  }
 
   /**************************/
   /* BELOW 1344px (Smaller desktops) */

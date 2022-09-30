@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
+import { Link } from "react-router-dom";
 import logo from "../logo.png";
 import { HeaderSearchBar } from "./index";
 
@@ -8,7 +9,9 @@ const TopbarHeader = () => {
   return (
     <Wrapper>
       <header>
-        <img src={logo} alt="site logo" width={75} height={75} />
+        <Link to="/">
+          <img src={logo} alt="site logo" width={75} height={75} />
+        </Link>
         <HeaderSearchBar />
       </header>
     </Wrapper>

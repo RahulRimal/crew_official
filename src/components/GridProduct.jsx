@@ -1,19 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { getProductPrices, productPriceObjectToArray } from "../utils/helpers";
 
-const Product = ({ info }) => {
+const GridProduct = ({ info }) => {
   const { id, name, description, price, picture } = info;
+
+  //Converting object to array
+  const prices = Object.entries(price);
+
   return (
     <Wrapper>
       <img src={picture} alt="product-img" />
       <h5>{name}</h5>
       <footer>
         <ul>
-          <li>
-            <p>Rs. 600 / day</p>
-            <span>1 Day</span>
-          </li>
-          <li>
+          {prices.map((p, idx) => {
+            return (
+              <li key={idx}>
+                <p>Rs. {p[1]} / day</p>
+                <span>
+                  {p[0]} {p[0] == "1" ? "Day" : "Days"}
+                </span>
+              </li>
+            );
+          })}
+
+          {/* <li>
             <p>Rs. 550 / day</p>
             <span>2-4 Days</span>
           </li>
@@ -24,7 +36,7 @@ const Product = ({ info }) => {
           <li>
             <p>Rs. 450 / day</p>
             <span>8 Days ++</span>
-          </li>
+          </li> */}
         </ul>
       </footer>
     </Wrapper>
@@ -45,6 +57,7 @@ const Wrapper = styled.article`
     /* height: 17.5rem; */
     height: auto;
     object-fit: cover;
+    border-radius: 0.8rem;
   }
 
   h5 {
@@ -68,4 +81,4 @@ const Wrapper = styled.article`
   }
 `;
 
-export default Product;
+export default GridProduct;

@@ -3,4 +3,7 @@ export { default as HeaderSearchBar } from "./HeaderSearchBar";
 export { default as LeftNavbar } from "./LeftNavbar";
 export { default as ProductsFilter } from "./ProductsFilter";
 export { default as ProductsGrid } from "./ProductsGrid";
-export { default as Product } from "./Product";
+export { default as ProductsList } from "./ProductsList";
+export { default as GridProduct } from "./GridProduct";
+export { default as ListProduct } from "./ListProduct";
+export { default as Loading } from "./Loading";

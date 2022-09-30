@@ -1,12 +1,76 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import { ProductsFilter, ProductsGrid } from "../components";
+import { ProductsFilter, ProductsGrid, ProductsList } from "../components";
+import {
+  sortProducts,
+  getProducts,
+  updateFilters,
+} from "../features/filter/filterSlice";
+
+import { BsFillGridFill, BsList } from "react-icons/bs";
 
 const Products = () => {
+  const dispatch = useDispatch();
+
+  const {
+    grid_view,
+    filtered_products,
+    filters: { sort },
+  } = useSelector((store) => store.filter);
+
+  useEffect(() => {
+    dispatch(getProducts());
+  }, []);
+
+  useEffect(() => {
+    dispatch(sortProducts());
+  }, [sort]);
+
   return (
     <Wrapper>
       <ProductsFilter className="products-filter" />
-      <ProductsGrid />
+      <div className="container">
+        <div className="products-sort">
+          <BsFillGridFill
+            className={grid_view ? "grid-view-icon active" : "grid-view-icon"}
+            onClick={() => {
+              let name = "grid_view";
+              let value = true;
+              return dispatch(updateFilters({ name, value }));
+            }}
+          />
+          <BsList
+            className={!grid_view ? "list-view-icon active" : "list-view-icon"}
+            onClick={() => {
+              let name = "grid_view";
+              let value = false;
+              return dispatch(updateFilters({ name, value }));
+            }}
+          />
+          <p className="products-count">
+            {filtered_products.length} Products Found
+          </p>
+          <hr />
+
+          <span>Sort By </span>
+          <select
+            name="sort"
+            // onChange={(e) => dispatch(sortProducts(e.target.value))}
+            onChange={(e) => {
+              let name = "sort";
+              let value = e.target.value;
+              return dispatch(updateFilters({ name, value }));
+            }}
+          >
+            <option value="price-lowest">Price(Lowest)</option>
+            <option value="price-highest">Price(Highest)</option>
+            <option value="name-a">Name(A-Z)</option>
+            <option value="name-z">Name(Z-A)</option>
+          </select>
+        </div>
+        {grid_view ? <ProductsGrid /> : <ProductsList />}
+      </div>
     </Wrapper>
   );
 };
@@ -20,8 +84,58 @@ const Products = () => {
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 4fr;
-  column-gap: 4.8rem;
-  padding: 4.8rem;
+  column-gap: 0.2rem;
+  padding: 4.8rem 12rem;
+
+  .products-sort {
+    margin: 0.8rem;
+    display: flex;
+    gap: 0.8rem;
+    justify-content: start;
+    align-items: center;
+
+    .grid-view-icon,
+    .list-view-icon {
+      width: 3rem;
+      height: 3rem;
+      padding: 0.4rem;
+      border-radius: 4px;
+      border: 2px solid var(--secondary-gray);
+      cursor: pointer;
+    }
+
+    .products-count {
+      font-size: 1.4rem;
+      margin-left: 2rem;
+      font-weight: 500;
+    }
+
+    hr {
+      height: 2px;
+      /* max-width: 100%; */
+      width: 50%;
+    }
+
+    span {
+      font-size: 1.4rem;
+    }
+
+    select {
+      border: none;
+      font-size: 1.6rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* select::before {
+      content: "Sort By";
+    } */
+
+    .active {
+      color: var(--primary-white);
+      background-color: var(--primary-black);
+    }
+  }
 
   /**************************/
   /* BELOW 1344px (Smaller desktops) */
