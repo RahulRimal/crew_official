@@ -11,6 +11,8 @@ import {
 
 import { BsFillGridFill, BsList } from "react-icons/bs";
 
+import { MdClose } from "react-icons/md";
+
 const Products = () => {
   const dispatch = useDispatch();
 
@@ -28,9 +30,49 @@ const Products = () => {
     dispatch(sortProducts());
   }, [sort]);
 
+  const hideMobileFilters = () => {
+    const mobileFilters = document.getElementById("mobile-filters");
+    const showFiltersButton = document.getElementById(
+      "show-mobile-filters-btn"
+    );
+    mobileFilters.classList.toggle("hide-mobile-filters");
+    mobileFilters.classList.toggle("show-mobile-filters");
+    showFiltersButton.classList.toggle("show-it");
+    showFiltersButton.classList.toggle("hide-it");
+  };
+
+  const showMobileFilters = () => {
+    const mobileFilters = document.getElementById("mobile-filters");
+    const showFiltersButton = document.getElementById(
+      "show-mobile-filters-btn"
+    );
+    mobileFilters.classList.toggle("show-mobile-filters");
+    mobileFilters.classList.toggle("hide-mobile-filters");
+    showFiltersButton.classList.toggle("show-it");
+    showFiltersButton.classList.toggle("hide-it");
+  };
+
   return (
     <Wrapper>
-      <ProductsFilter className="products-filter" />
+      <button
+        id="show-mobile-filters-btn"
+        className="show-it"
+        onClick={showMobileFilters}
+      >
+        Show Filters
+      </button>
+
+      <div
+        id="mobile-filters"
+        className="mobile-products-filter hide-mobile-filters"
+      >
+        <ProductsFilter />
+        <MdClose className="close-filters-btn" onClick={hideMobileFilters} />
+      </div>
+
+      <div className="products-filter">
+        <ProductsFilter />
+      </div>
       <div className="container">
         <div className="products-sort">
           <BsFillGridFill
@@ -79,6 +121,32 @@ const Wrapper = styled.div`
   grid-template-columns: 1fr 4fr;
   column-gap: 0.2rem;
   padding: 4.8rem 12rem;
+  position: relative;
+
+  #show-mobile-filters-btn {
+    display: none !important;
+    position: fixed;
+    top: 12.8rem;
+    right: 1rem;
+    border: none;
+    background-color: var(--primary-color);
+    color: var(--primary-white);
+    padding: 0.8rem;
+    border-radius: 5px;
+  }
+
+  .mobile-products-filter {
+    display: none;
+    transform: translateX(-100%);
+    transition: all 0.4s cubic-bezier(0, 1.04, 1, 1);
+  }
+
+  .show-mobile-filters {
+    transform: translateX(0);
+  }
+  .hide-mobile-filters {
+    transform: translateX(-100%);
+  }
 
   .products-sort {
     margin: 0.8rem;
@@ -89,8 +157,7 @@ const Wrapper = styled.div`
 
     .grid-view-icon,
     .list-view-icon {
-      width: 3rem;
-      height: 3rem;
+      font-size: 3rem;
       padding: 0.4rem;
       border-radius: 4px;
       border: 2px solid var(--secondary-gray);
@@ -142,6 +209,7 @@ const Wrapper = styled.div`
   /**************************/
 
   @media (max-width: 75em) {
+    padding: 4.8rem;
   }
 
   /**************************/
@@ -149,6 +217,19 @@ const Wrapper = styled.div`
   /**************************/
 
   @media (max-width: 59em) {
+    .products-sort {
+      flex-wrap: wrap;
+
+      margin-bottom: 3rem;
+
+      .products-count {
+        margin: 0;
+      }
+
+      hr {
+        width: 100%;
+      }
+    }
   }
 
   /**************************/
@@ -163,9 +244,48 @@ const Wrapper = styled.div`
   /**************************/
 
   @media (max-width: 34em) {
+    padding: 4.8rem 2.4rem;
     grid-template-columns: 1fr;
+
+    #show-mobile-filters-btn {
+      display: block !important;
+    }
+
     .products-filter {
       display: none;
+    }
+
+    .mobile-products-filter {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: rgba(255, 255, 255, 0.93);
+      width: 100vw;
+      height: 100vh;
+      padding: 4.2rem 2.4rem;
+
+      .close-filters-btn {
+        display: block;
+        font-size: 3.6rem;
+        position: absolute;
+        top: 1.2rem;
+        right: 1.2rem;
+        color: var(--primary-white);
+        background-color: var(--primary-red);
+        border-radius: 6px;
+      }
+    }
+
+    .products-sort {
+      flex-wrap: wrap;
+
+      margin-bottom: 3rem;
+
+      .list-view-icon,
+      .grid-view-icon {
+        display: none;
+      }
     }
   }
 `;

@@ -35,7 +35,7 @@ const ProductsFilter = () => {
 
   return (
     <Wrapper>
-      <div className="products-filter">
+      <div className="container">
         <form onSubmit={(e) => e.preventDefault()}>
           <div className="filter-search">
             <input
@@ -49,12 +49,6 @@ const ProductsFilter = () => {
           <div className="filter-category">
             <h3 className="filter-title">Category</h3>
             <ul>
-              {/* <li>All</li>
-              <li>DSLR</li>
-              <li>4K, 4K &amp; Beyond</li>
-              <li>Camcoder &amp; Video</li>
-              <li>VR, 360 &amp; Mobility</li> */}
-
               {categories.map((c, index) => {
                 return (
                   <li key={index}>
@@ -79,11 +73,6 @@ const ProductsFilter = () => {
               onChange={updateFilter}
               id="filter-by-company"
             >
-              {/* <option value="all">All</option>
-              <option value="red">Red</option>
-              <option value="black-magic">Black Magic</option>
-              <option value="sony">Sony</option>
-              <option value="cannon">Cannon</option> */}
               {companies.map((c, index) => {
                 return (
                   <option key={index} value={c}>
