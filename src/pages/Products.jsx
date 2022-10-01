@@ -24,11 +24,11 @@ const Products = () => {
 
   useEffect(() => {
     dispatch(getProducts());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(sortProducts());
-  }, [sort]);
+  }, [sort, dispatch]);
 
   const hideMobileFilters = () => {
     const mobileFilters = document.getElementById("mobile-filters");

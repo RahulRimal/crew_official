@@ -132,6 +132,7 @@ const Wrapper = styled.div`
     justify-content: start;
     align-items: center;
     gap: 1.2rem;
+    /* height: 84vh; */
     height: 100vh;
     background-color: var(--primary-color);
     border-radius: 5px;

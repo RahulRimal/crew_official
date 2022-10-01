@@ -7,3 +7,4 @@ export { default as ProductsList } from "./ProductsList";
 export { default as GridProduct } from "./GridProduct";
 export { default as ListProduct } from "./ListProduct";
 export { default as Loading } from "./Loading";
+export { default as Footer } from "./Footer";

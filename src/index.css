@@ -23,6 +23,7 @@ html{
     --primary-black: #000;
     --primary-gray: #3d3d3d;
     --secondary-gray: #787878;
+    --secondary-bg: #c1b5b5;
     --primary-color: #7048e8;
     --secondary-color: #cec2f2;
     --accent-color: #4c76f5;
@@ -68,4 +69,9 @@ html{
 
   .hide-it{
     display: none !important;
+  }
+
+
+  .mt{
+    margin-top: 3.2rem;
   }

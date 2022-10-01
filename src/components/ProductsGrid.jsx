@@ -1,10 +1,7 @@
-import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { products } from "../data";
-import { GridProduct, Loading } from "./index";
 
-import { getProducts, loadProducts } from "../features/filter/filterSlice";
+import { GridProduct, Loading } from "./index";
 
 const ProductsGrid = () => {
   const { filtered_products, is_loading } = useSelector(

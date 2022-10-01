@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { TopbarHeader } from "./components";
-import { Home, About, Contact, Error, Products } from "./pages";
+import { Footer, TopbarHeader } from "./components";
+import { Home, About, Contact, Error, Products, SingleProduct } from "./pages";
 
 const App = () => {
   return (
@@ -11,9 +11,11 @@ const App = () => {
         <Route path="/" exact element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/product" element={<SingleProduct />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<Error />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 };

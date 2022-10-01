@@ -5,7 +5,6 @@ import {
   filterProducts,
   clearFilters,
   updateFilters,
-  sortProducts,
 } from "../features/filter/filterSlice";
 import { getUniqueValues } from "../utils/helpers";
 
@@ -31,7 +30,7 @@ const ProductsFilter = () => {
   };
   useEffect(() => {
     dispatch(filterProducts());
-  }, [filters]);
+  }, [filters, dispatch]);
 
   return (
     <Wrapper>
