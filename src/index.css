@@ -23,11 +23,12 @@ html{
     --primary-black: #000;
     --primary-gray: #3d3d3d;
     --secondary-gray: #787878;
-    --secondary-bg: #c1b5b5;
+    --primary-bg: #c1b5b5;
     --primary-color: #7048e8;
     --secondary-color: #cec2f2;
     --accent-color: #4c76f5;
     --primary-red: #ff5555;
+    --border-gray: #ececec;
   
     /* --primary-color: #6610f2; */
   }
@@ -74,4 +75,13 @@ html{
 
   .mt{
     margin-top: 3.2rem;
+  }
+
+
+  .required::after{
+    content: '*';
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--primary-red);
+    margin-left: 0.2rem;
   }

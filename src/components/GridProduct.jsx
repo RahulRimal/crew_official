@@ -14,9 +14,9 @@ const GridProduct = ({ info }) => {
       <h5>{name}</h5>
       <footer>
         <ul>
-          {prices.map((p, idx) => {
+          {prices.map((p, id) => {
             return (
-              <li key={idx}>
+              <li key={id}>
                 <p>Rs. {p[1]} / day</p>
                 <span>
                   {p[0]} {p[0] == "1" ? "Day" : "Days"}

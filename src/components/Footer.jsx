@@ -23,12 +23,11 @@ const Footer = () => {
       <hr />
       <div className="footer-body">
         <div className="footer-widget">
-          <p className="heading">
-            Get in touch <hr />{" "}
-          </p>
+          <p className="heading">Get in touch</p>
+          <hr />
           <ul>
             <li>
-              <a href="#">
+              <a href="mailto:mail@flimcrew.com">
                 {" "}
                 <MdMail className="widget-contact-icon" /> mail@flimcrew.com
               </a>
@@ -49,9 +48,8 @@ const Footer = () => {
           </ul>
         </div>
         <div className="footer-widget">
-          <p className="heading">
-            Company <hr />{" "}
-          </p>
+          <p className="heading">Company</p>
+          <hr />
           <ul>
             <li>
               <Link to="#">About Us</Link>
@@ -74,9 +72,8 @@ const Footer = () => {
           </ul>
         </div>
         <div className="footer-widget">
-          <p className="heading">
-            Categories <hr />{" "}
-          </p>
+          <p className="heading">Categories</p>
+          <hr />
           <ul>
             <li>
               <Link to="#">Camera</Link>
@@ -106,9 +103,8 @@ const Footer = () => {
             </form>
           </div>
           <div className="footer-widget mt">
-            <p className="heading">
-              Connect Social <hr />{" "}
-            </p>
+            <p className="heading">Connect Social</p>
+            <hr style={{ marginBottom: "0.8rem" }} />
 
             <Link to="#">
               <FaFacebookF className="connect-social-icon" />
@@ -230,17 +226,15 @@ const Wrapper = styled.footer`
         font-weight: 500;
         text-transform: uppercase;
         color: var(--primary-black);
-        margin-bottom: 0.8rem;
-
-        hr {
-          background-color: var(--primary-color);
-          width: 60px;
-          height: 3px;
-          border: none;
-          border-top-right-radius: 2px;
-          border-bottom-right-radius: 2px;
-          margin-top: 0.2rem;
-        }
+      }
+      hr {
+        background-color: var(--primary-color);
+        width: 60px;
+        height: 3px;
+        border: none;
+        border-top-right-radius: 2px;
+        border-bottom-right-radius: 2px;
+        margin-top: 0.2rem;
       }
       li {
         font-size: 1.2rem;
@@ -305,6 +299,7 @@ const Wrapper = styled.footer`
       padding-right: 0.4rem;
     }
   }
+  
   /**************************/
   /* BELOW 1344px (Smaller desktops) */
   /**************************/

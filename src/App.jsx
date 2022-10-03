@@ -1,7 +1,15 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Footer, TopbarHeader } from "./components";
-import { Home, About, Contact, Error, Products, SingleProduct } from "./pages";
+import {
+  Home,
+  About,
+  Contact,
+  Error,
+  Products,
+  SingleProduct,
+  Cart,
+} from "./pages";
 
 const App = () => {
   return (
@@ -13,6 +21,7 @@ const App = () => {
         <Route path="/products" element={<Products />} />
         <Route path="/product" element={<SingleProduct />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="*" element={<Error />} />
       </Routes>
       <Footer />

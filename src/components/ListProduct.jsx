@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 const ListProduct = ({ info }) => {
   const { id, name, description, price, picture } = info;
+  const prices = Object.entries(price);
   return (
     <Wrapper>
       <img src={picture} alt="product-img" />
@@ -10,7 +11,17 @@ const ListProduct = ({ info }) => {
         <h5>{name}</h5>
         <footer>
           <ul>
-            <li>
+            {prices.map((p, id) => {
+              return (
+                <li key={id}>
+                  <p>Rs. {p[1]} / day</p>
+                  <span>
+                    {p[0]} {p[0] == "1" ? "Day" : "Days"}
+                  </span>
+                </li>
+              );
+            })}
+            {/* <li>
               <p>Rs. 600 / day</p>
               <span>1 Day</span>
             </li>
@@ -25,7 +36,7 @@ const ListProduct = ({ info }) => {
             <li>
               <p>Rs. 450 / day</p>
               <span>8 Days ++</span>
-            </li>
+            </li> */}
           </ul>
         </footer>
         <p className="product-desc">{description}</p>
