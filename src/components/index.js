@@ -13,3 +13,4 @@ export { default as Loading } from "./Loading";
 export { default as Footer } from "./Footer";
 export { default as ProductCart } from "./ProductCart";
 export { default as CartItem } from "./CartItem";
+export { default as CartTotals } from "./CartTotals";

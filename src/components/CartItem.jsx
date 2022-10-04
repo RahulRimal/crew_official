@@ -6,7 +6,7 @@ import { getBookingAmount } from "../utils/helpers";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 
-import { increase, decrease } from "../features/cart/cartSlice";
+import { increase, decrease, removeItem } from "../features/cart/cartSlice";
 
 const CartItem = ({ item }) => {
   const { id, name, price, quantity, tenure, location, pictures } = item;
@@ -39,11 +39,25 @@ const CartItem = ({ item }) => {
         <div>
           <h3 className="cart-mobile-heading">Quantity</h3>
           <div className="order-qty">
-            <button onClick={() => dispatch(decrease({ id }))}>
+            <button
+              onClick={() => {
+                if (quantity === 1) {
+                  dispatch(removeItem(id));
+                  return;
+                }
+                dispatch(decrease({ id }));
+              }}
+            >
               <AiOutlineMinus />
             </button>
             <span>{quantity}</span>
-            <button onClick={() => dispatch(increase({ id }))}>
+            <button
+              onClick={() => {
+                if (quantity < 5) {
+                  dispatch(increase({ id }));
+                }
+              }}
+            >
               <AiOutlinePlus />
             </button>
           </div>
@@ -78,12 +92,6 @@ const Wrapper = styled.div`
     gap: 0.8rem;
     padding: 1.6rem 0;
     font-size: 1.4rem;
-
-    /* .order-qty,
-    .order-total,
-    .order-booking-amt {
-      margin-left: 1.6rem;
-    } */
   }
 
   .cart-mobile-heading {

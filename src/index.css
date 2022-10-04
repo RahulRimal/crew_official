@@ -29,6 +29,8 @@ html{
     --accent-color: #4c76f5;
     --primary-red: #ff5555;
     --border-gray: #ececec;
+
+    --transition: all 0.3s linear;
   
     /* --primary-color: #6610f2; */
   }

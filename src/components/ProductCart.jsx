@@ -1,25 +1,36 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { getCartItems, calculateTotals } from "../features/cart/cartSlice";
-import { getAmountWithTax, getTaxAmount } from "../utils/helpers";
-import { CartItem } from "./index";
+import { CartItem, CartTotals } from "./index";
 
 const ProductCart = () => {
   // const { pictures } = product;
 
   const dispatch = useDispatch();
 
-  const { cartItems, cartTotal } = useSelector((store) => store.cart);
-
-  useEffect(() => {
-    dispatch(getCartItems());
-  }, []);
+  const { cartItems, cartTotal, totalCartItems } = useSelector(
+    (store) => store.cart
+  );
 
   useEffect(() => {
     dispatch(calculateTotals());
   }, [cartItems]);
+
+  if (totalCartItems < 1) {
+    return (
+      <Wrapper>
+        <div className="empty-cart">
+          <h4>Your cart is empty !!</h4>
+          <Link to="/" className="btn">
+            Continue Shopping
+          </Link>
+        </div>
+      </Wrapper>
+    );
+  }
 
   return (
     <Wrapper>
@@ -39,25 +50,7 @@ const ProductCart = () => {
         </div>
       </div>
       <footer className="cart-footer">
-        <div className="cart-totals">
-          <div>
-            <p>Subtotal:</p>
-            <span>Rs {cartTotal}</span>
-          </div>
-          <div>
-            <p>Sales Tax:</p>
-            <span>Rs {getTaxAmount(cartTotal)} </span>
-          </div>
-          <div>
-            <p>Coupon code:</p>
-            <span>Rs 109</span>
-          </div>
-          <div>
-            <p>Grand Total:</p>
-            <span>Rs {getAmountWithTax(cartTotal)}</span>
-          </div>
-          <button type="button">Checkout</button>
-        </div>
+        <CartTotals />
       </footer>
     </Wrapper>
   );
@@ -71,6 +64,28 @@ const ProductCart = () => {
 
 const Wrapper = styled.section`
   padding: 4.8rem 15rem;
+
+  .empty-cart {
+    text-align: center;
+    height: 50vh;
+    font-size: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .btn {
+      border: none;
+      background-color: var(--primary-color);
+      padding: 0.8rem 1.2rem;
+      color: var(--primary-white);
+      font-size: 1.6rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-top: 2.4rem;
+      border-radius: 0.4rem;
+    }
+  }
 
   .cart-title {
     text-align: center;
@@ -105,46 +120,6 @@ const Wrapper = styled.section`
     margin-bottom: 3.2rem;
     .cart-totals {
       width: 35%;
-      margin-left: auto;
-
-      div {
-        display: flex;
-        justify-content: space-between;
-        font-size: 1.4rem;
-        letter-spacing: 1px;
-
-        padding-top: 0.8rem;
-
-        p {
-          font-weight: 600;
-        }
-      }
-
-      div:not(:last-child) {
-        padding-bottom: 0.8rem;
-        border-bottom: 1px solid var(--border-gray);
-      }
-      div:last-child {
-        font-size: 1.8rem;
-        span {
-          font-weight: 600;
-          color: var(--primary-color);
-        }
-      }
-    }
-
-    button {
-      border: none;
-      background-color: var(--primary-color);
-      color: white;
-      width: 100%;
-      padding: 0.8rem 1.2rem;
-      border-radius: 4px;
-      margin-top: 1.6rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-weight: 600;
-      cursor: pointer;
     }
   }
 

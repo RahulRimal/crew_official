@@ -8,6 +8,9 @@ import { DateRange } from "react-date-range";
 import { useDispatch, useSelector } from "react-redux";
 
 import { updateOptions } from "../features/productOptions/productOptionsSlice";
+
+import { addToCart } from "../features/cart/cartSlice";
+
 import {
   formatDate,
   getDaysDifference,
@@ -16,7 +19,7 @@ import {
 } from "../utils/helpers";
 
 const ProductOptionsSelection = ({ product }) => {
-  const { name, price } = product;
+  const { name, price, pictures } = product;
   const dispatch = useDispatch();
 
   const {
@@ -28,6 +31,8 @@ const ProductOptionsSelection = ({ product }) => {
     selectedLocation,
     agreedToSubmitDocument,
   } = useSelector((store) => store.productOptions);
+
+  const { cartItems } = useSelector((store) => store.cart);
 
   const [showCalendar, setShowCalendar] = useState(false);
   const [selectionCount, setSelectionCount] = useState(0);
@@ -117,7 +122,23 @@ const ProductOptionsSelection = ({ product }) => {
           <span>&amp; pay rest later</span>
         </div>
       </div>
-      <form onSubmit={(e) => e.preventDefault}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          const tenure = formatDate(startDate) + " - " + formatDate(endDate);
+          const newItem = {
+            id: cartItems.length + 1,
+            name: name,
+            price: selectedPrice,
+            quantity: selectedQuantity,
+            tenure: tenure,
+            location: selectedLocation,
+            pictures: pictures,
+          };
+
+          dispatch(addToCart(newItem));
+        }}
+      >
         <div className="pickup-and-quantity">
           <div>
             <label htmlFor="location" className="required">
@@ -202,7 +223,6 @@ const ProductOptionsSelection = ({ product }) => {
               type="checkbox"
               checked={agreedToSubmitDocument}
               onChange={() => {
-                // console.log(e.target.checked);
                 let name = "agreedToSubmitDocument";
                 let value = !agreedToSubmitDocument;
                 dispatch(updateOptions({ name, value }));
@@ -215,7 +235,16 @@ const ProductOptionsSelection = ({ product }) => {
         </div>
         <div className="login-addcart-btns">
           {/* <button className="login-btn">Login to book</button> */}
-          <button className="login-btn">Add to cart</button>
+          <button
+            // type="submit"
+            className="add-to-cart-btn"
+            // onClick={(e) => {
+
+            //   console.log(newItem);
+            // }}
+          >
+            Add to cart
+          </button>
           <button className="login-btn">Book now</button>
         </div>
       </form>

@@ -234,8 +234,8 @@ export const singleProduct = {
 
   pictures: [
     "https://www.rentoclick.com/uploads/product/Canon_1500D_DSLR.png",
-    "https://www.rentoclick.com/uploads/product/Canon_1500D_DSLR.png",
-    "https://www.rentoclick.com/uploads/product/Canon_1500D_DSLR.png",
+    "https://www.rentoclick.com/uploads/product/go_pro_10_on_rent_in_delhi_noida_gurgaon.png",
+    "https://www.rentoclick.com/uploads/product/Go_Pro_Gorilla_Pod.png",
     "https://www.rentoclick.com/uploads/product/Canon_1500D_DSLR.png",
   ],
 };

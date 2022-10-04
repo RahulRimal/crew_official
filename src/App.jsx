@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Footer, TopbarHeader } from "./components";
 import {
@@ -9,9 +9,25 @@ import {
   Products,
   SingleProduct,
   Cart,
+  Checkout,
 } from "./pages";
 
+import { getCartItems, calculateTotals } from "./features/cart/cartSlice";
+import { useDispatch } from "react-redux";
+
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getCartItems());
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(calculateTotals());
+    }, 1000);
+  }, []);
+
   return (
     <BrowserRouter>
       <TopbarHeader />
@@ -22,6 +38,7 @@ const App = () => {
         <Route path="/product" element={<SingleProduct />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
         <Route path="*" element={<Error />} />
       </Routes>
       <Footer />

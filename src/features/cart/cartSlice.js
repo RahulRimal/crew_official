@@ -7,9 +7,9 @@ const url = "https://course-api.com/react-useReducer-cart-project";
 
 const initialState = {
   cartItems: [],
-  //   cartItems: [],
   totalCartItems: 0,
   cartTotal: 0,
+  deliveryLocation: "",
   isLoading: true,
 };
 
@@ -29,6 +29,10 @@ const cartSlice = createSlice({
   reducers: {
     clearCart: (state) => {
       state.cartItems = [];
+    },
+    addToCart: (state, action) => {
+      state.cartItems.push(action.payload);
+      // return { ...state };
     },
     removeItem: (state, action) => {
       const itemId = action.payload;
@@ -68,7 +72,13 @@ const cartSlice = createSlice({
   },
 });
 
-export const { clearCart, removeItem, increase, decrease, calculateTotals } =
-  cartSlice.actions;
+export const {
+  clearCart,
+  addToCart,
+  removeItem,
+  increase,
+  decrease,
+  calculateTotals,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;
