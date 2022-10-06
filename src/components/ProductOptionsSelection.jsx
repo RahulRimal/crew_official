@@ -11,11 +11,14 @@ import { updateOptions } from "../features/productOptions/productOptionsSlice";
 
 import { addToCart } from "../features/cart/cartSlice";
 
+import { Link } from "react-router-dom";
+
 import {
   formatDate,
   getDaysDifference,
   getSelectedIndexAndPrice,
   getBookingAmount,
+  getFormattedDaysString,
 } from "../utils/helpers";
 
 const ProductOptionsSelection = ({ product }) => {
@@ -49,7 +52,7 @@ const ProductOptionsSelection = ({ product }) => {
     const value = userSelectedPrice;
 
     dispatch(updateOptions({ name, value }));
-  }, [userSelectedIndex, dispatch]);
+  }, [userSelectedIndex]);
 
   const [state, setState] = useState([
     {
@@ -69,7 +72,6 @@ const ProductOptionsSelection = ({ product }) => {
         setShowCalendar(false);
       }, 500);
       setSelectionCount(0);
-      console.log(item.selection);
       let name = "startDate";
       let value = item.selection.startDate;
       dispatch(updateOptions({ name, value }));
@@ -90,6 +92,7 @@ const ProductOptionsSelection = ({ product }) => {
       <h1 className="title">{name}</h1>
       <div className="prices">
         {prices.map((p, idx) => {
+          // console.log(p);
           return (
             <div
               className={
@@ -98,7 +101,8 @@ const ProductOptionsSelection = ({ product }) => {
               key={idx}
             >
               <p>
-                {p[0]} {p[0] === "1" ? "Day" : "Days"}
+                {getFormattedDaysString(p[0])}{" "}
+                {getFormattedDaysString(p[0]) === "1" ? "Day" : "Days"}
               </p>
               <span>Rs. {p[1]}</span>
             </div>
@@ -233,19 +237,37 @@ const ProductOptionsSelection = ({ product }) => {
             <span>We will submit a Govt. ID and a Post Dated Cheque</span>
           </div>
         </div>
+        
         <div className="login-addcart-btns">
-          {/* <button className="login-btn">Login to book</button> */}
-          <button
-            // type="submit"
-            className="add-to-cart-btn"
-            // onClick={(e) => {
+          <Link to="/cart">
+            <button
+              // type="submit"
+              className="add-to-cart-btn"
+              // onClick={(e) => {
 
-            //   console.log(newItem);
-            // }}
-          >
-            Add to cart
-          </button>
+              //   console.log(newItem);
+              // }}
+            >
+              Add to cart
+            </button>
+          </Link>
           <button className="login-btn">Book now</button>
+        </div>
+        <div className="continueshop-checkoutt-btns">
+          <Link to="/products">
+            <button
+              className="add-to-cart-btn"
+              // onClick={(e) => {
+
+              //   console.log(newItem);
+              // }}
+            >
+              Continue shopping
+            </button>
+          </Link>
+          <Link to="checkout">
+            <button className="login-btn">Go to Checkout</button>
+          </Link>
         </div>
       </form>
     </Wrapper>
@@ -420,7 +442,8 @@ const Wrapper = styled.div`
     }
   }
 
-  .login-addcart-btns {
+  .login-addcart-btns,
+  .continueshop-checkoutt-btns {
     display: flex;
     justify-content: space-evenly;
     margin-top: 1.2rem;

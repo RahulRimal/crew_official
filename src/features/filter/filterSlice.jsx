@@ -1,7 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 import { products } from "../../data";
 
 // const url = "https://run.mocky.io/v3/732ddff4-9cd7-46b2-bb42-5c3bc6fe2de6";
+const url = "http://127.0.0.1:8000/equipments";
 
 export const getProducts = createAsyncThunk("filter/getProducts", async () => {
   try {
@@ -13,9 +15,14 @@ export const getProducts = createAsyncThunk("filter/getProducts", async () => {
     //   // headers:{"Accept":"application/json, text/plain, /","Content-Type": "multipart/form-data"}
     // });
     // return response.data;
-    return products;
+
+    const response = await axios.get(url);
+    // console.log(response);
+    // return products;
+    return response.data;
   } catch (error) {
     console.log(error);
+    // console.log(error.message);
   }
 });
 
@@ -125,10 +132,17 @@ const filterSlice = createSlice({
 
       if (category !== "All") {
         tempProducts = tempProducts.filter((product) => {
-          // return (product.category = category);
-          if (product.category === category) return product;
+          if (product.category !== null) {
+            if (product.category.name === category) return product;
+          }
+
           return null;
         });
+        // tempProducts = tempProducts.filter((product) => {
+        //   // return (product.category = category);
+        //   if (product.category === category) return product;
+        //   return null;
+        // });
       }
 
       if (company !== "All") {

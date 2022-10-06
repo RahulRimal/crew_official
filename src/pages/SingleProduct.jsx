@@ -1,21 +1,51 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { singleProduct } from "../data";
+
+import axios from "axios";
 
 import {
   ProductImagesGallery,
   ProductInfoTab,
   ProductOptionsSelection,
+  Loading,
 } from "../components";
 
+import { useParams } from "react-router-dom";
+
+import { mainUrl } from "../constants";
+
 const SingleProduct = () => {
-  const { pictures } = singleProduct;
+  const params = useParams();
+
+  const [equipment, setEquipment] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    axios
+      .get(`${mainUrl}equipments/${params.id}`)
+      .then((response) => {
+        setEquipment(response.data);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [params.id]);
+
+  const { images } = equipment;
+  // const { pictures } = singleProduct;
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <Wrapper>
-      <ProductImagesGallery pictures={pictures} />
-      <ProductOptionsSelection product={singleProduct} />
-      <ProductInfoTab product={singleProduct} />
+      <ProductImagesGallery pictures={images} />
+      <ProductOptionsSelection product={equipment} />
+      <ProductInfoTab product={equipment} />
     </Wrapper>
   );
 };

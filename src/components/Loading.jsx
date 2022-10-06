@@ -16,6 +16,11 @@ const Loading = () => {
 // 10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
 
 const Wrapper = styled.div`
+  height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   h3 {
     color: var(--primary-color);
     font-size: 4.4rem;

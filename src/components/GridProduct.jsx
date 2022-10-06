@@ -1,42 +1,77 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { getProductPrices, productPriceObjectToArray } from "../utils/helpers";
+import {
+  getProductPrices,
+  productPriceObjectToArray,
+  getFormattedDaysString,
+} from "../utils/helpers";
+
+import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri";
+
+import { Link } from "react-router-dom";
 
 const GridProduct = ({ info }) => {
-  const { id, name, description, price, picture } = info;
+  const { id, name, description, price, featured_image } = info;
+
+  const [showAllPrices, setShowAllPrices] = useState(false);
 
   //Converting object to array
+
   const prices = Object.entries(price);
 
   return (
     <Wrapper>
-      <img src={picture} alt="product-img" />
-      <h5>{name}</h5>
+      <Link to={`/product/${id}`}>
+        <img src={featured_image} alt="product-img" />
+      </Link>
+      <Link to={`/product/${id}`}>
+        <h5>{name}</h5>
+      </Link>
       <footer>
         <ul>
-          {prices.map((p, id) => {
+          {prices.map((p, idx) => {
             return (
-              <li key={id}>
-                <p>Rs. {p[1]} / day</p>
-                <span>
-                  {p[0]} {p[0] == "1" ? "Day" : "Days"}
-                </span>
+              <li
+                key={idx}
+                className={idx === 0 || showAllPrices ? "show" : "hide-it"}
+              >
+                <div>
+                  <p>Rs. {p[1]} / day</p>
+                  <span>
+                    {getFormattedDaysString(p[0])}{" "}
+                    {getFormattedDaysString(p[0]) === "1" ? "Day" : "Days"}
+                  </span>
+                </div>
+                <button
+                  type="button"
+                  className={
+                    idx === 0 && !showAllPrices ? "show-it" : "hide-it"
+                  }
+                  onClick={() => setShowAllPrices(true)}
+                >
+                  <RiArrowDropDownLine />
+                </button>
+                <button
+                  type="button"
+                  className={idx === 0 && showAllPrices ? "show-it" : "hide-it"}
+                  onClick={() => setShowAllPrices(false)}
+                >
+                  <RiArrowDropUpLine />
+                </button>
               </li>
             );
           })}
-
-          {/* <li>
-            <p>Rs. 550 / day</p>
-            <span>2-4 Days</span>
-          </li>
-          <li>
-            <p>Rs. 500 / day</p>
-            <span>5-7 Days</span>
-          </li>
-          <li>
-            <p>Rs. 450 / day</p>
-            <span>8 Days ++</span>
-          </li> */}
+          {/* {prices.map((p, idx) => {
+            return (
+              <li key={idx}>
+                <p>Rs. {p[1]} / day</p>
+                <span>
+                  {getFormattedDaysString(p[0])}{" "}
+                  {getFormattedDaysString(p[0]) === "1" ? "Day" : "Days"}
+                </span>
+              </li>
+            );
+          })} */}
         </ul>
       </footer>
     </Wrapper>
@@ -54,9 +89,10 @@ const Wrapper = styled.article`
   /* padding: 0.8rem; */
   img {
     width: 100%;
-    /* height: 17.5rem; */
-    height: auto;
-    object-fit: cover;
+    height: 17.5rem;
+    /* height: auto; */
+    /* object-fit: cover; */
+    object-fit: scale-down;
     border-radius: 0.8rem;
   }
 
@@ -69,10 +105,30 @@ const Wrapper = styled.article`
     margin-top: 0.4rem;
     padding: 0 1.6rem;
     font-family: "Roboto";
+
+    .show {
+      /* display: grid; */
+    }
+
     li {
-      display: flex;
-      justify-content: space-between;
-      font-size: 1.4rem;
+      display: grid;
+      grid-template-columns: 1fr 3rem;
+      align-items: center;
+      transition: height 1s linerar;
+      /* transition: all 1s; */
+      div {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.4rem;
+      }
+
+      button {
+        border: none;
+        background: none;
+        font-size: 3rem;
+        height: 3rem;
+        cursor: pointer;
+      }
     }
 
     span {

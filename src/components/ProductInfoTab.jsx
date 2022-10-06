@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const ProductInfoTab = ({ product }) => {
-  const { description, technicalSpecs } = product;
+  const { description, technical_specification } = product;
 
   const [toggleState, setToggleState] = useState(1);
 
@@ -34,17 +34,19 @@ const ProductInfoTab = ({ product }) => {
             }
           >
             <p>{description || "No description available for this product"}</p>
-            {technicalSpecs && <h2>Technical Specifications</h2>}
+            {technical_specification.length > 0 && (
+              <h2>Technical Specifications</h2>
+            )}
             <ul>
-              {technicalSpecs &&
-                technicalSpecs.map((spec, idx) => {
-                  return (
-                    <li key={idx}>
-                      {" "}
-                      <p>{spec}</p>
-                    </li>
-                  );
-                })}
+              {technical_specification.map((spec, idx) => {
+                const { specification } = spec;
+                return (
+                  <li key={idx}>
+                    {" "}
+                    <p>{specification}</p>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 

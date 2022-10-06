@@ -45,8 +45,9 @@ const ProductImagesGallery = ({ pictures }) => {
   return (
     <Wrapper>
       <Slider {...settings}>
-        {pictures.map((pic) => {
-          return <img src={pic} alt="" />;
+        {pictures.map((pic, index) => {
+          const { image } = pic;
+          return <img src={image} key={index} alt="" />;
         })}
       </Slider>
     </Wrapper>

@@ -166,46 +166,112 @@ export const products = [
   },
 ];
 
+// export const cartItems = [
+//   {
+//     id: 1,
+//     name: "Samsung Galaxy S8",
+//     price: 2,
+//     quantity: 1,
+//     tenure: "12 Oct 2022 - 27 Oct 2022",
+//     location: "Kathmandu",
+//     pictures: [
+//       "https://www.rentoclick.com/uploads/product/Canon_1500D_DSLR.png",
+//       "https://dl.airtable.com/.attachments/64b266ad865098befbda3c3577a773c9/24497852/yedjpkwxljtb75t3tezl.png",
+//       "https://dl.airtable.com/.attachments/64b266ad865098befbda3c3577a773c9/24497852/yedjpkwxljtb75t3tezl.png",
+//       "https://dl.airtable.com/.attachments/64b266ad865098befbda3c3577a773c9/24497852/yedjpkwxljtb75t3tezl.png",
+//     ],
+//   },
+//   {
+//     id: 2,
+//     name: "Samsung Galaxy S8",
+//     price: 399.99,
+//     quantity: 1,
+//     tenure: "12 Oct 2022 - 27 Oct 2022",
+//     location: "Kathmandu",
+//     pictures: [
+//       "https://dl.airtable.com/.attachments/64b266ad865098befbda3c3577a773c9/24497852/yedjpkwxljtb75t3tezl.png",
+//       "https://dl.airtable.com/.attachments/64b266ad865098befbda3c3577a773c9/24497852/yedjpkwxljtb75t3tezl.png",
+//       "https://dl.airtable.com/.attachments/64b266ad865098befbda3c3577a773c9/24497852/yedjpkwxljtb75t3tezl.png",
+//     ],
+//   },
+//   {
+//     id: 3,
+//     name: "Samsung Galaxy S8",
+//     price: 399.99,
+//     quantity: 1,
+//     tenure: "12 Oct 2022 - 27 Oct 2022",
+//     location: "Kathmandu",
+//     pictures: [
+//       "https://dl.airtable.com/.attachments/64b266ad865098befbda3c3577a773c9/24497852/yedjpkwxljtb75t3tezl.png",
+//       "https://dl.airtable.com/.attachments/64b266ad865098befbda3c3577a773c9/24497852/yedjpkwxljtb75t3tezl.png",
+//       "https://dl.airtable.com/.attachments/64b266ad865098befbda3c3577a773c9/24497852/yedjpkwxljtb75t3tezl.png",
+//     ],
+//   },
+// ];
+
 export const cartItems = [
   {
     id: 1,
-    name: "Samsung Galaxy S8",
-    price: 2,
+    equipment: {
+      id: 1,
+      name: "Cannon EOS 80D DSLR Camera",
+      inventory: 5,
+      price: {
+        _1: 500.0,
+        _2_4: 450.0,
+        _5_7: 400.0,
+        _8_more: 350.0,
+      },
+      category: null,
+      company: null,
+      featured_image:
+        "http://127.0.0.1:8000/media/equipment/images/camera-ge21a6ad50_1280_LMK872F.png",
+    },
     quantity: 1,
-    tenure: "12 Oct 2022 - 27 Oct 2022",
-    location: "Kathmandu",
-    pictures: [
-      "https://www.rentoclick.com/uploads/product/Canon_1500D_DSLR.png",
-      "https://dl.airtable.com/.attachments/64b266ad865098befbda3c3577a773c9/24497852/yedjpkwxljtb75t3tezl.png",
-      "https://dl.airtable.com/.attachments/64b266ad865098befbda3c3577a773c9/24497852/yedjpkwxljtb75t3tezl.png",
-      "https://dl.airtable.com/.attachments/64b266ad865098befbda3c3577a773c9/24497852/yedjpkwxljtb75t3tezl.png",
-    ],
+    tenure: "Oct 12 2022 - Dec 01 2022",
+    location: "KTM",
   },
   {
     id: 2,
-    name: "Samsung Galaxy S8",
-    price: 399.99,
-    quantity: 1,
-    tenure: "12 Oct 2022 - 27 Oct 2022",
-    location: "Kathmandu",
-    pictures: [
-      "https://dl.airtable.com/.attachments/64b266ad865098befbda3c3577a773c9/24497852/yedjpkwxljtb75t3tezl.png",
-      "https://dl.airtable.com/.attachments/64b266ad865098befbda3c3577a773c9/24497852/yedjpkwxljtb75t3tezl.png",
-      "https://dl.airtable.com/.attachments/64b266ad865098befbda3c3577a773c9/24497852/yedjpkwxljtb75t3tezl.png",
-    ],
+    equipment: {
+      id: 1,
+      name: "Cannon EOS 80D DSLR Camera",
+      inventory: 5,
+      price: {
+        _1: 500.0,
+        _2_4: 450.0,
+        _5_7: 400.0,
+        _8_more: 350.0,
+      },
+      category: null,
+      company: null,
+      featured_image:
+        "http://127.0.0.1:8000/media/equipment/images/camera-ge21a6ad50_1280_LMK872F.png",
+    },
+    quantity: 3,
+    tenure: "Oct 12 2022 - Dec 01 2022",
+    location: "KTM",
   },
   {
     id: 3,
-    name: "Samsung Galaxy S8",
-    price: 399.99,
-    quantity: 1,
-    tenure: "12 Oct 2022 - 27 Oct 2022",
-    location: "Kathmandu",
-    pictures: [
-      "https://dl.airtable.com/.attachments/64b266ad865098befbda3c3577a773c9/24497852/yedjpkwxljtb75t3tezl.png",
-      "https://dl.airtable.com/.attachments/64b266ad865098befbda3c3577a773c9/24497852/yedjpkwxljtb75t3tezl.png",
-      "https://dl.airtable.com/.attachments/64b266ad865098befbda3c3577a773c9/24497852/yedjpkwxljtb75t3tezl.png",
-    ],
+    equipment: {
+      id: 2,
+      name: "Spot Light",
+      inventory: 8,
+      price: {
+        _1: 1000.0,
+        _2_4: 800.0,
+        _5_7: 600.0,
+        _8_more: 500.0,
+      },
+      category: 2,
+      company: null,
+      featured_image:
+        "http://127.0.0.1:8000/media/equipment/images/spotlight-g686af4723_1280_QerWXsf.png",
+    },
+    quantity: 9,
+    tenure: "Jan 1 2023 - Feb 1 2023",
+    location: "Pokhara",
   },
 ];
 
