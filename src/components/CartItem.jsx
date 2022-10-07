@@ -1,17 +1,55 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
-import { getBookingAmount } from "../utils/helpers";
+import {
+  getBookingAmount,
+  getFormattedTenure,
+  getSelectedIndexAndPrice,
+  formatPrice,
+} from "../utils/helpers";
 
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { increase, decrease, removeItem } from "../features/cart/cartSlice";
 
+import { getTenureDays, getPriceForTenureDays } from "../utils/helpers";
+import { mainUrl } from "../constants";
+import axios from "axios";
+
+let isFirst = true;
+let isSecond = true;
+
 const CartItem = ({ item }) => {
-  const { id, name, price, quantity, tenure, location, pictures } = item;
+  const { id, equipment, quantity, tenure, location } = item;
+  const tenureDays = getTenureDays(tenure);
+  const [_, price] = getSelectedIndexAndPrice(equipment.price, tenureDays);
 
   const dispatch = useDispatch();
+  const { id: cartId, cartItems } = useSelector((store) => store.cart);
+
+  let url = `${mainUrl}carts/${cartId}/items/${id}/`;
+  const itemPosition = cartItems.findIndex((element) => element.id === id);
+
+  useEffect(() => {
+    if (isFirst) {
+      isFirst = false;
+      return;
+    }
+    if (isSecond) {
+      isSecond = false;
+      return;
+    }
+    axios
+      .patch(url, {
+        quantity: cartItems[itemPosition].quantity,
+        tenure: cartItems[itemPosition].tenure,
+        locations: cartItems[itemPosition].location,
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [quantity, tenure, location]);
 
   return (
     <Wrapper>
@@ -19,12 +57,12 @@ const CartItem = ({ item }) => {
         <div>
           <h3 className="cart-mobile-heading">Order Details</h3>
           <div className="order-info">
-            <img src={pictures[0]} alt="" />
+            <img src={`${mainUrl}${equipment.featured_image}`} alt="" />
             <div>
-              <h3 className="name">{name}</h3>
+              <h3 className="name">{equipment.name}</h3>
               <p className="tenure">
                 <strong> Rental Tenure: </strong>
-                <span> {tenure}</span>
+                <span> {getFormattedTenure(tenure)}</span>
               </p>
               <p className="location">
                 <strong>Location: </strong>
@@ -42,8 +80,10 @@ const CartItem = ({ item }) => {
             <button
               onClick={() => {
                 if (quantity === 1) {
-                  dispatch(removeItem(id));
-                  return;
+                  axios.delete(url).then((response) => {
+                    dispatch(removeItem(id));
+                    return;
+                  });
                 }
                 dispatch(decrease({ id }));
               }}
@@ -64,12 +104,14 @@ const CartItem = ({ item }) => {
         </div>
         <div>
           <h3 className="cart-mobile-heading">Total Rent Price</h3>
-          <div className="order-total">Rs {price * quantity}</div>
+          <div className="order-total">
+            Rs. {formatPrice(price * quantity)} <span>({tenureDays} days)</span>
+          </div>
         </div>
         <div>
           <h3 className="cart-mobile-heading">Booking Amount</h3>
           <div className="order-booking-amt">
-            Rs {getBookingAmount(price * quantity)}
+            Rs. {formatPrice(getBookingAmount(price * quantity))}
           </div>
         </div>
       </div>
@@ -152,6 +194,12 @@ const Wrapper = styled.div`
       padding: 0 1.2rem;
       font-weight: 600;
     }
+  }
+
+  .order-total span {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--primary-color);
   }
 
   /**************************/

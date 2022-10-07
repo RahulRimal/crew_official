@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { getAmountWithTax, getTaxAmount } from "../utils/helpers";
+import { formatPrice, getAmountWithTax, getTaxAmount } from "../utils/helpers";
 
 const CartTotals = () => {
   const { cartTotal } = useSelector((store) => store.cart);
@@ -13,19 +13,19 @@ const CartTotals = () => {
       <div className="cart-totals">
         <div>
           <p>Subtotal:</p>
-          <span>Rs {cartTotal}</span>
+          <span>Rs. {formatPrice(cartTotal)}</span>
         </div>
         <div>
           <p>Sales Tax:</p>
-          <span>Rs {getTaxAmount(cartTotal)} </span>
+          <span>Rs. {formatPrice(getTaxAmount(cartTotal))} </span>
         </div>
-        <div>
+        {/* <div>
           <p>Coupon code:</p>
           <span>Rs 109</span>
-        </div>
+        </div> */}
         <div className="grand-total">
           <p>Grand Total:</p>
-          <span>Rs {getAmountWithTax(cartTotal)}</span>
+          <span>Rs. {formatPrice(getAmountWithTax(cartTotal))}</span>
         </div>
         <Link to="/checkout">
           <button type="button">Checkout</button>

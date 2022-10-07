@@ -34,8 +34,12 @@ const SingleProduct = () => {
       });
   }, [params.id]);
 
-  const { images } = equipment;
-  // const { pictures } = singleProduct;
+  // console.log(equipment);
+
+  const { featured_image, images } = equipment;
+
+  if (featured_image !== undefined) images.unshift({ image: featured_image });
+  // if (featured_image !== undefined) images.push({ image: featured_image });
 
   if (isLoading) {
     return <Loading />;

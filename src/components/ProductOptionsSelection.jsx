@@ -19,6 +19,7 @@ import {
   getSelectedIndexAndPrice,
   getBookingAmount,
   getFormattedDaysString,
+  formatPrice,
 } from "../utils/helpers";
 
 const ProductOptionsSelection = ({ product }) => {
@@ -43,7 +44,7 @@ const ProductOptionsSelection = ({ product }) => {
   const prices = Object.entries(price);
 
   let [userSelectedIndex, userSelectedPrice] = getSelectedIndexAndPrice(
-    prices,
+    price,
     selectedDays
   );
 
@@ -104,7 +105,7 @@ const ProductOptionsSelection = ({ product }) => {
                 {getFormattedDaysString(p[0])}{" "}
                 {getFormattedDaysString(p[0]) === "1" ? "Day" : "Days"}
               </p>
-              <span>Rs. {p[1]}</span>
+              <span>Rs. {formatPrice(p[1])}</span>
             </div>
           );
         })}
@@ -112,7 +113,9 @@ const ProductOptionsSelection = ({ product }) => {
       <div className="total-and-booking">
         <div className="container">
           <p>Total Rent</p>
-          <h3>Rs. {selectedPrice * selectedQuantity * selectedDays}</h3>
+          <h3>
+            Rs. {formatPrice(selectedPrice * selectedQuantity * selectedDays)}
+          </h3>
           <span>
             Price is for {selectedDays} {selectedDays <= 1 ? "day" : "days"}
           </span>
@@ -121,7 +124,9 @@ const ProductOptionsSelection = ({ product }) => {
           <p>Book Now</p>
           <h3>
             Rs.{" "}
-            {getBookingAmount(selectedPrice * selectedQuantity * selectedDays)}
+            {formatPrice(
+              getBookingAmount(selectedPrice * selectedQuantity * selectedDays)
+            )}
           </h3>
           <span>&amp; pay rest later</span>
         </div>
@@ -237,7 +242,7 @@ const ProductOptionsSelection = ({ product }) => {
             <span>We will submit a Govt. ID and a Post Dated Cheque</span>
           </div>
         </div>
-        
+
         <div className="login-addcart-btns">
           <Link to="/cart">
             <button

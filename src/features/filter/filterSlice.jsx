@@ -17,8 +17,6 @@ export const getProducts = createAsyncThunk("filter/getProducts", async () => {
     // return response.data;
 
     const response = await axios.get(url);
-    // console.log(response);
-    // return products;
     return response.data;
   } catch (error) {
     console.log(error);

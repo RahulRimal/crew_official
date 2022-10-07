@@ -44,6 +44,7 @@ export const formatDate = (date) => {
 
 export const getDaysDifference = (date1, date2) => {
   var diff = date2 - date1;
+  console.log(date1);
 
   const diffDays = Math.ceil(diff / (1000 * 60 * 60 * 24));
 
@@ -51,6 +52,7 @@ export const getDaysDifference = (date1, date2) => {
 };
 
 export const getSelectedIndexAndPrice = (prices, selectedDays) => {
+  prices = Object.entries(prices);
   let days = prices.map((price) => {
     price[0] = price[0].substring(1);
     if (price[0].includes("_")) {
@@ -117,4 +119,31 @@ export const getFormattedDaysString = (days) => {
   if (days == "5_7") return "5-7";
   if (days == "8_more") return "8++";
   return days;
+};
+
+export const getTenureDays = (tenure) => {
+  let tenureDates = tenure.split("-");
+  const date1 = new Date(tenureDates[0]);
+  const date2 = new Date(tenureDates[1]);
+  let dateDiff = Math.abs(date2 - date1);
+  const daysDiff = Math.ceil(dateDiff / (1000 * 60 * 60 * 24));
+  return daysDiff;
+};
+
+export const getFormattedTenure = (tenure) => {
+  let tenureDates = tenure.split("-");
+  tenureDates = tenureDates.map((str) => new Date(str));
+  tenureDates = tenureDates.map((date) => {
+    date.toLocaleString("default", { month: "long" });
+    return `${date.toLocaleString("default", {
+      month: "short",
+    })} ${date.getDate()} ${date.getYear()}`;
+    // return `${date.getMonth()}  ${date.getDate()}  ${date.getYear()}`;
+  });
+
+  return `${tenureDates[0]} - ${tenureDates[1]}`;
+};
+
+export const formatPrice = (price) => {
+  return price.toLocaleString("en-IN");
 };

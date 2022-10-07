@@ -1,11 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import axios from "axios";
+import { mainUrl } from "../../constants";
 import { cartItems } from "../../data";
+import { getSelectedIndexAndPrice, getTenureDays } from "../../utils/helpers";
 
 const url = "https://course-api.com/react-useReducer-cart-project";
 
 const initialState = {
+  id: 0,
   cartItems: [],
   totalCartItems: 0,
   cartTotal: 0,
@@ -13,15 +16,18 @@ const initialState = {
   isLoading: true,
 };
 
-export const getCartItems = createAsyncThunk("cart/getCartItems", async () => {
-  try {
-    // const resp = await axios(url);
-    // return resp.data;
-    return cartItems;
-  } catch (error) {
-    console.log(error);
+export const getCartItems = createAsyncThunk(
+  "cart/getCartItems",
+  async (cartId) => {
+    try {
+      const resp = await axios(`${mainUrl}carts/${cartId}/items`);
+      return resp.data;
+      // return cartItems;
+    } catch (error) {
+      console.log(error);
+    }
   }
-});
+);
 
 const cartSlice = createSlice({
   name: "cart",
@@ -33,6 +39,11 @@ const cartSlice = createSlice({
     addToCart: (state, action) => {
       state.cartItems.push(action.payload);
       // return { ...state };
+    },
+    updateCart: (state, action) => {
+      const { name, value } = action.payload;
+
+      return { ...state, [name]: value };
     },
     removeItem: (state, action) => {
       const itemId = action.payload;
@@ -52,7 +63,14 @@ const cartSlice = createSlice({
 
       state.cartItems.forEach((item) => {
         amount += item.quantity;
-        total += item.quantity * item.price;
+        total +=
+          item.quantity *
+          getSelectedIndexAndPrice(
+            item.equipment.price,
+            getTenureDays(item.tenure)
+          )[1];
+
+        // total += item.quantity * item.price;
         state.totalCartItems = amount;
         state.cartTotal = total;
       });
@@ -75,6 +93,7 @@ const cartSlice = createSlice({
 export const {
   clearCart,
   addToCart,
+  updateCart,
   removeItem,
   increase,
   decrease,
