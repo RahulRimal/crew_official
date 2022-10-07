@@ -44,7 +44,6 @@ export const formatDate = (date) => {
 
 export const getDaysDifference = (date1, date2) => {
   var diff = date2 - date1;
-  console.log(date1);
 
   const diffDays = Math.ceil(diff / (1000 * 60 * 60 * 24));
 

@@ -7,9 +7,12 @@ import "react-date-range/dist/theme/default.css"; // theme css file
 import { DateRange } from "react-date-range";
 import { useDispatch, useSelector } from "react-redux";
 
-import { updateOptions } from "../features/productOptions/productOptionsSlice";
+import {
+  updateOptions,
+  clearOptions,
+} from "../features/productOptions/productOptionsSlice";
 
-import { addToCart } from "../features/cart/cartSlice";
+import { addToCart, getCartItems } from "../features/cart/cartSlice";
 
 import { Link } from "react-router-dom";
 
@@ -21,9 +24,11 @@ import {
   getFormattedDaysString,
   formatPrice,
 } from "../utils/helpers";
+import axios from "axios";
+import { mainUrl } from "../constants";
 
 const ProductOptionsSelection = ({ product }) => {
-  const { name, price, pictures } = product;
+  const { id, name, price, pictures } = product;
   const dispatch = useDispatch();
 
   const {
@@ -36,10 +41,11 @@ const ProductOptionsSelection = ({ product }) => {
     agreedToSubmitDocument,
   } = useSelector((store) => store.productOptions);
 
-  const { cartItems } = useSelector((store) => store.cart);
+  const { id: cartId, cartItems } = useSelector((store) => store.cart);
 
   const [showCalendar, setShowCalendar] = useState(false);
   const [selectionCount, setSelectionCount] = useState(0);
+  const [itemInCart, setItemInCart] = useState(false);
 
   const prices = Object.entries(price);
 
@@ -49,11 +55,30 @@ const ProductOptionsSelection = ({ product }) => {
   );
 
   useEffect(() => {
+    let selectedTenure = `${startDate}-${endDate}`;
+    const check = cartItems.map((item) => {
+      if (
+        id === item.equipment.id &&
+        selectedLocation == item.location &&
+        selectedQuantity == item.quantity &&
+        selectedTenure == item.tenure
+      )
+        return true;
+      return false;
+    });
+    setItemInCart(check[check.length - 1]);
+  }, [cartItems, selectedLocation, selectedQuantity, endDate]);
+
+  useEffect(() => {
     const name = "selectedPrice";
     const value = userSelectedPrice;
 
     dispatch(updateOptions({ name, value }));
   }, [userSelectedIndex]);
+
+  useEffect(() => {
+    dispatch(clearOptions());
+  }, []);
 
   const [state, setState] = useState([
     {
@@ -67,7 +92,6 @@ const ProductOptionsSelection = ({ product }) => {
     setState([item.selection]);
     let count = selectionCount;
     setSelectionCount(++count);
-    // if (selectionCount >= 2) {
     if (selectionCount >= 1) {
       setTimeout(() => {
         setShowCalendar(false);
@@ -87,6 +111,8 @@ const ProductOptionsSelection = ({ product }) => {
       dispatch(updateOptions({ name, value }));
     }
   };
+
+  // console.log(itemInCart);
 
   return (
     <Wrapper>
@@ -134,18 +160,18 @@ const ProductOptionsSelection = ({ product }) => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          const tenure = formatDate(startDate) + " - " + formatDate(endDate);
-          const newItem = {
-            id: cartItems.length + 1,
-            name: name,
-            price: selectedPrice,
-            quantity: selectedQuantity,
-            tenure: tenure,
-            location: selectedLocation,
-            pictures: pictures,
-          };
+          // const tenure = formatDate(startDate) + " - " + formatDate(endDate);
+          // const newItem = {
+          //   id: cartItems.length + 1,
+          //   name: name,
+          //   price: selectedPrice,
+          //   quantity: selectedQuantity,
+          //   tenure: tenure,
+          //   location: selectedLocation,
+          //   pictures: pictures,
+          // };
 
-          dispatch(addToCart(newItem));
+          // dispatch(addToCart(newItem));
         }}
       >
         <div className="pickup-and-quantity">
@@ -243,37 +269,58 @@ const ProductOptionsSelection = ({ product }) => {
           </div>
         </div>
 
-        <div className="login-addcart-btns">
-          <Link to="/cart">
+        {!itemInCart && (
+          <div className="login-addcart-btns">
+            {/* <Link to="/cart"> */}
             <button
               // type="submit"
               className="add-to-cart-btn"
-              // onClick={(e) => {
-
-              //   console.log(newItem);
-              // }}
+              onClick={(e) => {
+                const url = `${mainUrl}carts/${cartId}/items/`;
+                const tenure = `${startDate}-${endDate}`;
+                axios
+                  .post(url, {
+                    equipment_id: id,
+                    quantity: selectedQuantity,
+                    location: selectedLocation,
+                    tenure: tenure,
+                  })
+                  .then((res) => {
+                    dispatch(getCartItems(cartId));
+                  })
+                  .catch((error) => {
+                    console.log(error);
+                  });
+              }}
             >
               Add to cart
             </button>
-          </Link>
-          <button className="login-btn">Book now</button>
-        </div>
-        <div className="continueshop-checkoutt-btns">
-          <Link to="/products">
-            <button
-              className="add-to-cart-btn"
-              // onClick={(e) => {
+            {/* </Link> */}
+            <button className="book-now-btn">Book now</button>
+          </div>
+        )}
 
-              //   console.log(newItem);
-              // }}
-            >
-              Continue shopping
-            </button>
-          </Link>
-          <Link to="checkout">
-            <button className="login-btn">Go to Checkout</button>
-          </Link>
-        </div>
+        {itemInCart && (
+          <div className="continueshop-checkoutt-btns">
+            <h1>Equipment is already in the cart</h1>
+            <div>
+              <Link to="/products">
+                <button
+                  className="add-to-cart-btn"
+                  // onClick={(e) => {
+
+                  //   console.log(newItem);
+                  // }}
+                >
+                  Continue shopping
+                </button>
+              </Link>
+              <Link to="/cart">
+                <button className="checkout-btn">Go to Cart</button>
+              </Link>
+            </div>
+          </div>
+        )}
       </form>
     </Wrapper>
   );
@@ -448,7 +495,7 @@ const Wrapper = styled.div`
   }
 
   .login-addcart-btns,
-  .continueshop-checkoutt-btns {
+  .continueshop-checkoutt-btns div {
     display: flex;
     justify-content: space-evenly;
     margin-top: 1.2rem;
@@ -463,6 +510,13 @@ const Wrapper = styled.div`
       font-size: 1.4rem;
       font-weight: 500;
       text-transform: uppercase;
+    }
+  }
+
+  .continueshop-checkoutt-btns {
+    margin-top: 5.2rem;
+    h1 {
+      text-align: center;
     }
   }
 

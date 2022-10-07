@@ -19,9 +19,21 @@ const productOptionsSlice = createSlice({
 
       return { ...state, [name]: value };
     },
+    clearOptions: (state, action) => {
+      state = {
+        selectedDays: 1,
+        selectedLocation: "",
+        selectedQuantity: 1,
+        selectedPrice: 0,
+        startDate: "",
+        endDate: "",
+        agreedToSubmitDocument: true,
+      };
+      // return state;
+    },
   },
 });
 
-export const { updateOptions } = productOptionsSlice.actions;
+export const { updateOptions, clearOptions } = productOptionsSlice.actions;
 
 export default productOptionsSlice.reducer;
