@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { CartTotals } from "../components";
 
@@ -11,6 +11,9 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useNavigate } from "react-router-dom";
+import { mainUrl } from "../constants";
+
+import { updateUser } from "../features/user/userSlice";
 
 const Checkout = () => {
   const { cartItems } = useSelector((store) => store.cart);
@@ -18,7 +21,13 @@ const Checkout = () => {
   const [provideDelivery, setProvideDelivery] = useState(false);
   const [payByEsewa, setPayByEsewa] = useState(true);
 
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
+
+  const { first_name, last_name, email, phone } = useSelector(
+    (store) => store.user
+  );
 
   const settings = {
     dots: true,
@@ -30,6 +39,12 @@ const Checkout = () => {
     autoplaySpeed: 2000,
     cssEase: "linear",
     adaptiveHeight: true,
+  };
+
+  const updateUserInfo = (e) => {
+    let name = e.target.name;
+    let value = e.target.value;
+    dispatch(updateUser({ name, value }));
   };
 
   return (
@@ -48,31 +63,52 @@ const Checkout = () => {
               <h4>1. Contact Information</h4>
               <div className="contact-info">
                 <div>
-                  <label htmlFor="first-name">First Name</label>
+                  <label htmlFor="first_name">First Name</label>
                   <br />
-                  <input type="text" name="first-name" />
+                  <input
+                    type="text"
+                    name="first_name"
+                    value={first_name}
+                    onChange={updateUserInfo}
+                  />
                 </div>
                 <div>
-                  <label htmlFor="last-name">Last Name</label>
+                  <label htmlFor="last_name">Last Name</label>
                   <br />
-                  <input type="text" name="last-name" />
+                  <input
+                    type="text"
+                    name="last_name"
+                    value={last_name}
+                    onChange={updateUserInfo}
+                  />
                 </div>
                 <div>
                   <label htmlFor="phone">Phone</label>
                   <br />
                   <span>+977</span>
-                  <input type="text" name="phone" prefix="+977" />
+                  <input
+                    type="text"
+                    name="phone"
+                    prefix="+977"
+                    value={phone}
+                    onChange={updateUserInfo}
+                  />
                 </div>
                 <div>
                   <label htmlFor="email">E-mail</label>
                   <br />
-                  <input type="text" name="email" />
+                  <input
+                    type="text"
+                    name="email"
+                    value={email}
+                    onChange={updateUserInfo}
+                  />
                 </div>
-                <div>
+                {/* <div>
                   <label htmlFor="deliveryLocaion">Delivery Location</label>
                   <br />
                   <input type="text" name="deliveryLocaion" />
-                </div>
+                </div> */}
               </div>
             </section>
             <section>
@@ -140,10 +176,13 @@ const Checkout = () => {
         <div className="checkout-items">
           <Slider {...settings}>
             {cartItems.map((item) => {
-              const { id, pictures, quantity, price } = item;
+              const { id, equipment, quantity, price } = item;
               return (
                 <div key={id} className="items-info">
-                  <img src={pictures[0]} alt="product image" />
+                  <img
+                    src={`${mainUrl}${equipment.featured_image}`}
+                    alt="product image"
+                  />
                   <div>
                     <p className="qty">
                       <span>Quantity: </span>

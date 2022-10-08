@@ -136,7 +136,7 @@ export const getFormattedTenure = (tenure) => {
     date.toLocaleString("default", { month: "long" });
     return `${date.toLocaleString("default", {
       month: "short",
-    })} ${date.getDate()} ${date.getYear()}`;
+    })} ${date.getDate()} ${date.getFullYear()}`;
     // return `${date.getMonth()}  ${date.getDate()}  ${date.getYear()}`;
   });
 

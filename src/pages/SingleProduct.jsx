@@ -12,15 +12,27 @@ import {
   Loading,
 } from "../components";
 
+import { NotificationModal } from "../components";
+
 import { useParams } from "react-router-dom";
 
 import { mainUrl } from "../constants";
+
+import { AnimatePresence } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  updateNotification,
+  clearNotification,
+} from "../features/notification/notificationSlice";
 
 const SingleProduct = () => {
   const params = useParams();
 
   const [equipment, setEquipment] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+
+  const { showModal, message } = useSelector((store) => store.notification);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     axios
@@ -34,12 +46,17 @@ const SingleProduct = () => {
       });
   }, [params.id]);
 
-  // console.log(equipment);
+  useEffect(() => {
+    setTimeout(() => {
+      if (showModal) {
+        dispatch(clearNotification());
+      }
+    }, 4000);
+  }, [showModal]);
 
   const { featured_image, images } = equipment;
 
   if (featured_image !== undefined) images.unshift({ image: featured_image });
-  // if (featured_image !== undefined) images.push({ image: featured_image });
 
   if (isLoading) {
     return <Loading />;
@@ -47,6 +64,10 @@ const SingleProduct = () => {
 
   return (
     <Wrapper>
+      <AnimatePresence>
+        {showModal && <NotificationModal text={message} />}
+      </AnimatePresence>
+
       <ProductImagesGallery pictures={images} />
       <ProductOptionsSelection product={equipment} />
       <ProductInfoTab product={equipment} />

@@ -23,6 +23,8 @@ import { useCookies } from "react-cookie";
 import axios from "axios";
 import { mainUrl } from "./constants";
 
+import { getUser } from "./features/user/userSlice";
+
 const App = () => {
   const dispatch = useDispatch();
 
@@ -52,6 +54,10 @@ const App = () => {
         dispatch(updateCart({ name, value }));
       });
     }
+  }, []);
+
+  useEffect(() => {
+    dispatch(getUser());
   }, []);
 
   return (

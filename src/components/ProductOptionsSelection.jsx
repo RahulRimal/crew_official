@@ -14,6 +14,8 @@ import {
 
 import { addToCart, getCartItems } from "../features/cart/cartSlice";
 
+import { updateNotification } from "../features/notification/notificationSlice";
+
 import { Link } from "react-router-dom";
 
 import {
@@ -287,6 +289,13 @@ const ProductOptionsSelection = ({ product }) => {
                   })
                   .then((res) => {
                     dispatch(getCartItems(cartId));
+
+                    let name = "message";
+                    let value = "Equipment successfully added to the cart";
+                    dispatch(updateNotification({ name, value }));
+                    name = "showModal";
+                    value = true;
+                    dispatch(updateNotification({ name, value }));
                   })
                   .catch((error) => {
                     console.log(error);
