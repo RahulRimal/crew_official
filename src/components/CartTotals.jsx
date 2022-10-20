@@ -11,8 +11,6 @@ const CartTotals = () => {
 
   const { id: userId } = useSelector((store) => store.user);
 
-  const [showLogin, setShowLogin] = useState(true);
-
   return (
     <Wrapper>
       <div className="cart-totals">
@@ -32,18 +30,12 @@ const CartTotals = () => {
           <p>Grand Total:</p>
           <span>Rs. {formatPrice(getAmountWithTax(cartTotal))}</span>
         </div>
-        {userId ? (
+
+        {(userId || window.location.href.includes("cart")) && (
           <Link to="/checkout">
             <button type="button">Checkout</button>
           </Link>
-        ) : (
-          <h3 className="login-text" onClick={() => setShowLogin(true)}>
-            Please login to checkout
-          </h3>
         )}
-      </div>
-      <div className="login-signup-popup">
-        <LoginSignup />
       </div>
     </Wrapper>
   );
@@ -99,22 +91,6 @@ const Wrapper = styled.div`
     letter-spacing: 1px;
     font-weight: 600;
     cursor: pointer;
-  }
-
-  /* .login-signup-popup {
-    position: absolute;
-    top: 0;
-  } */
-
-  .login-text {
-    font-size: 1.8rem;
-    color: var(--primary-color);
-    text-align: center;
-    margin: 3.2rem 0 2.4rem 0;
-  }
-
-  .login-signup-btns {
-    display: none;
   }
 `;
 

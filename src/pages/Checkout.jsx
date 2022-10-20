@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { CartTotals } from "../components";
+import { CartTotals, LoginSignup } from "../components";
 
 import { TbTruckDelivery, TbPackage } from "react-icons/tb";
 import { IoMdArrowBack } from "react-icons/io";
@@ -20,6 +20,10 @@ const Checkout = () => {
 
   const [provideDelivery, setProvideDelivery] = useState(false);
   const [payByEsewa, setPayByEsewa] = useState(true);
+
+  const { id: userId } = useSelector((store) => store.user);
+
+  const [showLogin, setShowLogin] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -199,6 +203,15 @@ const Checkout = () => {
           </Slider>
         </div>
         <CartTotals />
+        {!userId && (
+          <div className="login-signup-popup">
+            <h3 className="login-text" onClick={() => setShowLogin(true)}>
+              Please login to checkout
+            </h3>
+
+            <LoginSignup />
+          </div>
+        )}
       </aside>
     </Wrapper>
   );
@@ -473,6 +486,17 @@ const Wrapper = styled.section`
         }
       }
     }
+  }
+
+  .login-text {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    text-align: center;
+    margin: 3.2rem 0 2.4rem 0;
+  }
+
+  .login-signup-btns {
+    display: none;
   }
 
   /**************************/

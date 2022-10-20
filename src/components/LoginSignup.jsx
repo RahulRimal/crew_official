@@ -3,9 +3,17 @@ import styled from "styled-components";
 
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
+import { loginUser } from "../features/user/userSlice";
+import { useDispatch } from "react-redux";
+
 const LoginSignup = () => {
+  const dispatch = useDispatch();
+
   const [visible, setVisible] = useState(false);
   const [login, setLogin] = useState(true);
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   return (
     <Wrapper>
@@ -27,12 +35,19 @@ const LoginSignup = () => {
       </div>
       {login ? (
         <div id="login">
-          <form action="">
-            <input type="text" placeholder="Email" />
+          <form onSubmit={(e) => e.preventDefault()}>
+            <input
+              type="text"
+              placeholder="Email"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
             <div className="password-div">
               <input
                 type={visible ? "text" : "password"}
                 placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
               {visible ? (
                 <AiFillEye
@@ -49,7 +64,14 @@ const LoginSignup = () => {
             <div className="remember-me">
               <input type="checkbox" name="remember_me" /> Remember me
             </div>
-            <button type="submit" className="login-btn">
+            <button
+              type="submit"
+              className="login-btn"
+              onClick={() => dispatch(loginUser({ username, password }))}
+              // onClick={() => {
+              //   dispatch(loginUser({ username, password }));
+              // }}
+            >
               Login
             </button>
             <div className="to-sign-in">
@@ -60,7 +82,7 @@ const LoginSignup = () => {
         </div>
       ) : (
         <div id="signup">
-          <form action="">
+          <form onSubmit={(e) => e.preventDefault()}>
             <input type="text" placeholder="Full Name" />
             <input type="text" placeholder="Email" />
             <div className="password-div">

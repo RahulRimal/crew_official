@@ -17,9 +17,9 @@ import {
   calculateTotals,
   updateCart,
 } from "./features/cart/cartSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { useCookies } from "react-cookie";
+import { useCookies, Cookies } from "react-cookie";
 import axios from "axios";
 import { mainUrl } from "./constants";
 
@@ -30,9 +30,7 @@ const App = () => {
 
   const [cartCookies, setCartCookies] = useCookies(["user"]);
 
-  // useEffect(() => {
-  //   dispatch(getCartItems());
-  // }, []);
+  const { loading } = useSelector((store) => store.user);
 
   useEffect(() => {
     setTimeout(() => {
@@ -57,7 +55,10 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(getUser());
+    const userCookie = new Cookies();
+    if (userCookie.get("access")) {
+      dispatch(getUser(userCookie.get("access")));
+    }
   }, []);
 
   return (
