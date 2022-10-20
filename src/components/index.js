@@ -14,4 +14,5 @@ export { default as Footer } from "./Footer";
 export { default as ProductCart } from "./ProductCart";
 export { default as CartItem } from "./CartItem";
 export { default as CartTotals } from "./CartTotals";
+export { default as LoginSignup } from "./LoginSignup";
 export { default as NotificationModal } from "./NotificationModal";

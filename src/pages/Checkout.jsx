@@ -181,7 +181,7 @@ const Checkout = () => {
                 <div key={id} className="items-info">
                   <img
                     src={`${mainUrl}${equipment.featured_image}`}
-                    alt="product image"
+                    alt="product"
                   />
                   <div>
                     <p className="qty">
@@ -213,7 +213,6 @@ const Checkout = () => {
 const Wrapper = styled.section`
   display: grid;
   grid-template-columns: 3fr 1fr;
-
   padding: 4.8rem 12.8rem;
 
   main,

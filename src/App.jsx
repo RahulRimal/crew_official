@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Footer, TopbarHeader } from "./components";
+import { Footer, LoginSignup, TopbarHeader } from "./components";
 import {
   Home,
   About,
@@ -70,6 +70,7 @@ const App = () => {
         <Route path="/product/:id" element={<SingleProduct />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/login" element={<LoginSignup />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="*" element={<Error />} />
       </Routes>

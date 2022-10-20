@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { formatPrice, getAmountWithTax, getTaxAmount } from "../utils/helpers";
+import LoginSignup from "./LoginSignup";
 
 const CartTotals = () => {
   const { cartTotal } = useSelector((store) => store.cart);
+
+  const { id: userId } = useSelector((store) => store.user);
+
+  const [showLogin, setShowLogin] = useState(true);
 
   return (
     <Wrapper>
@@ -27,13 +32,28 @@ const CartTotals = () => {
           <p>Grand Total:</p>
           <span>Rs. {formatPrice(getAmountWithTax(cartTotal))}</span>
         </div>
-        <Link to="/checkout">
-          <button type="button">Checkout</button>
-        </Link>
+        {userId ? (
+          <Link to="/checkout">
+            <button type="button">Checkout</button>
+          </Link>
+        ) : (
+          <h3 className="login-text" onClick={() => setShowLogin(true)}>
+            Please login to checkout
+          </h3>
+        )}
+      </div>
+      <div className="login-signup-popup">
+        <LoginSignup />
       </div>
     </Wrapper>
   );
 };
+
+// Spacing system (px)
+// 2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
+
+//Sizing system (px)
+// 10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
 
 const Wrapper = styled.div`
   .cart-totals {
@@ -79,6 +99,22 @@ const Wrapper = styled.div`
     letter-spacing: 1px;
     font-weight: 600;
     cursor: pointer;
+  }
+
+  /* .login-signup-popup {
+    position: absolute;
+    top: 0;
+  } */
+
+  .login-text {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    text-align: center;
+    margin: 3.2rem 0 2.4rem 0;
+  }
+
+  .login-signup-btns {
+    display: none;
   }
 `;
 

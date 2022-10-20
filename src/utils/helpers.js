@@ -13,7 +13,7 @@ export const getUniqueValues = (data, type) => {
     });
   }
 
-  unique = unique.filter((item) => item != undefined);
+  unique = unique.filter((item) => item !== undefined);
 
   return ["All", ...new Set(unique)];
 };
@@ -57,7 +57,7 @@ export const getSelectedIndexAndPrice = (prices, selectedDays) => {
     if (price[0].includes("_")) {
       let arr = price[0].split("_");
 
-      if (arr[1] == "more") {
+      if (arr[1] === "more") {
         return [Number(arr[0]), price[1]];
       }
 
