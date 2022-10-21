@@ -1,11 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const HeaderSearchBar = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    navigate("/products/?search=" + searchTerm);
+    setSearchTerm("");
+  };
+
   return (
     <Wrapper>
-      <form>
-        <input type="text" placeholder="Type anything...." />
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Type anything...."
+        />
         <button type="submit">Search</button>
       </form>
     </Wrapper>

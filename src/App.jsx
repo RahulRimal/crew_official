@@ -10,6 +10,7 @@ import {
   SingleProduct,
   Cart,
   Checkout,
+  Esewa,
 } from "./pages";
 
 import {
@@ -17,7 +18,7 @@ import {
   calculateTotals,
   updateCart,
 } from "./features/cart/cartSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import { useCookies, Cookies } from "react-cookie";
 import axios from "axios";
@@ -30,7 +31,7 @@ const App = () => {
 
   const [cartCookies, setCartCookies] = useCookies(["user"]);
 
-  const { loading } = useSelector((store) => store.user);
+  // const { loading } = useSelector((store) => store.user);
 
   useEffect(() => {
     setTimeout(() => {
@@ -73,6 +74,7 @@ const App = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<LoginSignup />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/esewa" element={<Esewa />} />
         <Route path="*" element={<Error />} />
       </Routes>
       <Footer />

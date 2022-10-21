@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
 import { ProductsFilter, ProductsGrid, ProductsList } from "../components";
@@ -12,9 +12,13 @@ import {
 import { BsFillGridFill, BsList } from "react-icons/bs";
 
 import { MdClose } from "react-icons/md";
+import { useLocation } from "react-router-dom";
 
 const Products = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
+
+  const [showCategoryFilter, setShowCategoryFilter] = useState(true);
 
   const {
     grid_view,
@@ -23,7 +27,25 @@ const Products = () => {
   } = useSelector((store) => store.filter);
 
   useEffect(() => {
-    dispatch(getProducts());
+    const url = "http://127.0.0.1:8000/equipments";
+
+    const searchUrl = new URLSearchParams(window.location.search);
+    let searchTerm = searchUrl.get("search");
+    let endpoint = url;
+
+    if (searchTerm !== null) {
+      searchTerm = searchTerm.replace(/\s+/g, "+");
+      endpoint = `${endpoint}/?search=${searchTerm}`;
+
+      dispatch(getProducts(endpoint));
+      setShowCategoryFilter(false);
+    } else if (location.state !== null) {
+      const { categoryId } = location.state;
+      endpoint = `${endpoint}/?category_id=${categoryId}`;
+
+      dispatch(getProducts(endpoint));
+      setShowCategoryFilter(false);
+    } else dispatch(getProducts(url));
   }, [dispatch]);
 
   useEffect(() => {
@@ -66,12 +88,12 @@ const Products = () => {
         id="mobile-filters"
         className="mobile-products-filter hide-mobile-filters"
       >
-        <ProductsFilter />
+        <ProductsFilter showCategoryFilter={showCategoryFilter} />
         <MdClose className="close-filters-btn" onClick={hideMobileFilters} />
       </div>
 
       <div className="products-filter">
-        <ProductsFilter />
+        <ProductsFilter showCategoryFilter={showCategoryFilter} />
       </div>
       <div className="container">
         <div className="products-sort">

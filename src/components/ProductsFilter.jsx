@@ -8,7 +8,7 @@ import {
 } from "../features/filter/filterSlice";
 import { getUniqueValues } from "../utils/helpers";
 
-const ProductsFilter = () => {
+const ProductsFilter = ({ showCategoryFilter }) => {
   const dispatch = useDispatch();
 
   const {
@@ -45,25 +45,27 @@ const ProductsFilter = () => {
               onChange={updateFilter}
             />
           </div>
-          <div className="filter-category">
-            <h3 className="filter-title">Category</h3>
-            <ul>
-              {categories.map((c, index) => {
-                return (
-                  <li key={index}>
-                    <button
-                      type="button"
-                      name="category"
-                      className={`${category === c ? "active" : null}`}
-                      onClick={updateFilter}
-                    >
-                      {c}
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
+          {showCategoryFilter && (
+            <div className="filter-category">
+              <h3 className="filter-title">Category</h3>
+              <ul>
+                {categories.map((c, index) => {
+                  return (
+                    <li key={index}>
+                      <button
+                        type="button"
+                        name="category"
+                        className={`${category === c ? "active" : null}`}
+                        onClick={updateFilter}
+                      >
+                        {c}
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          )}
           <div className="filter-company">
             <h3 className="filter-title">Company</h3>
             <select

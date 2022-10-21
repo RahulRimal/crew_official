@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -9,7 +9,7 @@ import {
   getBookingAmount,
   getTaxAmount,
 } from "../utils/helpers";
-import LoginSignup from "./LoginSignup";
+// import LoginSignup from "./LoginSignup";
 
 const CartTotals = ({ payment_method }) => {
   const { cartTotal } = useSelector((store) => store.cart);

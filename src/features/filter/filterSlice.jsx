@@ -1,35 +1,27 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { products } from "../../data";
 
 // const url = "https://run.mocky.io/v3/732ddff4-9cd7-46b2-bb42-5c3bc6fe2de6";
 const url = "http://127.0.0.1:8000/equipments";
 
-export const getProducts = createAsyncThunk("filter/getProducts", async () => {
-  try {
-    // const response = await axios.get(url, {
-    //   headers: {
-    //     // "Content-Type": "application/json",
-    //     "Access-Control-Allow-Origin": "*",
-    //   },
-    //   // headers:{"Accept":"application/json, text/plain, /","Content-Type": "multipart/form-data"}
-    // });
-    // return response.data;
-
-    const response = await axios.get(url);
-    return response.data;
-  } catch (error) {
-    console.log(error);
-    // console.log(error.message);
+export const getProducts = createAsyncThunk(
+  "filter/getProducts",
+  async (endpoint) => {
+    try {
+      // const response = await axios.get(searchUrl);
+      const response = await axios.get(endpoint);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
   }
-});
+);
 
 const initialState = {
   is_loading: true,
   all_products: [],
   filtered_products: [],
   grid_view: true,
-  // list_view: true,
   filters: {
     text: "",
     company: "All",
@@ -188,7 +180,8 @@ const filterSlice = createSlice({
       state.is_loading = true;
     },
     [getProducts.fulfilled]: (state, action) => {
-      let prices = action.payload.map((p) => p.price);
+      let prices = action.payload.results.map((p) => p.price);
+      // let prices = action.payload.map((p) => p.price);
 
       prices = prices.map((o) => Object.values(o));
       prices = prices.flat();
@@ -196,8 +189,8 @@ const filterSlice = createSlice({
       let minPrice = Math.min(...prices);
 
       state.is_loading = false;
-      state.all_products = action.payload;
-      state.filtered_products = action.payload;
+      state.all_products = action.payload.results;
+      state.filtered_products = action.payload.results;
       state.filters = {
         ...state.filters,
         max_price: maxPrice,

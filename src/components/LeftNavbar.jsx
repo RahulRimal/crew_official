@@ -1,90 +1,70 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 // import { AiFillHome, AiFillSound } from "react-icons/ai";
-import { BsFillCameraReelsFill } from "react-icons/bs";
+import { BsFillCameraReelsFill, BsFillCameraVideoFill } from "react-icons/bs";
+import { CgSmartHomeLight } from "react-icons/cg";
+import { GiDeliveryDrone } from "react-icons/gi";
+import { SiIconify } from "react-icons/si";
 import { FaRunning } from "react-icons/fa";
 import { GoPerson } from "react-icons/go";
 import { MdCable } from "react-icons/md";
 import { RiComputerFill } from "react-icons/ri";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import { mainUrl } from "../constants";
 
 const LeftNavbar = () => {
+  const [allCategories, setAllCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState({});
+
+  useEffect(() => {
+    async function getCategories() {
+      try {
+        const response = await axios.get(`${mainUrl}categories`);
+        setAllCategories(response.data);
+        setSelectedCategory(response.data[0]);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getCategories();
+  }, []);
+
+  const getCategoryIcon = (categoryName) => {
+    if (categoryName == "Camera") return <BsFillCameraReelsFill />;
+    if (categoryName == "Lens") return <BsFillCameraVideoFill />;
+    if (categoryName == "Light") return <CgSmartHomeLight />;
+    if (categoryName == "Drone") return <GiDeliveryDrone />;
+    // if (categoryName == "Wedding Kit") return <BsFillCameraReelsFill />;
+    return <SiIconify />;
+  };
+
   return (
     <Wrapper>
       <div className="sidebar-nav">
-        <NavLink
-          to="/"
-          exact
-          className={(isActive) => `${isActive ? "active" : null}`}
-        >
-          <BsFillCameraReelsFill
-            className="nav-icon"
-            style={{
-              width: "3rem",
-              height: "3rem",
-            }}
-          />
-          {/* <span>Camera</span> */}
-        </NavLink>
-        <NavLink
-          to="/"
-          exact
-          className={(isActive) => `${isActive ? "active" : null}`}
-        >
-          <GoPerson
-            className="nav-icon"
-            style={{
-              width: "3rem",
-              height: "3rem",
-            }}
-          />
-          {/* <span>Direction</span> */}
-        </NavLink>
-        <NavLink
-          to="/"
-          exact
-          className={(isActive) => `${isActive ? "active" : null}`}
-        >
-          <MdCable
-            className="nav-icon"
-            style={{
-              width: "3rem",
-              height: "3rem",
-            }}
-          />
-          {/* <span>Grip</span> */}
-        </NavLink>
-        <NavLink
-          to="/"
-          exact
-          className={(isActive) => `${isActive ? "active" : null}`}
-        >
-          <RiComputerFill
-            className="nav-icon"
-            style={{
-              width: "3rem",
-              height: "3rem",
-            }}
-          />
-          {/* <span>Post</span> */}
-        </NavLink>
-        <NavLink
-          to="/"
-          exact
-          className={(isActive) => `${isActive ? "active" : null}`}
-        >
-          <FaRunning
-            className="nav-icon"
-            style={{
-              width: "3rem",
-              height: "3rem",
-            }}
-          />
-          {/* <span>Spot</span> */}
-        </NavLink>
+        {allCategories.map((category) => {
+          const { id, name } = category;
+          return (
+            <NavLink
+              key={id}
+              to={"/products/?category=" + name}
+              state={{ categoryId: id }}
+              className={(isActive) => `${isActive ? "active" : null}`}
+              onMouseOver={() => setSelectedCategory(category)}
+            >
+              {getCategoryIcon(name)}
+            </NavLink>
+          );
+        })}
       </div>
       <div className="sidebar-wide-nav">
-        <h3 className="heading">Cameras</h3>
+        <Link
+          to={"/products/?category=" + selectedCategory.name}
+          state={{ categoryId: selectedCategory.id }}
+        >
+          <h3 className="heading">{selectedCategory.name}</h3>
+        </Link>
         <ul>
           <hr />
           <li>
@@ -142,14 +122,9 @@ const Wrapper = styled.div`
 
     svg {
       color: var(--primary-white);
-      width: 2.4rem;
-      height: 2.4rem;
+      width: 3rem;
+      height: 3rem;
     }
-  }
-
-  .nav-icon {
-    width: 3.6rem;
-    height: 3.6rem;
   }
 
   /* .nav-icon:hover .sidebar-wide-nav {

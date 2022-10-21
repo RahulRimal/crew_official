@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { Cookies } from "react-cookie";
-import { useDispatch } from "react-redux";
 import { mainUrl } from "../../constants";
 
 const initialState = {

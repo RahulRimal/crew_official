@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { CartTotals, Loading, LoginSignup } from "../components";
+import { CartTotals, LoginSignup } from "../components";
 
 import { TbTruckDelivery, TbPackage } from "react-icons/tb";
 import { IoMdArrowBack } from "react-icons/io";
@@ -25,7 +25,7 @@ const Checkout = () => {
 
   const { id: userId, loading } = useSelector((store) => store.user);
 
-  const [showLogin, setShowLogin] = useState(true);
+  // const [showLogin, setShowLogin] = useState(true);
 
   const dispatch = useDispatch();
 
@@ -207,9 +207,8 @@ const Checkout = () => {
         <CartTotals payment_method={payByEsewa ? "esewa" : "khalti"} />
         {!userId && (
           <div className="login-signup-popup">
-            <h3 className="login-text" onClick={() => setShowLogin(true)}>
-              Please login to checkout
-            </h3>
+            {/* <h3 className="login-text" onClick={() => setShowLogin(true)}> */}
+            <h3 className="login-text">Please login to checkout</h3>
 
             {loading ? (
               <ReactLoading
