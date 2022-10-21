@@ -3,13 +3,20 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { formatPrice, getAmountWithTax, getTaxAmount } from "../utils/helpers";
+import {
+  formatPrice,
+  getAmountWithTax,
+  getBookingAmount,
+  getTaxAmount,
+} from "../utils/helpers";
 import LoginSignup from "./LoginSignup";
 
-const CartTotals = () => {
+const CartTotals = ({ payment_method }) => {
   const { cartTotal } = useSelector((store) => store.cart);
 
   const { id: userId } = useSelector((store) => store.user);
+
+  const handleBooking = () => {};
 
   return (
     <Wrapper>
@@ -22,6 +29,10 @@ const CartTotals = () => {
           <p>Sales Tax:</p>
           <span>Rs. {formatPrice(getTaxAmount(cartTotal))} </span>
         </div>
+        <div>
+          <p>Total Booking Amount:</p>
+          <span>Rs. {formatPrice(getBookingAmount(cartTotal))} </span>
+        </div>
         {/* <div>
           <p>Coupon code:</p>
           <span>Rs 109</span>
@@ -31,9 +42,16 @@ const CartTotals = () => {
           <span>Rs. {formatPrice(getAmountWithTax(cartTotal))}</span>
         </div>
 
-        {(userId || window.location.href.includes("cart")) && (
+        {window.location.href.includes("cart") && (
           <Link to="/checkout">
-            <button type="button">Checkout</button>
+            <button type="button">Go to checkout</button>
+          </Link>
+        )}
+        {userId && window.location.href.includes("checkout") && (
+          <Link to="/checkout">
+            <button type="button" onClick={handleBooking}>
+              Confirm booking
+            </button>
           </Link>
         )}
       </div>

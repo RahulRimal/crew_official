@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { CartTotals, LoginSignup } from "../components";
+import { CartTotals, Loading, LoginSignup } from "../components";
 
 import { TbTruckDelivery, TbPackage } from "react-icons/tb";
 import { IoMdArrowBack } from "react-icons/io";
 
 import Slider from "react-slick";
+
+import ReactLoading from "react-loading";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -21,7 +23,7 @@ const Checkout = () => {
   const [provideDelivery, setProvideDelivery] = useState(false);
   const [payByEsewa, setPayByEsewa] = useState(true);
 
-  const { id: userId } = useSelector((store) => store.user);
+  const { id: userId, loading } = useSelector((store) => store.user);
 
   const [showLogin, setShowLogin] = useState(true);
 
@@ -202,14 +204,22 @@ const Checkout = () => {
             })}
           </Slider>
         </div>
-        <CartTotals />
+        <CartTotals payment_method={payByEsewa ? "esewa" : "khalti"} />
         {!userId && (
           <div className="login-signup-popup">
             <h3 className="login-text" onClick={() => setShowLogin(true)}>
               Please login to checkout
             </h3>
 
-            <LoginSignup />
+            {loading ? (
+              <ReactLoading
+                type="spinningBubbles"
+                color="blue"
+                className="loading-spinner"
+              />
+            ) : (
+              <LoginSignup />
+            )}
           </div>
         )}
       </aside>
@@ -423,6 +433,10 @@ const Wrapper = styled.section`
       .slick-arrow::before {
         opacity: 1;
       }
+    }
+
+    .loading-spinner {
+      margin: 1.6rem auto;
     }
   }
 
