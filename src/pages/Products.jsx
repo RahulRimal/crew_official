@@ -93,7 +93,10 @@ const Products = () => {
       </div>
 
       <div className="products-filter">
-        <ProductsFilter showCategoryFilter={showCategoryFilter} />
+        <ProductsFilter
+          showCategoryFilter={showCategoryFilter}
+          setShowCategoryFilter={setShowCategoryFilter}
+        />
       </div>
       <div className="container">
         <div className="products-sort">
@@ -126,7 +129,9 @@ const Products = () => {
             <option value="name-z">Name(Z-A)</option>
           </select>
         </div>
-        {grid_view ? <ProductsGrid /> : <ProductsList />}
+        <div className="product-catalog">
+          {grid_view ? <ProductsGrid /> : <ProductsList />}
+        </div>
       </div>
     </Wrapper>
   );
@@ -140,6 +145,7 @@ const Products = () => {
 
 const Wrapper = styled.div`
   display: grid;
+  /* height: 100vh; */
   grid-template-columns: 1fr 4fr;
   column-gap: 0.2rem;
   padding: 4.8rem 12rem;
@@ -168,6 +174,22 @@ const Wrapper = styled.div`
   }
   .hide-mobile-filters {
     transform: translateX(-100%);
+  }
+
+  .product-catalog {
+    height: 80vh;
+    overflow-y: scroll;
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .product-catalog::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .product-catalog {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
   }
 
   .products-sort {

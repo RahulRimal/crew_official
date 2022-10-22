@@ -1,14 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { equipmentsUrl } from "../constants";
 import {
   filterProducts,
   clearFilters,
   updateFilters,
+  getProducts,
 } from "../features/filter/filterSlice";
 import { getUniqueValues } from "../utils/helpers";
 
-const ProductsFilter = ({ showCategoryFilter }) => {
+const ProductsFilter = ({ showCategoryFilter, setShowCategoryFilter }) => {
   const dispatch = useDispatch();
 
   const {
@@ -105,6 +107,19 @@ const ProductsFilter = ({ showCategoryFilter }) => {
         >
           Clear Filters
         </button>
+        {!showCategoryFilter && (
+          <button
+            type="button"
+            className="show-all-products"
+            onClick={() => {
+              dispatch(getProducts(equipmentsUrl));
+              dispatch(clearFilters());
+              setShowCategoryFilter(true);
+            }}
+          >
+            Show all products
+          </button>
+        )}
       </div>
       {/* <div className="products-grid">showing here</div> */}
     </Wrapper>
@@ -190,6 +205,21 @@ const Wrapper = styled.div`
     font-size: 1.4rem;
     font-weight: 600;
     letter-spacing: 1px;
+  }
+
+  .show-all-products {
+    display: block;
+    margin-top: 3.2rem;
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  .show-all-products:hover {
+    text-decoration: underline;
   }
 
   .active {

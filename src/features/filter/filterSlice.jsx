@@ -114,9 +114,12 @@ const filterSlice = createSlice({
 
       if (text) {
         tempProducts = tempProducts.filter((product) => {
-          return product.name
-            .toLowerCase()
-            .startsWith(text.toLocaleLowerCase());
+          return (
+            product.name
+              .toLowerCase()
+              // .startsWith(text.toLocaleLowerCase());
+              .includes(text.toLocaleLowerCase())
+          );
         });
       }
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 // import { AiFillHome, AiFillSound } from "react-icons/ai";
 import { BsFillCameraReelsFill, BsFillCameraVideoFill } from "react-icons/bs";
 import { CgSmartHomeLight } from "react-icons/cg";
@@ -10,13 +10,18 @@ import { GoPerson } from "react-icons/go";
 import { MdCable } from "react-icons/md";
 import { RiComputerFill } from "react-icons/ri";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { mainUrl } from "../constants";
+
+import { updateFilters } from "../features/filter/filterSlice";
 
 const LeftNavbar = () => {
   const [allCategories, setAllCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState({});
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getCategories() {
@@ -60,33 +65,34 @@ const LeftNavbar = () => {
       </div>
       <div className="sidebar-wide-nav">
         <Link
+          className="nav-header"
           to={"/products/?category=" + selectedCategory.name}
           state={{ categoryId: selectedCategory.id }}
         >
           <h3 className="heading">{selectedCategory.name}</h3>
+          <span className="nav-tag">{selectedCategory.equipments_count}</span>
         </Link>
         <ul>
           <hr />
-          <li>
-            <NavLink to="/">Red</NavLink>
-            <span className="nav-tag">5</span>
-          </li>
-          <li>
-            <NavLink to="/">BlackMagic</NavLink>
-            <span className="nav-tag">2</span>
-          </li>
-          <li>
-            <NavLink to="/">Sony</NavLink>
-            <span className="nav-tag">5</span>
-          </li>
-          <li>
-            <NavLink to="/">Fuji Flims</NavLink>
-            <span className="nav-tag">9</span>
-          </li>
-          <li>
-            <NavLink to="/">Cannon</NavLink>
-            <span className="nav-tag">3</span>
-          </li>
+
+          {selectedCategory.companies?.map((company, index) => {
+            return (
+              <li key={index}>
+                <Link
+                  state={{ categoryId: selectedCategory.id }}
+                  to={"/products/?category=" + selectedCategory.name}
+                  className="nav-link"
+                  onClick={() => {
+                    const name = "company";
+                    const value = company;
+                    dispatch(updateFilters({ name, value }));
+                  }}
+                >
+                  {company}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </Wrapper>
@@ -144,6 +150,13 @@ const Wrapper = styled.div`
     transform: translateX(-100%);
     transition: all 0.4s cubic-bezier(0, 1.04, 1, 1);
 
+    .nav-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.4rem;
+    }
+
     .heading {
       font-size: 1.8rem;
     }
@@ -153,18 +166,20 @@ const Wrapper = styled.div`
     }
 
     li {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       color: var(--primary-black);
       font-size: 1.6rem;
       font-weight: 700;
-      padding: 1rem 10px;
+
       transition: all 0.2s;
     }
 
     li:hover {
       background-color: var(--primary-white);
+    }
+
+    .nav-link {
+      display: block;
+      padding: 1rem 10px;
     }
   }
 
