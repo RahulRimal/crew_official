@@ -4,7 +4,9 @@ import styled from "styled-components";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 import { loginUser } from "../features/user/userSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
+import ReactLoading from "react-loading";
 
 const LoginSignup = () => {
   const dispatch = useDispatch();
@@ -14,6 +16,9 @@ const LoginSignup = () => {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(true);
+
+  const { loading } = useSelector((store) => store.user);
 
   return (
     <Wrapper>
@@ -62,18 +67,34 @@ const LoginSignup = () => {
               )}
             </div>
             <div className="remember-me">
-              <input type="checkbox" name="remember_me" /> Remember me
+              <input
+                type="checkbox"
+                name="remember_me"
+                checked={rememberMe}
+                onChange={() => setRememberMe(!rememberMe)}
+              />
+              Remember me
             </div>
-            <button
-              type="submit"
-              className="login-btn"
-              onClick={() => dispatch(loginUser({ username, password }))}
-              // onClick={() => {
-              //   dispatch(loginUser({ username, password }));
-              // }}
-            >
-              Login
-            </button>
+            {loading ? (
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <ReactLoading
+                  type="spinningBubbles"
+                  color="blue"
+                  className="loading-spinner"
+                />
+              </div>
+            ) : (
+              <button
+                type="submit"
+                className="login-btn"
+                onClick={() => dispatch(loginUser({ username, password }))}
+                // onClick={() => {
+                //   dispatch(loginUser({ username, password }));
+                // }}
+              >
+                Login
+              </button>
+            )}
             <div className="to-sign-in">
               <p>Don't have an account?</p>
               <span onClick={() => setLogin(false)}>Sign In</span>
@@ -102,6 +123,10 @@ const LoginSignup = () => {
                 />
               )}
             </div>
+            <input
+              type={visible ? "text" : "password"}
+              placeholder="Confirm password"
+            />
             <div className="remember-me">
               <input type="checkbox" name="remember_me" /> I agree with terms
               and conditions

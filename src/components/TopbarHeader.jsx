@@ -3,26 +3,19 @@ import styled from "styled-components";
 
 import { Link, Navigate } from "react-router-dom";
 import logo from "../logo.png";
-import { HeaderSearchBar } from "./index";
+import { HeaderSearchBar, HeaderNav } from "./index";
 import { hostUrl } from "../constants";
 
 const TopbarHeader = () => {
-  // let [showHeaderSearch, setShowHeaderSearch] = useState(false);
-
-  // useEffect(() => {
-  //   if (window.location.pathname == "/") {
-  //     setShowHeaderSearch(true);
-  //   }
-  // }, []);
-
   return (
     <Wrapper>
       <header>
         <Link to="/">
           <img src={logo} alt="site logo" width={75} height={75} />
         </Link>
-        {/* {showHeaderSearch && <HeaderSearchBar />} */}
-        {window.location.pathname == "/" && <HeaderSearchBar />}
+        {/* {window.location.pathname == "/" ? <HeaderSearchBar /> : <HeaderNav />} */}
+        {window.location.pathname === "/" && <HeaderSearchBar />}
+        {window.location.pathname !== "/" && <HeaderNav />}
       </header>
     </Wrapper>
   );

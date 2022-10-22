@@ -47,7 +47,7 @@ const CartTotals = ({ payment_method }) => {
             <button type="button">Go to checkout</button>
           </Link>
         )}
-        {userId && window.location.href.includes("checkout") && (
+        {userId !== 0 && window.location.href.includes("checkout") && (
           <Link to="/checkout">
             <button type="button" onClick={handleBooking}>
               Confirm booking
