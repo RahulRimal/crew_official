@@ -12,7 +12,11 @@ import {
   clearOptions,
 } from "../features/productOptions/productOptionsSlice";
 
-import { addToCart, getCartItems } from "../features/cart/cartSlice";
+import {
+  addItemToCart,
+  addToCart,
+  getCartItems,
+} from "../features/cart/cartSlice";
 
 import { updateNotification } from "../features/notification/notificationSlice";
 
@@ -280,26 +284,16 @@ const ProductOptionsSelection = ({ product }) => {
               onClick={(e) => {
                 const url = `${mainUrl}carts/${cartId}/items/`;
                 const tenure = `${startDate}-${endDate}`;
-                axios
-                  .post(url, {
-                    equipment_id: id,
-                    quantity: selectedQuantity,
-                    location: selectedLocation,
-                    tenure: tenure,
-                  })
-                  .then((res) => {
-                    dispatch(getCartItems(cartId));
 
-                    let name = "message";
-                    let value = "Equipment successfully added to the cart";
-                    dispatch(updateNotification({ name, value }));
-                    name = "showModal";
-                    value = true;
-                    dispatch(updateNotification({ name, value }));
+                dispatch(
+                  addItemToCart({
+                    cartId,
+                    id,
+                    selectedQuantity,
+                    selectedLocation,
+                    tenure,
                   })
-                  .catch((error) => {
-                    console.log(error);
-                  });
+                );
               }}
             >
               Add to cart

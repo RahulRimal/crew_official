@@ -18,12 +18,7 @@ import { useParams } from "react-router-dom";
 
 import { mainUrl } from "../constants";
 
-import { AnimatePresence } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  updateNotification,
-  clearNotification,
-} from "../features/notification/notificationSlice";
 
 const SingleProduct = () => {
   const params = useParams();
@@ -46,14 +41,6 @@ const SingleProduct = () => {
       });
   }, [params.id]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (showModal) {
-        dispatch(clearNotification());
-      }
-    }, 4000);
-  }, [showModal]);
-
   const { featured_image, images } = equipment;
 
   if (featured_image !== undefined) images.unshift({ image: featured_image });
@@ -64,10 +51,6 @@ const SingleProduct = () => {
 
   return (
     <Wrapper>
-      <AnimatePresence>
-        {showModal && <NotificationModal text={message} />}
-      </AnimatePresence>
-
       <ProductImagesGallery pictures={images} />
       <ProductOptionsSelection product={equipment} />
       <ProductInfoTab product={equipment} />

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+import { Cookies } from "react-cookie";
+
 import styled from "styled-components";
 
 import { MdShoppingCart } from "react-icons/md";
@@ -30,7 +32,12 @@ const HeaderNav = () => {
           </button>
         )}
         {userId !== 0 && (
-          <button className="btn" onClick={() => dispatch(removeUser())}>
+          <button
+            className="btn"
+            onClick={() => {
+              dispatch(removeUser());
+            }}
+          >
             Logout
           </button>
         )}

@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { motion, AnimatePresence } from "framer-motion";
+import { useSelector } from "react-redux";
 
-const NotificationModal = ({ text, handleFunc }) => {
+// const NotificationModal = ({ text, handleFunc }) => {
+const NotificationModal = () => {
+  const { message } = useSelector((store) => store.notification);
+
   return (
     <Wrapper>
       <motion.article
         className="main"
-        onClick={handleFunc}
+        // onClick={handleFunc}
         initial={{ opacity: 0, y: -100 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -100 }}
         transition={{ duration: 1 }}
       >
-        <h3>{text}</h3>
+        <h3>{message}</h3>
       </motion.article>
     </Wrapper>
   );
@@ -29,15 +33,13 @@ const Wrapper = styled.div`
   text-align: center;
   position: fixed;
   top: 5vh;
-  /* bottom: 15vh; */
-  left: 30vw;
+  left: 0;
+  right: 0;
   z-index: 999;
 
   .main {
-    /* width: 20rem; */
-    /* height: 3rem; */
     display: inline-block;
-    padding: 1.8rem 4.4rem;
+    padding: 1rem 4rem;
     border: 2px solid var(--primary-black);
     border-radius: 5px;
     background-color: var(--primary-white);

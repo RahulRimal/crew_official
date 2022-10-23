@@ -1,6 +1,11 @@
 import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Footer, LoginSignup, TopbarHeader } from "./components";
+import {
+  Footer,
+  LoginSignup,
+  NotificationModal,
+  TopbarHeader,
+} from "./components";
 import {
   Home,
   About,
@@ -18,18 +23,25 @@ import {
   calculateTotals,
   updateCart,
 } from "./features/cart/cartSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { useCookies, Cookies } from "react-cookie";
 import axios from "axios";
 import { mainUrl } from "./constants";
 
 import { getUser } from "./features/user/userSlice";
+import { AnimatePresence } from "framer-motion";
+import {
+  clearNotification,
+  updateNotification,
+} from "./features/notification/notificationSlice";
 
 const App = () => {
   const dispatch = useDispatch();
 
   const [cartCookies, setCartCookies] = useCookies(["user"]);
+
+  const { showModal } = useSelector((store) => store.notification);
 
   // const { loading } = useSelector((store) => store.user);
 
@@ -62,8 +74,24 @@ const App = () => {
     }
   }, []);
 
+  useEffect(() => {
+    setTimeout(() => {
+      if (showModal) {
+        const name = "showModal";
+        const value = false;
+
+        dispatch(updateNotification({ name, value }));
+
+        setTimeout(() => {
+          dispatch(clearNotification());
+        }, 1000);
+      }
+    }, 4000);
+  }, [showModal]);
+
   return (
     <BrowserRouter>
+      <AnimatePresence>{showModal && <NotificationModal />}</AnimatePresence>
       <TopbarHeader />
       <Routes>
         <Route path="/" exact element={<Home />} />

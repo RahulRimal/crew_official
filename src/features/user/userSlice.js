@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { Cookies } from "react-cookie";
 import { mainUrl } from "../../constants";
+import { updateNotification } from "../notification/notificationSlice";
 
 const initialState = {
   id: 0,
@@ -16,8 +17,20 @@ const initialState = {
 };
 
 const url = `${mainUrl}customers/me`;
-// const accessToken =
-//   "FC eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjY2MzI4NzY5LCJqdGkiOiJkNmZhZDBiYzQ3ZTY0MzNlYWI3MjRmNjgyYTNkZDQ3ZiIsInVzZXJfaWQiOjN9.Q2C5bhQ4KQWP43EqHQeW-fPNksAmz5l5auPI2eK14y0";
+
+const refreshAccessToken = async function () {
+  const userCookie = new Cookies();
+  const refresh = userCookie.get("refresh");
+  try {
+    const response = await axios.post(`${mainUrl}auth/jwt/refresh`, {
+      refresh: refresh,
+    });
+
+    const access = response.data.access;
+
+    userCookie.set("access", access, { path: "/" });
+  } catch (error) {}
+};
 
 export const getUser = createAsyncThunk("user/getUser", async (accessToken) => {
   try {
@@ -28,24 +41,71 @@ export const getUser = createAsyncThunk("user/getUser", async (accessToken) => {
     });
     return response.data;
   } catch (error) {
-    console.log(error);
+    // console.log(error.response.status);
+    if (error.response.status === 401) {
+      refreshAccessToken();
+    }
   }
 });
 
 export const loginUser = createAsyncThunk(
   "user/loginUser",
   async (loginInfo, { dispatch }) => {
-    const { username, password } = loginInfo;
+    const { email, password } = loginInfo;
     const loginUrl = `${mainUrl}auth/jwt/create`;
     try {
       const response = await axios.post(loginUrl, {
-        username: username,
+        email: email,
         password: password,
       });
       dispatch(getUser(response.data.access));
+      let name = "message";
+      let value = "Logged in successfully";
+      dispatch(updateNotification({ name, value }));
+      name = "showModal";
+      value = true;
+      dispatch(updateNotification({ name, value }));
       return response.data;
     } catch (error) {
       console.log(error);
+    }
+  }
+);
+export const registerUser = createAsyncThunk(
+  "user/registerUser",
+  async (registerInfo, { dispatch }) => {
+    const { username, email, password } = registerInfo;
+    const registerUrl = `${mainUrl}auth/users/`;
+    try {
+      const response = await axios.post(registerUrl, {
+        username: username,
+        email: email,
+        password: password,
+      });
+
+      console.log(response);
+      if (response.status === 201) {
+        let name = "message";
+        let value = "Registered successfully, You can now log in";
+        dispatch(updateNotification({ name, value }));
+        name = "showModal";
+        value = true;
+        dispatch(updateNotification({ name, value }));
+      }
+    } catch (error) {
+      // console.log(error.response.status);
+      // console.log(error);
+      if (error.response.status === 400) {
+        const data = error.response.data;
+        if (data.email) {
+          let name = "message";
+          let value = data.email[0];
+          dispatch(updateNotification({ name, value }));
+        }
+        let name = "showModal";
+        let value = true;
+        dispatch(updateNotification({ name, value }));
+      }
     }
   }
 );
@@ -59,6 +119,10 @@ const userSlice = createSlice({
       return { ...state, [name]: value };
     },
     removeUser: (state) => {
+      const userCookie = new Cookies();
+      userCookie.remove("access", { path: "/" });
+      userCookie.remove("refresh", { path: "/" });
+
       state = {
         id: 0,
         firstName: "",
@@ -97,6 +161,15 @@ const userSlice = createSlice({
       state.loading = false;
     },
     [loginUser.rejected]: (state) => {
+      state.loading = false;
+    },
+    [registerUser.pending]: (state) => {
+      state.loading = true;
+    },
+    [registerUser.fulfilled]: (state) => {
+      state.loading = false;
+    },
+    [registerUser.rejected]: (state) => {
       state.loading = false;
     },
   },

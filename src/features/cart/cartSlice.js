@@ -3,6 +3,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { mainUrl } from "../../constants";
 import { getSelectedIndexAndPrice, getTenureDays } from "../../utils/helpers";
+import { updateNotification } from "../notification/notificationSlice";
 
 // const url = "https://course-api.com/react-useReducer-cart-project";
 
@@ -22,6 +23,34 @@ export const getCartItems = createAsyncThunk(
       const resp = await axios(`${mainUrl}carts/${cartId}/items`);
       return resp.data;
       // return cartItems;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const addItemToCart = createAsyncThunk(
+  "cart/addItemToCart",
+  async (data, { dispatch }) => {
+    const { cartId, id, selectedQuantity, selectedLocation, tenure } = data;
+    const url = `${mainUrl}carts/${cartId}/items/`;
+    try {
+      const response = await axios.post(url, {
+        equipment_id: id,
+        quantity: selectedQuantity,
+        location: selectedLocation,
+        tenure: tenure,
+      });
+
+      if (response.status == 201) {
+        dispatch(getCartItems(cartId));
+        let name = "message";
+        let value = "Equipment successfully added to the cart";
+        dispatch(updateNotification({ name, value }));
+        name = "showModal";
+        value = true;
+        dispatch(updateNotification({ name, value }));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -84,6 +113,15 @@ const cartSlice = createSlice({
       state.cartItems = action.payload;
     },
     [getCartItems.rejected]: (state) => {
+      state.isLoading = false;
+    },
+    [addItemToCart.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [addItemToCart.fulfilled]: (state) => {
+      state.isLoading = false;
+    },
+    [addItemToCart.rejected]: (state) => {
       state.isLoading = false;
     },
   },

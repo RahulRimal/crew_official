@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
-import { loginUser } from "../features/user/userSlice";
+import { loginUser, registerUser } from "../features/user/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 import ReactLoading from "react-loading";
@@ -14,11 +14,32 @@ const LoginSignup = () => {
   const [visible, setVisible] = useState(false);
   const [login, setLogin] = useState(true);
 
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [fullName, setFullName] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(true);
+  const [showPasswordError, setShowPasswordError] = useState(false);
 
   const { loading } = useSelector((store) => store.user);
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+
+    let timestamp = Date.now();
+    let username = fullName.toLocaleLowerCase().replace(/\s/g, "");
+    username = username + "_" + timestamp;
+
+    dispatch(registerUser({ username, email, password }));
+  };
+
+  const validatePassword = (e) => {
+    const value = e.target.value;
+    setConfirmPassword(value);
+    if (value && value !== password) {
+      setShowPasswordError(true);
+    } else setShowPasswordError(false);
+  };
 
   return (
     <Wrapper>
@@ -42,10 +63,11 @@ const LoginSignup = () => {
         <div id="login">
           <form onSubmit={(e) => e.preventDefault()}>
             <input
-              type="text"
+              type="email"
               placeholder="Email"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
             />
             <div className="password-div">
               <input
@@ -53,6 +75,7 @@ const LoginSignup = () => {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
               {visible ? (
                 <AiFillEye
@@ -87,10 +110,7 @@ const LoginSignup = () => {
               <button
                 type="submit"
                 className="login-btn"
-                onClick={() => dispatch(loginUser({ username, password }))}
-                // onClick={() => {
-                //   dispatch(loginUser({ username, password }));
-                // }}
+                onClick={() => dispatch(loginUser({ email, password }))}
               >
                 Login
               </button>
@@ -103,13 +123,27 @@ const LoginSignup = () => {
         </div>
       ) : (
         <div id="signup">
-          <form onSubmit={(e) => e.preventDefault()}>
-            <input type="text" placeholder="Full Name" />
-            <input type="text" placeholder="Email" />
+          {/* <form onSubmit={(e) => e.preventDefault()}> */}
+          <form onSubmit={handleRegister}>
+            <input
+              type="text"
+              placeholder="Full Name"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+              required
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
             <div className="password-div">
               <input
                 type={visible ? "text" : "password"}
                 placeholder="Password"
+                required
               />
               {visible ? (
                 <AiFillEye
@@ -123,17 +157,40 @@ const LoginSignup = () => {
                 />
               )}
             </div>
-            <input
-              type={visible ? "text" : "password"}
-              placeholder="Confirm password"
-            />
-            <div className="remember-me">
-              <input type="checkbox" name="remember_me" /> I agree with terms
-              and conditions
+            <div className="confirm-password-div">
+              <input
+                type={visible ? "text" : "password"}
+                placeholder="Confirm password"
+                value={confirmPassword}
+                onChange={validatePassword}
+                required
+              />
+              {showPasswordError && (
+                <span className="error">Passwords do not match</span>
+              )}
             </div>
-            <button type="submit" className="login-btn">
-              Sign up
-            </button>
+            <div className="remember-me">
+              <input type="checkbox" checked name="remember_me" /> I agree with
+              terms and conditions
+            </div>
+            {loading ? (
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <ReactLoading
+                  type="spinningBubbles"
+                  color="blue"
+                  className="loading-spinner"
+                />
+              </div>
+            ) : (
+              <button
+                type="submit"
+                className="login-btn"
+                // onClick={handleRegister}
+                disabled={showPasswordError}
+              >
+                Sign up
+              </button>
+            )}
             <div className="to-log-in">
               <p>Already have an account?</p>
               <span onClick={() => setLogin(true)}>Login</span>
@@ -205,6 +262,19 @@ const Wrapper = styled.div`
     color: var(--primary-color);
   }
 
+  .confirm-password-div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .error {
+      color: red;
+      margin-top: -6px;
+      font-weight: 500;
+      font-size: 1.2rem;
+    }
+  }
+
   .remember-me {
     display: flex;
     align-items: center;
@@ -228,6 +298,11 @@ const Wrapper = styled.div`
     padding: 0.4rem 0.8rem;
     border-radius: 4px;
     cursor: pointer;
+  }
+
+  button:disabled {
+    opacity: 0.7;
+    cursor: default;
   }
 
   .to-log-in,
