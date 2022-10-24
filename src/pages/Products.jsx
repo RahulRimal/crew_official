@@ -46,7 +46,7 @@ const Products = () => {
       dispatch(getProducts(endpoint));
       setShowCategoryFilter(false);
     } else dispatch(getProducts(url));
-  }, [dispatch]);
+  }, [dispatch, location.state]);
 
   useEffect(() => {
     dispatch(sortProducts());

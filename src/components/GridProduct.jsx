@@ -1,17 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import {
-  getProductPrices,
-  productPriceObjectToArray,
-  getFormattedDaysString,
-} from "../utils/helpers";
+import { getFormattedDaysString } from "../utils/helpers";
 
 import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri";
 
 import { Link } from "react-router-dom";
 
 const GridProduct = ({ info }) => {
-  const { id, name, description, price, featured_image } = info;
+  const { id, name, price, featured_image } = info;
 
   const [showAllPrices, setShowAllPrices] = useState(false);
 

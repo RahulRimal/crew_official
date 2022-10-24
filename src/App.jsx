@@ -49,7 +49,7 @@ const App = () => {
     setTimeout(() => {
       dispatch(calculateTotals());
     }, 1000);
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (cartCookies.cartId) {
@@ -65,14 +65,14 @@ const App = () => {
         dispatch(updateCart({ name, value }));
       });
     }
-  }, []);
+  }, [cartCookies.cartId, setCartCookies, dispatch]);
 
   useEffect(() => {
     const userCookie = new Cookies();
     if (userCookie.get("access")) {
       dispatch(getUser(userCookie.get("access")));
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -87,7 +87,7 @@ const App = () => {
         }, 1000);
       }
     }, 4000);
-  }, [showModal]);
+  }, [showModal, dispatch]);
 
   return (
     <BrowserRouter>

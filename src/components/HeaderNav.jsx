@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import { Cookies } from "react-cookie";
-
 import styled from "styled-components";
 
 import { MdShoppingCart } from "react-icons/md";

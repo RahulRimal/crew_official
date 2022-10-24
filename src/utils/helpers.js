@@ -6,10 +6,12 @@ export const getUniqueValues = (data, type) => {
   if (type === "category") {
     unique = data.map((item) => {
       if (item[type] !== null) return item[type].name;
+      return undefined;
     });
   } else {
     unique = data.map((item) => {
       if (item[type] !== null) return item[type];
+      return undefined;
     });
   }
 
@@ -81,12 +83,13 @@ export const getSelectedIndexAndPrice = (prices, selectedDays) => {
         return [index, day[1]];
       } else if (selectedDays > day[0][0] && selectedDays < day[0][1]) {
         return [index, day[1]];
-      }
+      } else return undefined;
     } else {
       if (selectedDays === day[0]) return [index, day[1]];
-      if (day[0] != 1 && selectedDays > day[0]) {
+      if (day[0] !== 1 && selectedDays > day[0]) {
         return [index, day[1]];
       }
+      return undefined;
     }
   });
 
@@ -110,13 +113,13 @@ export const getAmountWithTax = (amount) => {
 };
 
 export const getFormattedDaysString = (days) => {
-  if (days.charAt(0) == "_") {
+  if (days.charAt(0) === "_") {
     days = days.substring(1);
   }
   // console.log(days);
-  if (days == "2_4") return "2-4";
-  if (days == "5_7") return "5-7";
-  if (days == "8_more") return "8++";
+  if (days === "2_4") return "2-4";
+  if (days === "5_7") return "5-7";
+  if (days === "8_more") return "8++";
   return days;
 };
 

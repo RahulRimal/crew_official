@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import logo from "../logo.png";
 import { HeaderSearchBar, HeaderNav } from "./index";
-import { hostUrl } from "../constants";
 
 const TopbarHeader = () => {
   return (

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { CartTotals, LoginSignup } from "../components";
@@ -12,10 +12,11 @@ import ReactLoading from "react-loading";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { mainUrl } from "../constants";
 
-import { updateUser } from "../features/user/userSlice";
+import { getCustomer, updateUser } from "../features/user/userSlice";
+import { Cookies } from "react-cookie";
 
 const Checkout = () => {
   const { cartItems } = useSelector((store) => store.cart);
@@ -37,9 +38,16 @@ const Checkout = () => {
     (store) => store.user
   );
 
+  useEffect(() => {
+    const userCookie = new Cookies();
+    if (userCookie.get("access")) {
+      const access = userCookie.get("access");
+      dispatch(getCustomer(access));
+    }
+  }, [dispatch]);
+
   const handleBooking = (e) => {
     e.preventDefault();
-    console.log("book here");
   };
 
   const settings = {

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const ListProduct = ({ info }) => {
-  const { id, name, description, price, picture } = info;
+  const { name, description, price, picture } = info;
   const prices = Object.entries(price);
   return (
     <Wrapper>
@@ -16,7 +16,7 @@ const ListProduct = ({ info }) => {
                 <li key={id}>
                   <p>Rs. {p[1]} / day</p>
                   <span>
-                    {p[0]} {p[0] == "1" ? "Day" : "Days"}
+                    {p[0]} {p[0] === "1" ? "Day" : "Days"}
                   </span>
                 </li>
               );

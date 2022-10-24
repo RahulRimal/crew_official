@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { Cookies } from "react-cookie";
-import { customerUrl, mainUrl, userUrl } from "../../constants";
+import { mainUrl } from "../../constants";
 import { updateNotification } from "../notification/notificationSlice";
 
 const initialState = {
@@ -37,7 +37,7 @@ export const getUser = createAsyncThunk("user/getUser", async (accessToken) => {
         Authorization: `FC ` + accessToken,
       },
     });
-    console.log(response);
+    return response.data;
   } catch (error) {
     // console.log(error.response.status);
     if (error.response.status === 401) {
@@ -45,6 +45,25 @@ export const getUser = createAsyncThunk("user/getUser", async (accessToken) => {
     }
   }
 });
+
+export const getCustomer = createAsyncThunk(
+  "user/getCustomer",
+  async (accessToken) => {
+    try {
+      const response = await axios(`${mainUrl}customers/me/`, {
+        headers: {
+          Authorization: `FC ` + accessToken,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      // console.log(error.response.status);
+      if (error.response.status === 401) {
+        refreshAccessToken();
+      }
+    }
+  }
+);
 
 export const registerUser = createAsyncThunk(
   "user/registerUser",
@@ -58,7 +77,6 @@ export const registerUser = createAsyncThunk(
         password: password,
       });
 
-      console.log(response);
       if (response.status === 201) {
         let name = "message";
         let value = "Registered successfully, You can now log in";
@@ -96,13 +114,15 @@ export const loginUser = createAsyncThunk(
         email: email,
         password: password,
       });
-      dispatch(getUser(response.data.access));
-      let name = "message";
-      let value = "Logged in successfully";
-      dispatch(updateNotification({ name, value }));
-      name = "showModal";
-      value = true;
-      dispatch(updateNotification({ name, value }));
+      if (response.status === 200) {
+        dispatch(getUser(response.data.access));
+        let name = "message";
+        let value = "Logged in successfully";
+        dispatch(updateNotification({ name, value }));
+        name = "showModal";
+        value = true;
+        dispatch(updateNotification({ name, value }));
+      }
       return response.data;
     } catch (error) {
       console.log(error);
@@ -148,6 +168,19 @@ const userSlice = createSlice({
       return state;
     },
     [getUser.rejected]: (state) => {
+      state.loading = false;
+    },
+
+    [getCustomer.pending]: (state, action) => {
+      state.loading = true;
+    },
+
+    [getCustomer.fulfilled]: (state, action) => {
+      state = { ...action.payload };
+      state.loading = false;
+      return state;
+    },
+    [getCustomer.rejected]: (state) => {
       state.loading = false;
     },
 

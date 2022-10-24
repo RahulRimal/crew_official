@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { increase, decrease, removeItem } from "../features/cart/cartSlice";
 
-import { getTenureDays, getPriceForTenureDays } from "../utils/helpers";
+import { getTenureDays } from "../utils/helpers";
 import { mainUrl } from "../constants";
 import axios from "axios";
 
@@ -23,7 +23,7 @@ let isSecond = true;
 const CartItem = ({ item }) => {
   const { id, equipment, quantity, tenure, location } = item;
   const tenureDays = getTenureDays(tenure);
-  const [_, price] = getSelectedIndexAndPrice(equipment.price, tenureDays);
+  const [, price] = getSelectedIndexAndPrice(equipment.price, tenureDays);
 
   const dispatch = useDispatch();
   const { id: cartId, cartItems } = useSelector((store) => store.cart);
@@ -49,7 +49,7 @@ const CartItem = ({ item }) => {
       .catch((error) => {
         console.log(error);
       });
-  }, [quantity, tenure, location]);
+  }, [quantity, tenure, location, cartItems, itemPosition, url]);
 
   return (
     <Wrapper>

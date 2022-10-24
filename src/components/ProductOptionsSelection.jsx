@@ -12,13 +12,7 @@ import {
   clearOptions,
 } from "../features/productOptions/productOptionsSlice";
 
-import {
-  addItemToCart,
-  addToCart,
-  getCartItems,
-} from "../features/cart/cartSlice";
-
-import { updateNotification } from "../features/notification/notificationSlice";
+import { addItemToCart } from "../features/cart/cartSlice";
 
 import { Link } from "react-router-dom";
 
@@ -30,11 +24,9 @@ import {
   getFormattedDaysString,
   formatPrice,
 } from "../utils/helpers";
-import axios from "axios";
-import { mainUrl } from "../constants";
 
 const ProductOptionsSelection = ({ product }) => {
-  const { id, name, price, pictures } = product;
+  const { id, name, price } = product;
   const dispatch = useDispatch();
 
   const {
@@ -65,26 +57,26 @@ const ProductOptionsSelection = ({ product }) => {
     const check = cartItems.map((item) => {
       if (
         id === item.equipment.id &&
-        selectedLocation == item.location &&
-        selectedQuantity == item.quantity &&
-        selectedTenure == item.tenure
+        selectedLocation === item.location &&
+        selectedQuantity === item.quantity &&
+        selectedTenure === item.tenure
       )
         return true;
       return false;
     });
     setItemInCart(check[check.length - 1]);
-  }, [cartItems, selectedLocation, selectedQuantity, endDate]);
+  }, [cartItems, id, selectedLocation, selectedQuantity, startDate, endDate]);
 
   useEffect(() => {
     const name = "selectedPrice";
     const value = userSelectedPrice;
 
     dispatch(updateOptions({ name, value }));
-  }, [userSelectedIndex]);
+  }, [userSelectedIndex, userSelectedPrice, dispatch]);
 
   useEffect(() => {
     dispatch(clearOptions());
-  }, []);
+  }, [dispatch]);
 
   const [state, setState] = useState([
     {
@@ -166,19 +158,34 @@ const ProductOptionsSelection = ({ product }) => {
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          // const tenure = formatDate(startDate) + " - " + formatDate(endDate);
-          // const newItem = {
-          //   id: cartItems.length + 1,
-          //   name: name,
-          //   price: selectedPrice,
-          //   quantity: selectedQuantity,
-          //   tenure: tenure,
-          //   location: selectedLocation,
-          //   pictures: pictures,
-          // };
+          // const url = `${mainUrl}carts/${cartId}/items/`;
+          const tenure = `${startDate}-${endDate}`;
 
-          // dispatch(addToCart(newItem));
+          dispatch(
+            addItemToCart({
+              cartId,
+              id,
+              selectedQuantity,
+              selectedLocation,
+              tenure,
+            })
+          );
         }}
+        // onSubmit={(e) => {
+        // e.preventDefault();
+        // const tenure = formatDate(startDate) + " - " + formatDate(endDate);
+        // const newItem = {
+        //   id: cartItems.length + 1,
+        //   name: name,
+        //   price: selectedPrice,
+        //   quantity: selectedQuantity,
+        //   tenure: tenure,
+        //   location: selectedLocation,
+        //   pictures: pictures,
+        // };
+
+        // dispatch(addToCart(newItem));
+        // }}
       >
         <div className="pickup-and-quantity">
           <div>
@@ -279,22 +286,22 @@ const ProductOptionsSelection = ({ product }) => {
           <div className="login-addcart-btns">
             {/* <Link to="/cart"> */}
             <button
-              // type="submit"
+              type="submit"
               className="add-to-cart-btn"
-              onClick={(e) => {
-                const url = `${mainUrl}carts/${cartId}/items/`;
-                const tenure = `${startDate}-${endDate}`;
+              // onClick={(e) => {
+              //   const url = `${mainUrl}carts/${cartId}/items/`;
+              //   const tenure = `${startDate}-${endDate}`;
 
-                dispatch(
-                  addItemToCart({
-                    cartId,
-                    id,
-                    selectedQuantity,
-                    selectedLocation,
-                    tenure,
-                  })
-                );
-              }}
+              //   dispatch(
+              //     addItemToCart({
+              //       cartId,
+              //       id,
+              //       selectedQuantity,
+              //       selectedLocation,
+              //       tenure,
+              //     })
+              //   );
+              // }}
             >
               Add to cart
             </button>

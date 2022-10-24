@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-// import { AiFillHome, AiFillSound } from "react-icons/ai";
+import { Link, NavLink } from "react-router-dom";
 import { BsFillCameraReelsFill, BsFillCameraVideoFill } from "react-icons/bs";
 import { CgSmartHomeLight } from "react-icons/cg";
 import { GiDeliveryDrone } from "react-icons/gi";
 import { SiIconify } from "react-icons/si";
-import { FaRunning } from "react-icons/fa";
-import { GoPerson } from "react-icons/go";
-import { MdCable } from "react-icons/md";
-import { RiComputerFill } from "react-icons/ri";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import { mainUrl } from "../constants";
 
@@ -21,7 +16,6 @@ const LeftNavbar = () => {
   const [selectedCategory, setSelectedCategory] = useState({});
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     async function getCategories() {
@@ -37,10 +31,10 @@ const LeftNavbar = () => {
   }, []);
 
   const getCategoryIcon = (categoryName) => {
-    if (categoryName == "Camera") return <BsFillCameraReelsFill />;
-    if (categoryName == "Lens") return <BsFillCameraVideoFill />;
-    if (categoryName == "Light") return <CgSmartHomeLight />;
-    if (categoryName == "Drone") return <GiDeliveryDrone />;
+    if (categoryName === "Camera") return <BsFillCameraReelsFill />;
+    if (categoryName === "Lens") return <BsFillCameraVideoFill />;
+    if (categoryName === "Light") return <CgSmartHomeLight />;
+    if (categoryName === "Drone") return <GiDeliveryDrone />;
     // if (categoryName == "Wedding Kit") return <BsFillCameraReelsFill />;
     return <SiIconify />;
   };

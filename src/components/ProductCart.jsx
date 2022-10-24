@@ -3,21 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-import { getCartItems, calculateTotals } from "../features/cart/cartSlice";
+import { calculateTotals } from "../features/cart/cartSlice";
 import { CartItem, CartTotals } from "./index";
 
 const ProductCart = () => {
-  // const { pictures } = product;
-
   const dispatch = useDispatch();
 
-  const { cartItems, cartTotal, totalCartItems } = useSelector(
-    (store) => store.cart
-  );
+  const { cartItems, totalCartItems } = useSelector((store) => store.cart);
 
   useEffect(() => {
     dispatch(calculateTotals());
-  }, [cartItems]);
+  }, [cartItems, dispatch]);
 
   if (totalCartItems < 1) {
     return (

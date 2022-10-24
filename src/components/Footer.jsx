@@ -17,7 +17,9 @@ const Footer = () => {
         <img src={logo} alt="logo" />
         <div className="footer-help">
           <p>Need help renting right equipment?</p>
-          <a className="footer-help-btn">Contact Us</a>
+          <a href="/contact" className="footer-help-btn">
+            Contact Us
+          </a>
         </div>
       </div>
       <hr />
@@ -39,7 +41,7 @@ const Footer = () => {
               </a>
             </li>
             <li>
-              <a href="#">
+              <a href="/contact">
                 {" "}
                 <IoLogoWhatsapp className="widget-contact-icon" /> +977
                 9856748390
@@ -299,7 +301,7 @@ const Wrapper = styled.footer`
       padding-right: 0.4rem;
     }
   }
-  
+
   /**************************/
   /* BELOW 1344px (Smaller desktops) */
   /**************************/

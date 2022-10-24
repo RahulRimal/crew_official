@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import { singleProduct } from "../data";
-
 import axios from "axios";
 
 import {
@@ -12,22 +10,15 @@ import {
   Loading,
 } from "../components";
 
-import { NotificationModal } from "../components";
-
 import { useParams } from "react-router-dom";
 
 import { mainUrl } from "../constants";
-
-import { useDispatch, useSelector } from "react-redux";
 
 const SingleProduct = () => {
   const params = useParams();
 
   const [equipment, setEquipment] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-
-  const { showModal, message } = useSelector((store) => store.notification);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     axios

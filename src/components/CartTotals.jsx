@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+
 import styled from "styled-components";
 
 import {
@@ -13,8 +13,6 @@ import {
 
 const CartTotals = ({ payment_method }) => {
   const { cartTotal } = useSelector((store) => store.cart);
-
-  const { id: userId } = useSelector((store) => store.user);
 
   return (
     <Wrapper>
