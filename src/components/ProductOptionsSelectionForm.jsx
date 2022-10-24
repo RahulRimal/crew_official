@@ -167,7 +167,6 @@ const ProductOptionsSelectionForm = ({
         ref={cartItemOptionsFormRef}
         onSubmit={(e) => {
           e.preventDefault();
-          // const url = `${mainUrl}carts/${cartId}/items/`;
           const tenure = `${startDate}-${endDate}`;
 
           if (cartItem) {
@@ -229,7 +228,7 @@ const ProductOptionsSelectionForm = ({
               value={selectedQuantity}
               onChange={(e) => {
                 let name = e.target.name;
-                let value = e.target.value;
+                let value = parseInt(e.target.value);
                 dispatch(updateOptions({ name, value }));
               }}
             />

@@ -32,7 +32,9 @@ const ProductOptionsSelection = ({ product }) => {
         return true;
       return false;
     });
-    setItemInCart(check[check.length - 1]);
+
+    if (check.includes(true)) setItemInCart(true);
+    else setItemInCart(false);
   }, [cartItems, id, selectedLocation, selectedQuantity, startDate, endDate]);
 
   return (
@@ -44,8 +46,6 @@ const ProductOptionsSelection = ({ product }) => {
       />
       {!itemInCart && (
         <div className="login-addcart-btns">
-          {/* <Link to="/cart"> */}
-          {/* <button type="submit" className="add-to-cart-btn"> */}
           <button
             type="button"
             className="add-to-cart-btn"
@@ -60,7 +60,6 @@ const ProductOptionsSelection = ({ product }) => {
           >
             Add to cart
           </button>
-          {/* </Link> */}
           <button disabled={!agreedToSubmitDocument} className="book-now-btn">
             Book now
           </button>
@@ -72,15 +71,7 @@ const ProductOptionsSelection = ({ product }) => {
           <h1>Equipment is already in the cart</h1>
           <div>
             <Link to="/products">
-              <button
-                className="add-to-cart-btn"
-                // onClick={(e) => {
-
-                //   console.log(newItem);
-                // }}
-              >
-                Continue shopping
-              </button>
+              <button className="add-to-cart-btn">Continue shopping</button>
             </Link>
             <Link to="/cart">
               <button className="checkout-btn">Go to Cart</button>

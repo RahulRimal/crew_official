@@ -34,7 +34,13 @@ const SingleProduct = () => {
 
   const { featured_image, images } = equipment;
 
-  if (featured_image !== undefined) images.unshift({ image: featured_image });
+  if (featured_image !== undefined) {
+    const imageToAdd = { image: featured_image };
+    // if (!images.includes(imageToAdd)) {
+    if (JSON.stringify(images[0]) !== JSON.stringify(imageToAdd)) {
+      images.unshift(imageToAdd);
+    }
+  }
 
   if (isLoading) {
     return <Loading />;
@@ -49,9 +55,16 @@ const SingleProduct = () => {
   );
 };
 
+// Spacing system (px)
+// 2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
+
+//Sizing system (px)
+// 10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 2fr 1fr;
+  row-gap: 2.4rem;
 
   /**************************/
   /* BELOW 1344px (Smaller desktops) */
