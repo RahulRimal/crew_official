@@ -1,20 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../logo.png";
 import { HeaderSearchBar, HeaderNav } from "./index";
 
 const TopbarHeader = () => {
+  const [showHeaderSearch, setShowHeaderSearch] = useState(true);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (window.location.pathname === "/") {
+      setShowHeaderSearch(true);
+    } else setShowHeaderSearch(false);
+  }, [location]);
+
   return (
     <Wrapper>
       <header>
         <Link to="/">
           <img src={logo} alt="site logo" width={75} height={75} />
         </Link>
-        {/* {window.location.pathname == "/" ? <HeaderSearchBar /> : <HeaderNav />} */}
-        {window.location.pathname === "/" && <HeaderSearchBar />}
-        {window.location.pathname !== "/" && <HeaderNav />}
+
+        {showHeaderSearch ? <HeaderSearchBar /> : <HeaderNav />}
       </header>
     </Wrapper>
   );
