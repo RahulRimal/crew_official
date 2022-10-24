@@ -9,6 +9,7 @@ export { default as GridProduct } from "./GridProduct";
 export { default as ProductImagesGallery } from "./ProductImagesGallery";
 export { default as ProductInfoTab } from "./ProductInfoTab";
 export { default as ProductOptionsSelection } from "./ProductOptionsSelection";
+export { default as ProductOptionsSelectionForm } from "./ProductOptionsSelectionForm";
 export { default as ListProduct } from "./ListProduct";
 export { default as Loading } from "./Loading";
 export { default as Footer } from "./Footer";
