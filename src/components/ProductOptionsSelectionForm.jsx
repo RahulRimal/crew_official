@@ -12,7 +12,7 @@ import {
   clearOptions,
 } from "../features/productOptions/productOptionsSlice";
 
-import { addItemToCart } from "../features/cart/cartSlice";
+import { addItemToCart, updateCartItem } from "../features/cart/cartSlice";
 
 import {
   formatDate,
@@ -23,9 +23,39 @@ import {
   formatPrice,
 } from "../utils/helpers";
 
-const ProductOptionsSelectionForm = ({ product, cartItemOptionsFormRef }) => {
-  const { id, price } = product;
+const ProductOptionsSelectionForm = ({
+  product,
+  cartItemOptionsFormRef,
+  cartItem,
+}) => {
+  const { id: productId, price } = product;
   const dispatch = useDispatch();
+
+  useState(() => {
+    if (cartItem) {
+      const { location, quantity, tenure } = cartItem;
+
+      if (location) {
+        let name = "selectedLocation";
+        let value = location;
+        dispatch(updateOptions({ name, value }));
+      }
+      if (quantity) {
+        let name = "selectedQuantity";
+        let value = quantity;
+        dispatch(updateOptions({ name, value }));
+      }
+      if (tenure) {
+        let tenureDate = tenure.split("-");
+        let name = "startDate";
+        let value = tenureDate[0];
+        dispatch(updateOptions({ name, value }));
+        name = "endDate";
+        value = tenureDate[1];
+        dispatch(updateOptions({ name, value }));
+      }
+    }
+  }, []);
 
   const {
     startDate,
@@ -104,7 +134,7 @@ const ProductOptionsSelectionForm = ({ product, cartItemOptionsFormRef }) => {
               key={idx}
             >
               <p>
-                {getFormattedDaysString(p[0])}{" "}
+                {getFormattedDaysString(p[0])}
                 {getFormattedDaysString(p[0]) === "1" ? "Day" : "Days"}
               </p>
               <span>Rs. {formatPrice(p[1])}</span>
@@ -140,15 +170,27 @@ const ProductOptionsSelectionForm = ({ product, cartItemOptionsFormRef }) => {
           // const url = `${mainUrl}carts/${cartId}/items/`;
           const tenure = `${startDate}-${endDate}`;
 
-          dispatch(
-            addItemToCart({
-              cartId,
-              id,
-              selectedQuantity,
-              selectedLocation,
-              tenure,
-            })
-          );
+          if (cartItem) {
+            dispatch(
+              updateCartItem({
+                cartId,
+                cartItemId: cartItem.id,
+                selectedQuantity,
+                selectedLocation,
+                tenure,
+              })
+            );
+          } else {
+            dispatch(
+              addItemToCart({
+                cartId,
+                productId,
+                selectedQuantity,
+                selectedLocation,
+                tenure,
+              })
+            );
+          }
         }}
       >
         <div className="pickup-and-quantity">
@@ -211,6 +253,7 @@ const ProductOptionsSelectionForm = ({ product, cartItemOptionsFormRef }) => {
           </div>
           <div>
             <label>Days selected</label>
+            <br />
             <input
               type="text"
               className="days-count"

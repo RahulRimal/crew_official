@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 
 import {
@@ -16,9 +16,7 @@ import { increase, decrease, removeItem } from "../features/cart/cartSlice";
 import { getTenureDays } from "../utils/helpers";
 import { mainUrl } from "../constants";
 import axios from "axios";
-
-let isFirst = true;
-let isSecond = true;
+import ProductOptionsSelectionForm from "./ProductOptionsSelectionForm";
 
 const CartItem = ({ item }) => {
   const { id, equipment, quantity, tenure, location } = item;
@@ -28,28 +26,11 @@ const CartItem = ({ item }) => {
   const dispatch = useDispatch();
   const { id: cartId, cartItems } = useSelector((store) => store.cart);
 
+  const cartItemOptionsFormRef = useRef();
+  const [showEditForm, setShowEditForm] = useState(false);
+
   let url = `${mainUrl}carts/${cartId}/items/${id}/`;
   const itemPosition = cartItems.findIndex((element) => element.id === id);
-
-  useEffect(() => {
-    if (isFirst) {
-      isFirst = false;
-      return;
-    }
-    if (isSecond) {
-      isSecond = false;
-      return;
-    }
-    axios
-      .patch(url, {
-        quantity: cartItems[itemPosition].quantity,
-        tenure: cartItems[itemPosition].tenure,
-        locations: cartItems[itemPosition].location,
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [quantity, tenure, location, cartItems, itemPosition, url]);
 
   return (
     <Wrapper>
@@ -69,7 +50,38 @@ const CartItem = ({ item }) => {
                 {location}
               </p>
               <div className="edit-item">
-                <button type="button">Change</button>
+                {showEditForm && (
+                  <div className="edit-form">
+                    <div className="edit-area">
+                      <ProductOptionsSelectionForm
+                        product={equipment}
+                        cartItemOptionsFormRef={cartItemOptionsFormRef}
+                        cartItem={cartItems[itemPosition]}
+                      />
+                      <button
+                        className="btn"
+                        type="button"
+                        onClick={() => {
+                          if (cartItemOptionsFormRef.current.reportValidity()) {
+                            cartItemOptionsFormRef.current.dispatchEvent(
+                              new Event("submit", {
+                                bubbles: true,
+                                cancelable: true,
+                              })
+                            );
+                            setShowEditForm(false);
+                          }
+                        }}
+                        // onClick={() => setShowEditForm(false)}
+                      >
+                        Done
+                      </button>
+                    </div>
+                  </div>
+                )}
+                <button onClick={() => setShowEditForm(true)} type="button">
+                  Change
+                </button>
               </div>
             </div>
           </div>
@@ -173,6 +185,61 @@ const Wrapper = styled.div`
         border: none;
         color: var(--primary-color);
         cursor: pointer;
+      }
+
+      .edit-form {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        left: 0;
+        top: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+        padding: 0.4rem 1.2rem;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+
+        z-index: 99;
+
+        .edit-area {
+          background: var(--primary-white);
+          padding: 1.2rem;
+          border-radius: 5px;
+
+          .btn {
+            font-size: 1.6rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: var(--primary-color);
+            color: var(--primary-white);
+            border-radius: 4px;
+            margin-top: 3.2rem;
+            padding: 0.8rem 4.8rem;
+          }
+
+          .date-picker {
+            position: relative;
+            grid-template-columns: 2fr 1fr;
+            align-items: end;
+          }
+          .security-deposit {
+            display: none;
+          }
+
+          .rdrCalendarWrapper {
+            position: absolute;
+            top: -200px;
+            width: 55%;
+            left: 47%;
+            padding-bottom: 42px;
+
+            .rdrMonth {
+              width: 100%;
+            }
+          }
+        }
       }
     }
   }
@@ -280,6 +347,34 @@ const Wrapper = styled.div`
       width: 99%;
       margin: 0.4rem auto;
       background-color: var(--primary-black);
+    }
+
+    .edit-area {
+      div:first-child {
+        grid-column: 1 / 2;
+      }
+      div:nth-child(3) {
+        margin-top: 0;
+      }
+
+      .container {
+        font-size: 1.2rem;
+        padding-bottom: 0;
+      }
+
+      .pickup-and-quantity {
+        /* flex-direction: column; */
+        gap: 1.2rem;
+        text-align: right;
+
+        div:first-child {
+          width: 200%;
+        }
+
+        input {
+          width: 100%;
+        }
+      }
     }
   }
 `;

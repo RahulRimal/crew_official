@@ -32,17 +32,18 @@ export const getCartItems = createAsyncThunk(
 export const addItemToCart = createAsyncThunk(
   "cart/addItemToCart",
   async (data, { dispatch }) => {
-    const { cartId, id, selectedQuantity, selectedLocation, tenure } = data;
+    const { cartId, productId, selectedQuantity, selectedLocation, tenure } =
+      data;
     const url = `${mainUrl}carts/${cartId}/items/`;
     try {
       const response = await axios.post(url, {
-        equipment_id: id,
+        equipment_id: productId,
         quantity: selectedQuantity,
         location: selectedLocation,
         tenure: tenure,
       });
 
-      if (response.status == 201) {
+      if (response.status === 201) {
         dispatch(getCartItems(cartId));
         let name = "message";
         let value = "Equipment successfully added to the cart";
@@ -51,6 +52,28 @@ export const addItemToCart = createAsyncThunk(
         value = true;
         dispatch(updateNotification({ name, value }));
       }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const updateCartItem = createAsyncThunk(
+  "cart/updateCartItem",
+  async (data) => {
+    const { cartId, cartItemId, selectedQuantity, selectedLocation, tenure } =
+      data;
+    try {
+      const response = await axios.patch(
+        `${mainUrl}carts/${cartId}/items/${cartItemId}/`,
+        {
+          quantity: selectedQuantity,
+          tenure: tenure,
+          location: selectedLocation,
+        }
+      );
+      const data = response.data;
+      return { cartItemId, data };
     } catch (error) {
       console.log(error);
     }
@@ -80,10 +103,25 @@ const cartSlice = createSlice({
     increase: (state, { payload }) => {
       const cartItem = state.cartItems.find((item) => item.id === payload.id);
       cartItem.quantity = cartItem.quantity + 1;
+
+      axios
+        .patch(`${mainUrl}carts/${state.id}/items/${cartItem.id}/`, {
+          quantity: cartItem.quantity,
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     decrease: (state, { payload }) => {
       const cartItem = state.cartItems.find((item) => item.id === payload.id);
       cartItem.quantity = cartItem.quantity - 1;
+      axios
+        .patch(`${mainUrl}carts/${state.id}/items/${cartItem.id}/`, {
+          quantity: cartItem.quantity,
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
     calculateTotals: (state) => {
       let amount = 0;
@@ -122,6 +160,30 @@ const cartSlice = createSlice({
       state.isLoading = false;
     },
     [addItemToCart.rejected]: (state) => {
+      state.isLoading = false;
+    },
+    [updateCartItem.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [updateCartItem.fulfilled]: (state, action) => {
+      const { cartItemId, data } = action.payload;
+      const { location, tenure, quantity } = data;
+
+      const itemIndex = state.cartItems.findIndex(
+        (obj) => obj.id === cartItemId
+      );
+
+      const updatedItem = {
+        ...state.cartItems[itemIndex],
+        location: location,
+        tenure: tenure,
+        quantity: quantity,
+      };
+
+      state.cartItems[itemIndex] = updatedItem;
+      state.isLoading = false;
+    },
+    [updateCartItem.rejected]: (state) => {
       state.isLoading = false;
     },
   },
