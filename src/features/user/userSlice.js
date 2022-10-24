@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { Cookies } from "react-cookie";
-import { mainUrl } from "../../constants";
+import { customerUrl, mainUrl, userUrl } from "../../constants";
 import { updateNotification } from "../notification/notificationSlice";
 
 const initialState = {
@@ -15,8 +15,6 @@ const initialState = {
   address: {},
   membership: "",
 };
-
-const url = `${mainUrl}customers/me`;
 
 const refreshAccessToken = async function () {
   const userCookie = new Cookies();
@@ -34,12 +32,12 @@ const refreshAccessToken = async function () {
 
 export const getUser = createAsyncThunk("user/getUser", async (accessToken) => {
   try {
-    const response = await axios(url, {
+    const response = await axios(`${mainUrl}auth/users/me`, {
       headers: {
         Authorization: `FC ` + accessToken,
       },
     });
-    return response.data;
+    console.log(response);
   } catch (error) {
     // console.log(error.response.status);
     if (error.response.status === 401) {
@@ -48,29 +46,6 @@ export const getUser = createAsyncThunk("user/getUser", async (accessToken) => {
   }
 });
 
-export const loginUser = createAsyncThunk(
-  "user/loginUser",
-  async (loginInfo, { dispatch }) => {
-    const { email, password } = loginInfo;
-    const loginUrl = `${mainUrl}auth/jwt/create`;
-    try {
-      const response = await axios.post(loginUrl, {
-        email: email,
-        password: password,
-      });
-      dispatch(getUser(response.data.access));
-      let name = "message";
-      let value = "Logged in successfully";
-      dispatch(updateNotification({ name, value }));
-      name = "showModal";
-      value = true;
-      dispatch(updateNotification({ name, value }));
-      return response.data;
-    } catch (error) {
-      console.log(error);
-    }
-  }
-);
 export const registerUser = createAsyncThunk(
   "user/registerUser",
   async (registerInfo, { dispatch }) => {
@@ -94,7 +69,7 @@ export const registerUser = createAsyncThunk(
       }
     } catch (error) {
       // console.log(error.response.status);
-      // console.log(error);
+      console.log(error);
       if (error.response.status === 400) {
         const data = error.response.data;
         if (data.email) {
@@ -109,6 +84,33 @@ export const registerUser = createAsyncThunk(
     }
   }
 );
+
+export const loginUser = createAsyncThunk(
+  "user/loginUser",
+  async (loginInfo, { dispatch }) => {
+    const { email, password } = loginInfo;
+    // console.log(email, password);
+    const loginUrl = `${mainUrl}auth/jwt/create/`;
+    try {
+      const response = await axios.post(loginUrl, {
+        email: email,
+        password: password,
+      });
+      dispatch(getUser(response.data.access));
+      let name = "message";
+      let value = "Logged in successfully";
+      dispatch(updateNotification({ name, value }));
+      name = "showModal";
+      value = true;
+      dispatch(updateNotification({ name, value }));
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+// export const updateUserInfo = createAsyncThunk("user/updateUserInfo", () => {});
 
 const userSlice = createSlice({
   name: "user",

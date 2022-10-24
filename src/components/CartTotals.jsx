@@ -16,8 +16,6 @@ const CartTotals = ({ payment_method }) => {
 
   const { id: userId } = useSelector((store) => store.user);
 
-  const handleBooking = () => {};
-
   return (
     <Wrapper>
       <div className="cart-totals">
@@ -41,19 +39,6 @@ const CartTotals = ({ payment_method }) => {
           <p>Grand Total:</p>
           <span>Rs. {formatPrice(getAmountWithTax(cartTotal))}</span>
         </div>
-
-        {window.location.href.includes("cart") && (
-          <Link to="/checkout">
-            <button type="button">Go to checkout</button>
-          </Link>
-        )}
-        {userId !== 0 && window.location.href.includes("checkout") && (
-          <Link to="/checkout">
-            <button type="button" onClick={handleBooking}>
-              Confirm booking
-            </button>
-          </Link>
-        )}
       </div>
     </Wrapper>
   );
@@ -95,20 +80,6 @@ const Wrapper = styled.div`
         color: var(--primary-color);
       }
     }
-  }
-
-  button {
-    border: none;
-    background-color: var(--primary-color);
-    color: white;
-    width: 100%;
-    padding: 0.8rem 1.2rem;
-    border-radius: 4px;
-    margin-top: 1.6rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 600;
-    cursor: pointer;
   }
 `;
 

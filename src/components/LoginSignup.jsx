@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
@@ -17,9 +17,11 @@ const LoginSignup = () => {
   const [email, setEmail] = useState("");
   const [fullName, setFullName] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(true);
   const [showPasswordError, setShowPasswordError] = useState(false);
+
+  const passwordRef = useRef();
+  const confirmPasswordRef = useRef();
 
   const { loading } = useSelector((store) => store.user);
 
@@ -29,14 +31,15 @@ const LoginSignup = () => {
     let timestamp = Date.now();
     let username = fullName.toLocaleLowerCase().replace(/\s/g, "");
     username = username + "_" + timestamp;
+    const password = passwordRef.current.value;
 
     dispatch(registerUser({ username, email, password }));
   };
 
-  const validatePassword = (e) => {
-    const value = e.target.value;
-    setConfirmPassword(value);
-    if (value && value !== password) {
+  const validatePassword = () => {
+    const password = passwordRef.current.value;
+    const confirmPassword = confirmPasswordRef.current.value;
+    if (confirmPassword !== password) {
       setShowPasswordError(true);
     } else setShowPasswordError(false);
   };
@@ -143,6 +146,8 @@ const LoginSignup = () => {
               <input
                 type={visible ? "text" : "password"}
                 placeholder="Password"
+                ref={passwordRef}
+                onChange={validatePassword}
                 required
               />
               {visible ? (
@@ -161,7 +166,7 @@ const LoginSignup = () => {
               <input
                 type={visible ? "text" : "password"}
                 placeholder="Confirm password"
-                value={confirmPassword}
+                ref={confirmPasswordRef}
                 onChange={validatePassword}
                 required
               />

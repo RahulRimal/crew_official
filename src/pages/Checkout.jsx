@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { CartTotals, LoginSignup } from "../components";
@@ -12,7 +12,7 @@ import ReactLoading from "react-loading";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { mainUrl } from "../constants";
 
 import { updateUser } from "../features/user/userSlice";
@@ -25,6 +25,8 @@ const Checkout = () => {
 
   const { id: userId, loading } = useSelector((store) => store.user);
 
+  const refContainer = useRef(null);
+
   // const [showLogin, setShowLogin] = useState(true);
 
   const dispatch = useDispatch();
@@ -34,6 +36,11 @@ const Checkout = () => {
   const { first_name, last_name, email, phone } = useSelector(
     (store) => store.user
   );
+
+  const handleBooking = (e) => {
+    e.preventDefault();
+    console.log("book here");
+  };
 
   const settings = {
     dots: true,
@@ -64,7 +71,7 @@ const Checkout = () => {
         </button>
         <h1 className="title">Checkout</h1>
         <div className="checkout-body">
-          <form onSubmit={(e) => e.preventDefault()}>
+          <form onSubmit={handleBooking} ref={refContainer}>
             <section>
               <h4>1. Contact Information</h4>
               <div className="contact-info">
@@ -76,6 +83,7 @@ const Checkout = () => {
                     name="first_name"
                     value={first_name}
                     onChange={updateUserInfo}
+                    required
                   />
                 </div>
                 <div>
@@ -86,6 +94,7 @@ const Checkout = () => {
                     name="last_name"
                     value={last_name}
                     onChange={updateUserInfo}
+                    required
                   />
                 </div>
                 <div>
@@ -98,6 +107,7 @@ const Checkout = () => {
                     prefix="+977"
                     value={phone}
                     onChange={updateUserInfo}
+                    required
                   />
                 </div>
                 <div>
@@ -108,6 +118,7 @@ const Checkout = () => {
                     name="email"
                     value={email}
                     onChange={updateUserInfo}
+                    required
                   />
                 </div>
                 {/* <div>
@@ -205,6 +216,24 @@ const Checkout = () => {
           </Slider>
         </div>
         <CartTotals payment_method={payByEsewa ? "esewa" : "khalti"} />
+
+        {userId !== 0 && (
+          // <Link to="/checkout">
+          <button
+            type="button"
+            className="checkout-btn"
+            onClick={() => {
+              if (refContainer.current.reportValidity()) {
+                refContainer.current.dispatchEvent(
+                  new Event("submit", { bubbles: true, cancelable: true })
+                );
+              }
+            }}
+          >
+            Confirm booking
+          </button>
+          // </Link>
+        )}
         {!userId && (
           <div className="login-signup-popup">
             {/* <h3 className="login-text" onClick={() => setShowLogin(true)}> */}
@@ -236,6 +265,12 @@ const Wrapper = styled.section`
   display: grid;
   grid-template-columns: 3fr 1fr;
   padding: 4.8rem 12.8rem;
+
+  /* form {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    padding: 4.8rem 12.8rem;
+  } */
 
   main,
   aside {
@@ -436,6 +471,20 @@ const Wrapper = styled.section`
 
     .loading-spinner {
       margin: 1.6rem auto;
+    }
+
+    .checkout-btn {
+      border: none;
+      background-color: var(--primary-color);
+      color: white;
+      width: 100%;
+      padding: 0.8rem 1.2rem;
+      border-radius: 4px;
+      margin-top: 1.6rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+      cursor: pointer;
     }
   }
 

@@ -50,7 +50,12 @@ const ProductCart = () => {
         </div>
       </div>
       <footer className="cart-footer">
-        <CartTotals />
+        <div>
+          <CartTotals />
+          <Link to="/checkout" className="to-checkout">
+            <button type="button">Go to checkout</button>
+          </Link>
+        </div>
       </footer>
     </Wrapper>
   );
@@ -120,6 +125,24 @@ const Wrapper = styled.section`
     margin-bottom: 3.2rem;
     .cart-totals {
       width: 35%;
+    }
+
+    .to-checkout {
+      display: block;
+      text-align: end;
+      button {
+        border: none;
+        background-color: var(--primary-color);
+        color: white;
+        width: 35%;
+        padding: 0.8rem 1.2rem;
+        border-radius: 4px;
+        margin-top: 1.6rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600;
+        cursor: pointer;
+      }
     }
   }
 
