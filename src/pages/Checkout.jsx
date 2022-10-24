@@ -59,7 +59,7 @@ const Checkout = () => {
     speed: 200,
     autoplaySpeed: 2000,
     cssEase: "linear",
-    adaptiveHeight: true,
+    // adaptiveHeight: true,
   };
 
   const updateUserInfo = (e) => {
@@ -489,6 +489,19 @@ const Wrapper = styled.section`
       letter-spacing: 1px;
       font-weight: 600;
       cursor: pointer;
+    }
+  }
+
+  .slick-slider {
+    margin-top: 1.2rem;
+    .slick-slide {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      div {
+        width: 70%;
+      }
     }
   }
 
