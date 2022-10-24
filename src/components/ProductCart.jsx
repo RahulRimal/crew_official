@@ -201,6 +201,12 @@ const Wrapper = styled.section`
           font-size: 1.4rem;
         }
       }
+
+      .to-checkout {
+        button {
+          width: 50%;
+        }
+      }
     }
   }
 `;

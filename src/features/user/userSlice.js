@@ -55,11 +55,11 @@ export const getCustomer = createAsyncThunk(
           Authorization: `FC ` + accessToken,
         },
       });
+      console.log(response);
       return response.data;
     } catch (error) {
-      // console.log(error.response.status);
-      if (error.response.status === 401) {
-        refreshAccessToken();
+      if (error.response.status === 500) {
+        getUser(accessToken);
       }
     }
   }

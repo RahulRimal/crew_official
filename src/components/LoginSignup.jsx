@@ -18,6 +18,7 @@ const LoginSignup = () => {
   const [fullName, setFullName] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(true);
+  const [agreeToTerms, setAgreeToTerms] = useState(true);
   const [showPasswordError, setShowPasswordError] = useState(false);
 
   const passwordRef = useRef();
@@ -175,8 +176,13 @@ const LoginSignup = () => {
               )}
             </div>
             <div className="remember-me">
-              <input type="checkbox" checked name="remember_me" /> I agree with
-              terms and conditions
+              <input
+                type="checkbox"
+                checked={agreeToTerms}
+                onChange={() => setAgreeToTerms(!agreeToTerms)}
+                name="remember_me"
+              />
+              I agree with terms and conditions
             </div>
             {loading ? (
               <div style={{ display: "flex", justifyContent: "center" }}>

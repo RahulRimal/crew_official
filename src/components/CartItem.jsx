@@ -146,7 +146,8 @@ const Wrapper = styled.div`
     img {
       width: 9.8rem;
       padding: 0.4rem;
-      object-fit: cover;
+      /* object-fit: cover; */
+      object-fit: contain;
     }
 
     div {

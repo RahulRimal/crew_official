@@ -201,7 +201,7 @@ const Checkout = () => {
         <div className="checkout-items">
           <Slider {...settings}>
             {cartItems.map((item) => {
-              const { id, equipment, quantity, price } = item;
+              const { id, equipment, quantity } = item;
               return (
                 <div key={id} className="items-info">
                   <img
@@ -213,10 +213,11 @@ const Checkout = () => {
                       <span>Quantity: </span>
                       {quantity}
                     </p>
-                    <p className="price">
+                    {/* Can't add this because there is no price in cart item model */}
+                    {/* <p className="price">
                       <span>Price: </span>
                       {price}
-                    </p>
+                    </p> */}
                   </div>
                 </div>
               );
@@ -225,7 +226,8 @@ const Checkout = () => {
         </div>
         <CartTotals payment_method={payByEsewa ? "esewa" : "khalti"} />
 
-        {userId !== 0 && (
+        {/* {userId && userId !== 0 ? ( */}
+        {userId !== 0 ? (
           // <Link to="/checkout">
           <button
             type="button"
@@ -240,9 +242,8 @@ const Checkout = () => {
           >
             Confirm booking
           </button>
+        ) : (
           // </Link>
-        )}
-        {!userId && (
           <div className="login-signup-popup">
             {/* <h3 className="login-text" onClick={() => setShowLogin(true)}> */}
             <h3 className="login-text">Please login to checkout</h3>
@@ -452,12 +453,7 @@ const Wrapper = styled.section`
           /* height: 20rem; */
         }
         div {
-          display: flex;
-          justify-content: space-between;
-          margin: 1.6rem 0;
-
           p {
-            width: 50%;
             font-size: 1.4rem;
             font-weight: 500;
 
@@ -576,6 +572,12 @@ const Wrapper = styled.section`
   @media (max-width: 34em) {
     aside {
       margin: 0 0.8rem;
+    }
+
+    .slick-list {
+      /* width: 256px; */
+      width: 80%;
+      margin: auto;
     }
 
     .checkout-body {

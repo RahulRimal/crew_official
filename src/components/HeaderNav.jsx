@@ -135,6 +135,44 @@ const Wrapper = styled.div`
     justify-content: start;
     gap: 0.8rem;
   }
+
+  /**************************/
+  /* BELOW 1344px (Smaller desktops) */
+  /**************************/
+
+  @media (max-width: 84em) {
+  }
+
+  /**************************/
+  /* BELOW 1200px (Landscape Tablets) */
+  /**************************/
+
+  @media (max-width: 75em) {
+  }
+
+  /**************************/
+  /* BELOW 944px (Tablets) */
+  /**************************/
+
+  @media (max-width: 59em) {
+  }
+
+  /**************************/
+  /* BELOW 704px (Smaller tablets) */
+  /**************************/
+
+  @media (max-width: 44em) {
+  }
+
+  /**************************/
+  /* BELOW 544px (Phones) */
+  /**************************/
+
+  @media (max-width: 34em) {
+    .login-signup-form {
+      width: 95%;
+    }
+  }
 `;
 
 export default HeaderNav;
