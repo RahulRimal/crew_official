@@ -5,6 +5,7 @@ import { getFormattedDaysString } from "../utils/helpers";
 import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri";
 
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const GridProduct = ({ info }) => {
   const { id, name, price, featured_image } = info;
@@ -16,48 +17,56 @@ const GridProduct = ({ info }) => {
   const prices = Object.entries(price);
 
   return (
-    <Wrapper>
-      <Link to={`/product/${id}`}>
-        <img src={featured_image} alt="product-img" />
-      </Link>
-      <Link to={`/product/${id}`}>
-        <h5>{name}</h5>
-      </Link>
-      <footer>
-        <ul>
-          {prices.map((p, idx) => {
-            return (
-              <li
-                key={idx}
-                className={idx === 0 || showAllPrices ? "show" : "hide-it"}
-              >
-                <div>
-                  <p>Rs. {p[1]} / day</p>
-                  <span>
-                    {getFormattedDaysString(p[0])}{" "}
-                    {getFormattedDaysString(p[0]) === "1" ? "Day" : "Days"}
-                  </span>
-                </div>
-                <button
-                  type="button"
-                  className={
-                    idx === 0 && !showAllPrices ? "show-it" : "hide-it"
-                  }
-                  onClick={() => setShowAllPrices(true)}
+    <motion.div
+      layout
+      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      exit={{ opacity: 0 }}
+    >
+      <Wrapper>
+        <Link to={`/product/${id}`}>
+          <img src={featured_image} alt="product-img" />
+        </Link>
+        <Link to={`/product/${id}`}>
+          <h5>{name}</h5>
+        </Link>
+        <footer>
+          <ul>
+            {prices.map((p, idx) => {
+              return (
+                <li
+                  key={idx}
+                  className={idx === 0 || showAllPrices ? "show" : "hide-it"}
                 >
-                  <RiArrowDropDownLine />
-                </button>
-                <button
-                  type="button"
-                  className={idx === 0 && showAllPrices ? "show-it" : "hide-it"}
-                  onClick={() => setShowAllPrices(false)}
-                >
-                  <RiArrowDropUpLine />
-                </button>
-              </li>
-            );
-          })}
-          {/* {prices.map((p, idx) => {
+                  <div>
+                    <p>Rs. {p[1]} / day</p>
+                    <span>
+                      {getFormattedDaysString(p[0])}{" "}
+                      {getFormattedDaysString(p[0]) === "1" ? "Day" : "Days"}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    className={
+                      idx === 0 && !showAllPrices ? "show-it" : "hide-it"
+                    }
+                    onClick={() => setShowAllPrices(true)}
+                  >
+                    <RiArrowDropDownLine />
+                  </button>
+                  <button
+                    type="button"
+                    className={
+                      idx === 0 && showAllPrices ? "show-it" : "hide-it"
+                    }
+                    onClick={() => setShowAllPrices(false)}
+                  >
+                    <RiArrowDropUpLine />
+                  </button>
+                </li>
+              );
+            })}
+            {/* {prices.map((p, idx) => {
             return (
               <li key={idx}>
                 <p>Rs. {p[1]} / day</p>
@@ -68,9 +77,10 @@ const GridProduct = ({ info }) => {
               </li>
             );
           })} */}
-        </ul>
-      </footer>
-    </Wrapper>
+          </ul>
+        </footer>
+      </Wrapper>
+    </motion.div>
   );
 };
 

@@ -3,6 +3,8 @@ import styled from "styled-components";
 
 import { GridProduct, Loading } from "./index";
 
+import { AnimatePresence, motion } from "framer-motion";
+
 const ProductsGrid = () => {
   const { filtered_products, is_loading } = useSelector(
     (store) => store.filter
@@ -21,11 +23,16 @@ const ProductsGrid = () => {
   }
 
   return (
-    <Wrapper>
-      {filtered_products.map((product) => {
-        return <GridProduct info={product} key={product.id} />;
-      })}
-    </Wrapper>
+    <motion.div layout>
+      <Wrapper>
+        <AnimatePresence>
+          {filtered_products.map((product) => {
+            return <GridProduct info={product} key={product.id} />;
+          })}
+        </AnimatePresence>
+        ;
+      </Wrapper>
+    </motion.div>
   );
 };
 
