@@ -179,6 +179,9 @@ const Wrapper = styled.div`
   .product-catalog {
     height: 80vh;
     overflow-y: scroll;
+    /* background-color: var(--secondary-color); */
+    background-color: #f1f5f8;
+    padding: 10px;
   }
 
   /* Hide scrollbar for Chrome, Safari and Opera */
@@ -189,7 +192,7 @@ const Wrapper = styled.div`
   /* Hide scrollbar for IE, Edge and Firefox */
   .product-catalog {
     -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
+    scrollbar-width: none; /* Firefox */  
   }
 
   .products-sort {

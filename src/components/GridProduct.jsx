@@ -91,8 +91,11 @@ const GridProduct = ({ info }) => {
 // 10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
 
 const Wrapper = styled.article`
-  /* border: 1px solid var(--secondary-gray); */
-  /* padding: 0.8rem; */
+  background-color: var(--primary-white);
+
+  border-radius: 10px;
+  padding: 1rem;
+
   img {
     width: 100%;
     height: 17.5rem;

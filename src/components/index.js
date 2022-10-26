@@ -18,3 +18,5 @@ export { default as CartItem } from "./CartItem";
 export { default as CartTotals } from "./CartTotals";
 export { default as LoginSignup } from "./LoginSignup";
 export { default as NotificationModal } from "./NotificationModal";
+export { default as FeaturedProducts } from "./FeaturedProducts";
+export { default as HeaderHero } from "./HeaderHero";

@@ -115,7 +115,7 @@ const Wrapper = styled.div`
     /* height: 84vh; */
     height: 100vh;
     background-color: var(--primary-color);
-    border-radius: 5px;
+    border-radius: 2.4rem;
     max-width: 4.4rem;
     padding: 1.2rem;
     z-index: 1;
@@ -132,7 +132,8 @@ const Wrapper = styled.div`
   } */
 
   .sidebar-nav:hover + .sidebar-wide-nav {
-    transform: translate(0);
+    /* transform: translate(0); */
+    transform: translateX(-10px);
   }
 
   .sidebar-wide-nav {
@@ -141,7 +142,10 @@ const Wrapper = styled.div`
     padding: 10px;
     width: 20rem;
     margin-top: 0.4rem;
-    transform: translateX(-100%);
+    border-radius: 5px;
+    /* border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px; */
+    transform: translateX(-130%);
     transition: all 0.4s cubic-bezier(0, 1.04, 1, 1);
 
     .nav-header {

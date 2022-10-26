@@ -18,7 +18,7 @@ html {
 }
 
 :root {
-  --primary-white: #fff;
+  --primary-white: rgb(255, 255, 255);
   --primary-black: #000;
   --primary-gray: #3d3d3d;
   --secondary-gray: #787878;
@@ -47,7 +47,18 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */  
 }
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+  display: none;
+}
+
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",

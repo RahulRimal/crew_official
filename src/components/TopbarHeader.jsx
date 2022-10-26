@@ -36,12 +36,16 @@ const TopbarHeader = () => {
 // 10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
 
 const Wrapper = styled.div`
+  position: sticky;
+  top: 0;
+  z-index: 99;
   header {
     background-color: var(--primary-color);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 2.4rem;
+    /* padding: 0 2.4rem; */
+    padding: 0 10rem;
   }
 
   /**************************/
