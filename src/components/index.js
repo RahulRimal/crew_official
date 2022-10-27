@@ -20,3 +20,4 @@ export { default as LoginSignup } from "./LoginSignup";
 export { default as NotificationModal } from "./NotificationModal";
 export { default as FeaturedProducts } from "./FeaturedProducts";
 export { default as HeaderHero } from "./HeaderHero";
+export { default as HeaderHero2 } from "./HeaderHero2";

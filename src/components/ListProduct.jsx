@@ -1,48 +1,85 @@
-import React from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import React, { useState } from "react";
+import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri";
 import styled from "styled-components";
+import { getFormattedDaysString } from "../utils/helpers";
 
 const ListProduct = ({ info }) => {
-  const { name, description, price, picture } = info;
+  const { name, description, price, featured_image } = info;
+
+  const [showAllPrices, setShowAllPrices] = useState(false);
+
   const prices = Object.entries(price);
+
   return (
-    <Wrapper>
-      <img src={picture} alt="product-img" />
-      <div className="product-info">
-        <h5>{name}</h5>
-        <footer>
-          <ul>
-            {prices.map((p, id) => {
-              return (
-                <li key={id}>
-                  <p>Rs. {p[1]} / day</p>
-                  <span>
-                    {p[0]} {p[0] === "1" ? "Day" : "Days"}
-                  </span>
-                </li>
-              );
-            })}
-            {/* <li>
-              <p>Rs. 600 / day</p>
-              <span>1 Day</span>
-            </li>
-            <li>
-              <p>Rs. 550 / day</p>
-              <span>2-4 Days</span>
-            </li>
-            <li>
-              <p>Rs. 500 / day</p>
-              <span>5-7 Days</span>
-            </li>
-            <li>
-              <p>Rs. 450 / day</p>
-              <span>8 Days ++</span>
-            </li> */}
-          </ul>
-        </footer>
-        <p className="product-desc">{description}</p>
-        <button>details</button>
-      </div>
-    </Wrapper>
+    <motion.div
+      layout
+      animate={{ opacity: 1, height: "auto" }}
+      initial={{ opacity: 0, height: 0 }}
+      exit={{ opacity: 0, height: 0 }}
+    >
+      <Wrapper>
+        <img src={featured_image} alt="product-img" />
+        <div className="product-info">
+          <h5>{name}</h5>
+          <footer>
+            <AnimatePresence>
+              <motion.div
+                layout
+                animate={{ opacity: 1, height: "auto" }}
+                initial={{ opacity: 0, height: 0 }}
+                exit={{ opacity: 0, height: 0 }}
+              >
+                <ul>
+                  {prices.map((p, idx) => {
+                    return (
+                      <li
+                        key={idx}
+                        className={
+                          idx === 0 || showAllPrices ? "show" : "hide-it"
+                        }
+                      >
+                        <div>
+                          <p>Rs. {p[1]} / day</p>
+                          <span>
+                            {getFormattedDaysString(p[0])}{" "}
+                            {getFormattedDaysString(p[0]) === "1"
+                              ? "Day"
+                              : "Days"}
+                          </span>
+                        </div>
+                        <button
+                          type="button"
+                          className={
+                            idx === 0 && !showAllPrices ? "show-it" : "hide-it"
+                          }
+                          onClick={() => setShowAllPrices(true)}
+                        >
+                          <RiArrowDropDownLine />
+                        </button>
+                        <button
+                          type="button"
+                          className={
+                            idx === 0 && showAllPrices ? "show-it" : "hide-it"
+                          }
+                          onClick={() => setShowAllPrices(false)}
+                        >
+                          <RiArrowDropUpLine />
+                        </button>
+                      </li>
+                    );
+                  })}
+                  {/* </motion.div> */}
+                  {/* </AnimatePresence> */}
+                </ul>
+              </motion.div>
+            </AnimatePresence>
+          </footer>
+          <p className="product-desc">{description}</p>
+          <button className="btn">details</button>
+        </div>
+      </Wrapper>
+    </motion.div>
   );
 };
 
@@ -58,12 +95,16 @@ const Wrapper = styled.article`
   align-items: center;
   gap: 2rem;
   margin-bottom: 2.4rem;
+  background-color: var(--primary-white);
+  border-radius: 10px;
+  padding: 1rem;
 
   img {
-    width: auto;
+    /* width: auto; */
+    width: 20rem;
     height: 20rem;
     /* max-height: 100%; */
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 0.8rem;
   }
 
@@ -79,13 +120,28 @@ const Wrapper = styled.article`
 
   footer {
     margin-top: 0.4rem;
-    width: 25rem;
-    /* padding: 0 1.6rem; */
+    /* width: 25rem; */
     font-family: "Roboto";
     li {
+      width: 25rem;
       display: flex;
-      justify-content: space-between;
       font-size: 1.2rem;
+      gap: 0.4rem;
+      font-weight: 600;
+
+      button {
+        border: none;
+        background: none;
+        font-size: 3rem;
+        height: 3rem;
+        cursor: pointer;
+      }
+    }
+
+    li > div {
+      display: flex;
+      align-items: center;
+      gap: 6.4rem;
     }
 
     span {
@@ -96,15 +152,16 @@ const Wrapper = styled.article`
   .product-desc {
     font-size: 1.4rem;
     margin-top: 1.2rem;
+    letter-spacing: 1px;
   }
 
-  button {
+  .btn {
     border: none;
     background: var(--primary-color);
     color: var(--primary-white);
     width: 9.2rem;
     text-transform: uppercase;
-    padding: 0.4rem 1.8rem;
+    padding: 0.8rem 1.8rem;
     border-radius: 3px;
     margin-top: 1.4rem;
     cursor: pointer;

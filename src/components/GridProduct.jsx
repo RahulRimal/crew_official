@@ -66,17 +66,6 @@ const GridProduct = ({ info }) => {
                 </li>
               );
             })}
-            {/* {prices.map((p, idx) => {
-            return (
-              <li key={idx}>
-                <p>Rs. {p[1]} / day</p>
-                <span>
-                  {getFormattedDaysString(p[0])}{" "}
-                  {getFormattedDaysString(p[0]) === "1" ? "Day" : "Days"}
-                </span>
-              </li>
-            );
-          })} */}
           </ul>
         </footer>
       </Wrapper>

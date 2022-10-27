@@ -1,3 +1,4 @@
+import { AnimatePresence, motion } from "framer-motion";
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
@@ -23,7 +24,20 @@ const ProductsList = () => {
   return (
     <Wrapper>
       {filtered_products.map((product) => {
-        return <ListProduct info={product} key={product.id} />;
+        return (
+          <AnimatePresence>
+            <motion.div
+              layout
+              animate={{ height: "auto" }}
+              initial={{ height: 0 }}
+              exit={{ height: 0 }}
+            >
+              <ListProduct info={product} key={product.id} />
+            </motion.div>
+          </AnimatePresence>
+        );
+
+        // return <ListProduct info={product} key={product.id} />;
       })}
     </Wrapper>
   );

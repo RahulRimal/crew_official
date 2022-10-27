@@ -1,9 +1,8 @@
-
 import React from "react";
 
 import styled from "styled-components";
 
-import { FeaturedProducts, HeaderHero, LeftNavbar } from "../components";
+import { FeaturedProducts, HeaderHero2, LeftNavbar } from "../components";
 
 const Home = () => {
   return (
@@ -12,7 +11,8 @@ const Home = () => {
         <LeftNavbar />
       </div>
       <div className="home-wide-content">
-        <HeaderHero />
+        {/* <HeaderHero/> */}
+        <HeaderHero2 />
       </div>
       <div className="home-center-content">
         <FeaturedProducts name={"category"} />
