@@ -232,6 +232,7 @@ const Wrapper = styled.div`
   position: relative;
   height: 600px;
   /* height: 100vh; */
+  margin-bottom: 10rem;
 
   /* .overlay {
     position: absolute;
@@ -256,6 +257,7 @@ const Wrapper = styled.div`
         height: 100%;
         z-index: 97;
         background: rgba(0, 0, 0, 0.3);
+        /* background: rgba(112, 72, 232, 0.3); */
       }
 
       .carousel-content {

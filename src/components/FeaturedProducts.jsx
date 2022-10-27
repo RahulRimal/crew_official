@@ -6,6 +6,8 @@ import { mainUrl } from "../constants";
 import GridProduct from "./GridProduct";
 
 const FeaturedProducts = ({ name }) => {
+  const [shouldShowArrows, setShouldShowArrows] = useState(false);
+
   const [allCategories, setAllCategories] = useState([]);
   useEffect(() => {
     async function getCategories() {
@@ -18,7 +20,7 @@ const FeaturedProducts = ({ name }) => {
       }
     }
     if (name === "category") getCategories();
-  }, []);
+  }, [name]);
 
   const settings = {
     dots: false,
@@ -29,7 +31,7 @@ const FeaturedProducts = ({ name }) => {
     speed: 200,
     autoplaySpeed: 2000,
     cssEase: "linear",
-    arrows: false,
+    arrows: shouldShowArrows,
 
     // adaptiveHeight: true,
   };
@@ -37,21 +39,25 @@ const FeaturedProducts = ({ name }) => {
   return (
     <Wrapper>
       <h1>Featured Equipments</h1>
-      <Slider {...settings}>
-        {allCategories.map((category) => {
-          const { featured_equipment } = category;
-          if (featured_equipment)
-            return (
-              //   <div className="featured-product">
-              <GridProduct
-                key={category.id}
-                info={featured_equipment}
-                className="featured-product"
-              />
-              //   </div>
-            );
-        })}
-      </Slider>
+      <div
+        onMouseOver={() => setShouldShowArrows(true)}
+        onMouseLeave={() => setShouldShowArrows(false)}
+      >
+        <Slider {...settings}>
+          {allCategories.map((category) => {
+            const { featured_equipment } = category;
+            if (featured_equipment)
+              return (
+                <GridProduct
+                  key={category.id}
+                  info={featured_equipment}
+                  className="featured-product"
+                />
+              );
+              return null;
+          })}
+        </Slider>
+      </div>
     </Wrapper>
   );
 };
@@ -81,6 +87,22 @@ const Wrapper = styled.div`
     article:hover {
       box-shadow: -1px 13px 28px 0px rgb(50 50 50 / 52%);
     }
+  }
+
+  .slick-arrow::before {
+    /* color: black; */
+    color: var(--primary-color);
+    font-size: 2.4rem;
+  }
+
+  .slick-next {
+    right: 0;
+    z-index: 99;
+  }
+
+  .slick-prev {
+    left: 0;
+    z-index: 99;
   }
 `;
 

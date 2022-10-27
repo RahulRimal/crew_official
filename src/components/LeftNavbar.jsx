@@ -118,7 +118,7 @@ const Wrapper = styled.div`
     border-radius: 2.4rem;
     max-width: 4.4rem;
     padding: 1.2rem;
-    z-index: 1;
+    z-index: 99;
 
     svg {
       color: var(--primary-white);
@@ -132,8 +132,9 @@ const Wrapper = styled.div`
   } */
 
   .sidebar-nav:hover + .sidebar-wide-nav {
-    /* transform: translate(0); */
-    transform: translateX(-10px);
+    transform: translate(0);
+    /* transform: translateX(-10px); */
+    z-index: 99;
   }
 
   .sidebar-wide-nav {
@@ -143,10 +144,10 @@ const Wrapper = styled.div`
     width: 20rem;
     margin-top: 0.4rem;
     border-radius: 5px;
-    /* border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px; */
-    transform: translateX(-130%);
+    /* transform: translateX(-130%); */
+    transform: translateX(-100%);
     transition: all 0.4s cubic-bezier(0, 1.04, 1, 1);
+    z-index: 0;
 
     .nav-header {
       display: flex;

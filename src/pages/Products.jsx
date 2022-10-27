@@ -144,12 +144,26 @@ const Products = () => {
 // 10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
 
 const Wrapper = styled.div`
-  display: grid;
+  /* display: grid; */
   /* height: 100vh; */
-  grid-template-columns: 1fr 4fr;
-  column-gap: 0.2rem;
+  /* grid-template-columns: 1fr 4fr; */
+  /* column-gap: 0.2rem; */
+  /* position: relative; */
   padding: 4.8rem 12rem;
-  position: relative;
+
+
+  .products-filter{
+    position: sticky;
+    top: 100px;
+    width: 20%;
+    float: left;
+  }
+
+  .container{
+    width: 80%;
+    /* float: left; */
+    margin-left: auto;
+  }
 
   #show-mobile-filters-btn {
     display: none !important;
@@ -177,26 +191,16 @@ const Wrapper = styled.div`
   }
 
   .product-catalog {
-    height: 80vh;
-    overflow-y: scroll;
-    /* background-color: var(--secondary-color); */
     background-color: #f1f5f8;
     padding: 10px;
   }
 
-  /* Hide scrollbar for Chrome, Safari and Opera */
-  .product-catalog::-webkit-scrollbar {
-    display: none;
-  }
-
-  /* Hide scrollbar for IE, Edge and Firefox */
-  .product-catalog {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */  
-  }
-
   .products-sort {
-    margin: 0.8rem;
+    /* margin: 0.8rem; */
+    position: sticky;
+    top: 77px;
+    background: white;
+    padding: 1rem;
     display: flex;
     gap: 0.8rem;
     justify-content: start;

@@ -1,4 +1,4 @@
-import axios from "axios";
+
 import React from "react";
 
 import styled from "styled-components";
@@ -35,6 +35,14 @@ const Wrapper = styled.div`
     position: fixed;
     top: 7.7rem;
     z-index: 99;
+  }
+
+  .left-sidebar > div {
+    width: 0;
+  }
+
+  .left-sidebar:hover > div {
+    width: 20rem;
   }
 
   .home-wide-content {
