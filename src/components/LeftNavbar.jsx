@@ -233,18 +233,20 @@ const Wrapper = styled.div`
 
   @media (max-width: 34em) {
     .sidebar-nav {
+      position: fixed;
+      top: 50px;
       flex-direction: row;
       align-items: center;
       gap: 1.2rem;
-      overflow-x: auto;
+      /* overflow-x: auto; */
       width: 100vw;
-      /* height: 100vh; */
 
-      background: none;
+      background: var(--primary-white);
+      border-radius: 4px;
 
       height: auto;
       max-width: 100vw;
-      padding: 0.8rem 1.2rem;
+      padding: 0.4rem 1.2rem;
 
       svg {
         color: black;

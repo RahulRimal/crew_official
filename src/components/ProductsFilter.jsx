@@ -225,6 +225,49 @@ const Wrapper = styled.div`
   .active {
     text-decoration: underline !important;
   }
+
+  /**************************/
+  /* BELOW 1344px (Smaller desktops) */
+  /**************************/
+
+  @media (max-width: 84em) {
+  }
+
+  /**************************/
+  /* BELOW 1200px (Landscape Tablets) */
+  /**************************/
+
+  @media (max-width: 75em) {
+    input,
+    select {
+      width: 100%;
+    }
+  }
+
+  /**************************/
+  /* BELOW 944px (Tablets) */
+  /**************************/
+
+  @media (max-width: 59em) {
+  }
+
+  /**************************/
+  /* BELOW 704px (Smaller tablets) */
+  /**************************/
+
+  @media (max-width: 44em) {
+  }
+
+  /**************************/
+  /* BELOW 544px (Phones) */
+  /**************************/
+
+  @media (max-width: 34em) {
+    input,
+    select {
+      width: 100%;
+    }
+  }
 `;
 
 export default ProductsFilter;

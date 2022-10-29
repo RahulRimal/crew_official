@@ -71,6 +71,7 @@ const Wrapper = styled.div`
   /**************************/
 
   @media (max-width: 84em) {
+    grid-template-columns: 1.5fr 1fr;
   }
 
   /**************************/
@@ -92,6 +93,7 @@ const Wrapper = styled.div`
   /**************************/
 
   @media (max-width: 44em) {
+    grid-template-columns: 1.2fr 1fr;
   }
 
   /**************************/

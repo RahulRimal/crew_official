@@ -6,6 +6,7 @@ import {
   ClientReview,
   FeaturedProducts,
   HeaderHero2,
+  HowItWorks,
   LeftNavbar,
 } from "../components";
 
@@ -20,6 +21,7 @@ const Home = () => {
         <HeaderHero2 />
       </div>
       <div className="home-center-content">
+        <HowItWorks />
         <FeaturedProducts name={"category"} />
         <ClientReview />
       </div>
@@ -56,8 +58,51 @@ const Wrapper = styled.div`
   }
 
   .home-center-content {
-    /* height: 100vh; */
     padding: 0 10rem;
+  }
+
+  /**************************/
+  /* BELOW 1344px (Smaller desktops) */
+  /**************************/
+
+  @media (max-width: 84em) {
+  }
+
+  /**************************/
+  /* BELOW 1200px (Landscape Tablets) */
+  /**************************/
+
+  @media (max-width: 75em) {
+    .home-center-content {
+      padding: 0 5rem;
+    }
+  }
+
+  /**************************/
+  /* BELOW 944px (Tablets) */
+  /**************************/
+
+  @media (max-width: 59em) {
+  }
+
+  /**************************/
+  /* BELOW 704px (Smaller tablets) */
+  /**************************/
+
+  @media (max-width: 44em) {
+    .home-center-content {
+      padding: 0 2rem;
+    }
+  }
+
+  /**************************/
+  /* BELOW 544px (Phones) */
+  /**************************/
+
+  @media (max-width: 34em) {
+    .home-center-content {
+      padding: 0 1rem;
+    }
   }
 `;
 

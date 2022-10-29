@@ -7,13 +7,22 @@ const ClientReview = () => {
   const sliderSettings = {
     infinite: true,
     autoplay: true,
-    // autoplay: false,
     speed: 2000,
     autoplaySpeed: 5000,
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: true,
     pauseOnHover: true,
+    responsive: [
+      {
+        breakpoint: 480,
+        settings: {
+          arrows: false,
+          speed: 200,
+          autoplaySpeed: 5000,
+        },
+      },
+    ],
   };
 
   return (
@@ -51,6 +60,7 @@ const Wrapper = styled.div`
     font-size: 3rem;
     font-family: "Roboto", sans-serif;
     font-weight: 400;
+    margin-bottom: 3.2rem;
   }
 
   .slick-slide > div {
@@ -93,6 +103,52 @@ const Wrapper = styled.div`
       font-size: 1.4rem;
       letter-spacing: 2px;
     }
+  }
+  /**************************/
+  /* BELOW 1344px (Smaller desktops) */
+  /**************************/
+
+  @media (max-width: 84em) {
+    .slick-slide > div {
+      padding: 0 250px;
+    }
+  }
+
+  /**************************/
+  /* BELOW 1200px (Landscape Tablets) */
+  /**************************/
+
+  @media (max-width: 75em) {
+    .slick-slide > div {
+      padding: 0 150px;
+    }
+  }
+
+  /**************************/
+  /* BELOW 944px (Tablets) */
+  /**************************/
+
+  @media (max-width: 59em) {
+    .slick-slide > div {
+      padding: 0 50px;
+    }
+  }
+
+  /**************************/
+  /* BELOW 704px (Smaller tablets) */
+  /**************************/
+
+  @media (max-width: 44em) {
+    .slick-slide > div {
+      padding: 0;
+    }
+  }
+
+  /**************************/
+  /* BELOW 544px (Phones) */
+  /**************************/
+
+  @media (max-width: 34em) {
   }
 `;
 

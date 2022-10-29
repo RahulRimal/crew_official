@@ -22,3 +22,4 @@ export { default as FeaturedProducts } from "./FeaturedProducts";
 export { default as HeaderHero } from "./HeaderHero";
 export { default as HeaderHero2 } from "./HeaderHero2";
 export { default as ClientReview } from "./ClientReview";
+export { default as HowItWorks } from "./HowItWorks";

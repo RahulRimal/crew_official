@@ -24,7 +24,7 @@ const GridProduct = ({ info }) => {
       exit={{ opacity: 0 }}
     >
       <Wrapper>
-        <Link to={`/product/${id}`}>
+        <Link to={`/product/${id}`} className="product-link">
           <img src={featured_image} alt="product-img" />
         </Link>
         <Link to={`/product/${id}`}>
@@ -85,13 +85,16 @@ const Wrapper = styled.article`
   border-radius: 10px;
   padding: 1rem;
 
-  img {
-    width: 100%;
-    height: 17.5rem;
-    /* height: auto; */
-    /* object-fit: cover; */
-    object-fit: scale-down;
-    border-radius: 0.8rem;
+  .product-link {
+    display: block;
+    text-align: center;
+
+    img {
+      width: 100%;
+      height: 17.5rem;
+      object-fit: scale-down;
+      border-radius: 0.8rem;
+    }
   }
 
   h5 {
@@ -132,6 +135,51 @@ const Wrapper = styled.article`
     span {
       color: var(--primary-color);
     }
+  }
+
+  /**************************/
+  /* BELOW 1344px (Smaller desktops) */
+  /**************************/
+
+  @media (max-width: 84em) {
+  }
+
+  /**************************/
+  /* BELOW 1200px (Landscape Tablets) */
+  /**************************/
+
+  @media (max-width: 75em) {
+    input,
+    select {
+      width: 100%;
+    }
+  }
+
+  /**************************/
+  /* BELOW 944px (Tablets) */
+  /**************************/
+
+  @media (max-width: 59em) {
+    padding: 0;
+    .product-link {
+      img {
+        width: 75%;
+      }
+    }
+  }
+
+  /**************************/
+  /* BELOW 704px (Smaller tablets) */
+  /**************************/
+
+  @media (max-width: 44em) {
+  }
+
+  /**************************/
+  /* BELOW 544px (Phones) */
+  /**************************/
+
+  @media (max-width: 34em) {
   }
 `;
 

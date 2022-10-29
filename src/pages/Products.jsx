@@ -144,31 +144,25 @@ const Products = () => {
 // 10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
 
 const Wrapper = styled.div`
-  /* display: grid; */
-  /* height: 100vh; */
-  /* grid-template-columns: 1fr 4fr; */
-  /* column-gap: 0.2rem; */
-  /* position: relative; */
-  padding: 4.8rem 12rem;
+  padding: 4.8rem;
 
-
-  .products-filter{
+  .products-filter {
     position: sticky;
     top: 100px;
     width: 20%;
     float: left;
   }
 
-  .container{
+  .container {
     width: 80%;
-    /* float: left; */
     margin-left: auto;
   }
 
   #show-mobile-filters-btn {
     display: none !important;
     position: fixed;
-    top: 12.8rem;
+    /* top: 12.8rem; */
+    bottom: 12.8rem;
     right: 1rem;
     border: none;
     background-color: var(--primary-color);
@@ -192,7 +186,7 @@ const Wrapper = styled.div`
 
   .product-catalog {
     background-color: #f1f5f8;
-    padding: 10px;
+    padding: 1rem;
   }
 
   .products-sort {
@@ -205,6 +199,7 @@ const Wrapper = styled.div`
     gap: 0.8rem;
     justify-content: start;
     align-items: center;
+    margin: 0 1rem;
 
     .grid-view-icon,
     .list-view-icon {
@@ -238,10 +233,6 @@ const Wrapper = styled.div`
       cursor: pointer;
     }
 
-    /* select::before {
-      content: "Sort By";
-    } */
-
     .active {
       color: var(--primary-white);
       background-color: var(--primary-black);
@@ -253,6 +244,16 @@ const Wrapper = styled.div`
   /**************************/
 
   @media (max-width: 84em) {
+    padding: 4.8rem 5rem;
+    .products-filter {
+      .container {
+        width: 100%;
+      }
+    }
+
+    .container {
+      width: 81%;
+    }
   }
 
   /**************************/
@@ -260,7 +261,14 @@ const Wrapper = styled.div`
   /**************************/
 
   @media (max-width: 75em) {
-    padding: 4.8rem;
+    padding: 2rem;
+    .products-filter {
+      width: 18%;
+    }
+
+    .container {
+      width: 80%;
+    }
   }
 
   /**************************/
@@ -268,9 +276,17 @@ const Wrapper = styled.div`
   /**************************/
 
   @media (max-width: 59em) {
+    .products-filter {
+      width: 25%;
+    }
+
+    .container {
+      width: 75%;
+    }
+
     .products-sort {
       flex-wrap: wrap;
-
+      top: 50px;
       margin-bottom: 3rem;
 
       .products-count {
@@ -288,6 +304,13 @@ const Wrapper = styled.div`
   /**************************/
 
   @media (max-width: 44em) {
+    .products-filter {
+      width: 30%;
+    }
+
+    .container {
+      width: 65%;
+    }
   }
 
   /**************************/
@@ -298,8 +321,19 @@ const Wrapper = styled.div`
     padding: 4.8rem 2.4rem;
     grid-template-columns: 1fr;
 
+    .products-sort {
+      /* position: fixed;
+      top: 50px; */
+      position: static;
+      margin: 0;
+    }
+
     #show-mobile-filters-btn {
       display: block !important;
+    }
+
+    .container {
+      width: 100%;
     }
 
     .products-filter {
@@ -315,6 +349,7 @@ const Wrapper = styled.div`
       width: 100vw;
       height: 100vh;
       padding: 4.2rem 2.4rem;
+      z-index: 99;
 
       .close-filters-btn {
         display: block;

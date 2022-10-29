@@ -126,6 +126,50 @@ const Wrapper = styled.div`
       text-align: center;
     }
   }
+
+  /**************************/
+  /* BELOW 1344px (Smaller desktops) */
+  /**************************/
+
+  @media (max-width: 84em) {
+  }
+
+  /**************************/
+  /* BELOW 1200px (Landscape Tablets) */
+  /**************************/
+
+  @media (max-width: 75em) {
+    .pickup-and-quantity input {
+      width: 9rem;
+    }
+  }
+
+  /**************************/
+  /* BELOW 944px (Tablets) */
+  /**************************/
+
+  @media (max-width: 59em) {
+    .pickup-and-quantity input {
+      width: 7rem;
+    }
+    .pickup-and-quantity select {
+      width: 95%;
+    }
+  }
+
+  /**************************/
+  /* BELOW 704px (Smaller tablets) */
+  /**************************/
+
+  @media (max-width: 44em) {
+  }
+
+  /**************************/
+  /* BELOW 544px (Phones) */
+  /**************************/
+
+  @media (max-width: 34em) {
+  }
 `;
 
 export default ProductOptionsSelection;
