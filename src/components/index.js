@@ -21,3 +21,4 @@ export { default as NotificationModal } from "./NotificationModal";
 export { default as FeaturedProducts } from "./FeaturedProducts";
 export { default as HeaderHero } from "./HeaderHero";
 export { default as HeaderHero2 } from "./HeaderHero2";
+export { default as ClientReview } from "./ClientReview";

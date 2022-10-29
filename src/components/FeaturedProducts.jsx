@@ -54,7 +54,7 @@ const FeaturedProducts = ({ name }) => {
                   className="featured-product"
                 />
               );
-              return null;
+            return null;
           })}
         </Slider>
       </div>
@@ -69,8 +69,8 @@ const FeaturedProducts = ({ name }) => {
 // 10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
 
 const Wrapper = styled.div`
-  /* background-color: gray; */
   padding: 0.8rem;
+  margin-top: 4.8rem;
 
   h1 {
     text-transform: capitalize;

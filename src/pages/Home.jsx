@@ -2,7 +2,12 @@ import React from "react";
 
 import styled from "styled-components";
 
-import { FeaturedProducts, HeaderHero2, LeftNavbar } from "../components";
+import {
+  ClientReview,
+  FeaturedProducts,
+  HeaderHero2,
+  LeftNavbar,
+} from "../components";
 
 const Home = () => {
   return (
@@ -16,6 +21,7 @@ const Home = () => {
       </div>
       <div className="home-center-content">
         <FeaturedProducts name={"category"} />
+        <ClientReview />
       </div>
     </Wrapper>
   );
@@ -50,7 +56,7 @@ const Wrapper = styled.div`
   }
 
   .home-center-content {
-    height: 100vh;
+    /* height: 100vh; */
     padding: 0 10rem;
   }
 `;

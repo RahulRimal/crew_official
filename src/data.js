@@ -305,3 +305,43 @@ export const singleProduct = {
     "https://www.rentoclick.com/uploads/product/Canon_1500D_DSLR.png",
   ],
 };
+
+
+
+export const clientReviews =[
+  {
+    name: 'Suman Rasaili',
+    post: 'Production Manager',
+    image: 'https://source.unsplash.com/150x150/?person',
+
+    review: 'I ordered a Canon 700D camera and the service was very good. I would recommend it to anyone.Keywords to include:   camera, sony, canon, digital photography, digital camera, camcorderProduct Review: I ordered a Canon 700D camera and the service was very good. I would recommend it to anyone who is looking for a camera that is easy to use and has a great quality image'
+  },
+  {
+    name: 'Mahesh Devkota',
+    post: 'Producer',
+    image: 'https://source.unsplash.com/150x150/?old',
+
+    review: 'I purchased this camera after reading many good reviews about it. I was very impressed with the product and its quality. The customer service was outstanding. I could not have had a better experience'
+  },
+  {
+    name: 'Ramesh Rai',
+    post: 'Production Manager',
+    image: 'https://source.unsplash.com/150x150/?women',
+
+    review: 'This camera is not any old camera, it is professional camera, with the highest quality. We need it for the company, which is the manufacturer of the camera, and in the country we live. In addition, the camera has an excellent value. The camera has a professional quality lens, which is the best quality that you can get. The camera has a very sensitive sensor and this is why the camera can be used in any weather and any lighting conditions. The camera is absolutely easy to use'
+  },
+  {
+    name: 'Ganesh Koirala',
+    post: 'Production Manager',
+    image: 'https://source.unsplash.com/150x150/?man',
+
+    review: "I rented this camera to take videos and pictures of my nephew's birthday party.    I received it in less than a week and I've been using it ever since.    I like the fact that it's a compact camera.    I like the fact that I can zoom in by using the zoom feature.    I like the fact that it's waterproof.    I like the fact that it's a very good quality camera"
+  },
+  {
+    name: 'Roshan Gurung',
+    post: 'Production Manager',
+    image: 'https://source.unsplash.com/150x150/?person',
+
+    review: 'Loreum enim error repellat minus, quisquam aperiam, tempora illum itaque totam quibusdam velit ab corporis. Itaque, ullam a hic, alias obcaecati temporibus aspernatur sed perspiciatis iste maxime quasi minima vitae odit? Libero ducimus asperiores, reprehenderit officia aliquam recusandae, minima deleniti veritatis natus earum veniam laborum dolor.'
+  },
+]

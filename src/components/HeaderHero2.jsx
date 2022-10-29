@@ -55,11 +55,7 @@ const HeaderHero2 = () => {
 
   return (
     <Wrapper>
-      <img
-        // src="https://source.unsplash.com/3200x1200/?nature,mountain"
-        src={bgImage}
-        alt="Carousel content"
-      />
+      <img src={bgImage} alt="Carousel content" />
       <Slider
         ref={(slider) => (heroContentTextSlider = slider)}
         {...heroContentTextSlidersettings}
@@ -169,7 +165,12 @@ const HeaderHero2 = () => {
             alt="jfk"
           />
           <img
-            src="http://127.0.0.1:8000/media/equipment/images/clap_board.jpg"
+            src="https://www.red.com/SSP%20Applications/Red@SuiteCentric/SCA%20Kilimanjaro/img/products/PARENT-V-RAPTOR-XL_0.png?resizeid=2&resizeh=300&resizew=300"
+            alt="jfk"
+          />
+
+          <img
+            src="https://www.red.com/SSP%20Applications/Red@SuiteCentric/SCA%20Kilimanjaro/img/products/710-0318_0.png?resizeid=2&resizeh=300&resizew=300"
             alt="jfk"
           />
         </Slider>
