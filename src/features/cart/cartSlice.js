@@ -35,6 +35,7 @@ export const addItemToCart = createAsyncThunk(
     const { cartId, productId, selectedQuantity, selectedLocation, tenure } =
       data;
     const url = `${mainUrl}carts/${cartId}/items/`;
+
     try {
       const response = await axios.post(url, {
         equipment_id: productId,

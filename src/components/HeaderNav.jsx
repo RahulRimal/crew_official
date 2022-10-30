@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import LoginSignup from "./LoginSignup";
 
 import { removeUser } from "../features/user/userSlice";
+import ModalPopup from "./ModalPopup";
 
 const HeaderNav = () => {
   const { id: userId } = useSelector((store) => store.user);
@@ -46,11 +47,11 @@ const HeaderNav = () => {
         </Link>
       </div>
       {showLoginSignPopup && (
-        <div className="login-signup-popup">
+        <ModalPopup handleFunc={() => setShowLoginSignPopup(false)}>
           <div className="login-signup-form">
             <LoginSignup />
           </div>
-        </div>
+        </ModalPopup>
       )}
     </Wrapper>
   );
@@ -107,26 +108,17 @@ const Wrapper = styled.div`
       }
     }
   }
-  .login-signup-popup {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    left: 0;
-    top: 0;
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 0.4rem 1.2rem;
-    width: 100%;
-    height: 100%;
-    margin: 0;
 
-    z-index: 99;
+  .modal {
+    width: 100%;
   }
+
   .login-signup-form {
     background-color: var(--primary-white);
     padding: 2.4rem 1.2rem;
     border-radius: 5px;
     width: 25%;
+    margin: auto;
   }
 
   #login form {

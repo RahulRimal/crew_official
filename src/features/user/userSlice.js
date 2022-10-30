@@ -39,7 +39,6 @@ export const getUser = createAsyncThunk("user/getUser", async (accessToken) => {
     });
     return response.data;
   } catch (error) {
-    // console.log(error.response.status);
     if (error.response.status === 401) {
       refreshAccessToken();
     }
@@ -86,8 +85,7 @@ export const registerUser = createAsyncThunk(
         dispatch(updateNotification({ name, value }));
       }
     } catch (error) {
-      // console.log(error.response.status);
-      console.log(error);
+
       if (error.response.status === 400) {
         const data = error.response.data;
         if (data.email) {
@@ -107,7 +105,6 @@ export const loginUser = createAsyncThunk(
   "user/loginUser",
   async (loginInfo, { dispatch }) => {
     const { email, password } = loginInfo;
-    // console.log(email, password);
     const loginUrl = `${mainUrl}auth/jwt/create/`;
     try {
       const response = await axios.post(loginUrl, {

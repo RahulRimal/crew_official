@@ -27,7 +27,13 @@ const ProductsGrid = () => {
       <Wrapper>
         <AnimatePresence>
           {filtered_products.map((product) => {
-            return <GridProduct info={product} key={product.id} />;
+            return (
+              <GridProduct
+                info={product}
+                showQuickView={true}
+                key={product.id}
+              />
+            );
           })}
         </AnimatePresence>
         ;

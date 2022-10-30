@@ -75,11 +75,10 @@ const Wrapper = styled.div`
   }
 
   .review {
-    /* max-width: 700px; */
-    /* width: 550px !important; */
     background-color: var(--primary-white);
     padding: 1rem;
     border-radius: 5px;
+    cursor: grab;
 
     .client-img {
       width: 75px;

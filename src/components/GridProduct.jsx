@@ -6,14 +6,17 @@ import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri";
 
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import SingleProduct from "../pages/SingleProduct";
+import ModalPopup from "./ModalPopup";
 
-const GridProduct = ({ info }) => {
+const GridProduct = ({ info, showQuickView }) => {
   const { id, name, price, featured_image } = info;
 
   const [showAllPrices, setShowAllPrices] = useState(false);
 
-  //Converting object to array
+  const [quickView, setQuickView] = useState(false);
 
+  //Converting object to array
   const prices = Object.entries(price);
 
   return (
@@ -24,9 +27,27 @@ const GridProduct = ({ info }) => {
       exit={{ opacity: 0 }}
     >
       <Wrapper>
-        <Link to={`/product/${id}`} className="product-link">
-          <img src={featured_image} alt="product-img" />
-        </Link>
+        {quickView && (
+          <ModalPopup
+            // className="quick-view-modal"
+            handleFunc={() => setQuickView(false)}
+          >
+            <div className="quick-view-box">
+              <SingleProduct productId={id} />
+            </div>
+          </ModalPopup>
+        )}
+
+        <div>
+          {showQuickView && (
+            <div className="quick-view" onClick={() => setQuickView(true)}>
+              Quick view
+            </div>
+          )}
+          <Link to={`/product/${id}`} className="product-link">
+            <img src={featured_image} alt="product-img" />
+          </Link>
+        </div>
         <Link to={`/product/${id}`}>
           <h5>{name}</h5>
         </Link>
@@ -81,13 +102,52 @@ const GridProduct = ({ info }) => {
 
 const Wrapper = styled.article`
   background-color: var(--primary-white);
-
   border-radius: 10px;
   padding: 1rem;
+  position: relative;
+
+  .modal {
+    width: 90%;
+  }
+
+  .quick-view-box {
+    background-color: white;
+    margin: 10px;
+
+    border-radius: 10px;
+
+    z-index: 100;
+  }
+
+  :hover {
+    .quick-view {
+      display: block;
+    }
+  }
+
+  .quick-view {
+    display: none;
+    position: absolute;
+    bottom: 85px;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 0.4rem 0;
+    font-weight: 500;
+    font-size: 1.4rem;
+    z-index: 98;
+    transition: all 0.4s;
+  }
+  .quick-view:hover {
+    background-color: var(--primary-color);
+  }
 
   .product-link {
     display: block;
     text-align: center;
+    position: relative;
 
     img {
       width: 100%;

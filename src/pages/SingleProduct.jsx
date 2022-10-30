@@ -14,15 +14,18 @@ import { useParams } from "react-router-dom";
 
 import { mainUrl } from "../constants";
 
-const SingleProduct = () => {
+const SingleProduct = ({ productId }) => {
   const params = useParams();
 
   const [equipment, setEquipment] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    let id = null;
+    if (productId) id = productId;
+    else id = params.id;
     axios
-      .get(`${mainUrl}equipments/${params.id}`)
+      .get(`${mainUrl}equipments/${id}`)
       .then((response) => {
         setEquipment(response.data);
         setIsLoading(false);
@@ -30,7 +33,7 @@ const SingleProduct = () => {
       .catch((err) => {
         console.log(err);
       });
-  }, [params.id]);
+  }, [params.id, productId]);
 
   const { featured_image, images } = equipment;
 
