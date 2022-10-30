@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 import { Link, useLocation } from "react-router-dom";
-import logo from "../logo.png";
+// import logo from "../logo.png";
+import logo from "../logo_white.png";
 import { HeaderSearchBar, HeaderNav } from "./index";
 
 const TopbarHeader = () => {
@@ -20,7 +21,13 @@ const TopbarHeader = () => {
     <Wrapper>
       <header>
         <Link to="/">
-          <img src={logo} alt="site logo" width={75} height={75} />
+          {/* <img src={logo} alt="site logo" width={75} height={75} /> */}
+          <img
+            src={logo}
+            alt="site logo"
+            width={100}
+            style={{ margin: "15px 0" }}
+          />
         </Link>
 
         {showHeaderSearch ? <HeaderSearchBar /> : <HeaderNav />}

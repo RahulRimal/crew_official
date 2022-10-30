@@ -55,7 +55,11 @@ const HeaderHero2 = () => {
 
   return (
     <Wrapper>
-      <img src={bgImage} alt="Carousel content" />
+      {/* <img src={bgImage} alt="Carousel content" /> */}
+      <img
+        src="https://img.freepik.com/free-vector/film-strip-cinema-background-design_1017-36649.jpg?w=1060&t=st=1667143009~exp=1667143609~hmac=3a9df527befecd50610aa735e2f4743cd66423d0f1f260d83484b5ec4f048c5e"
+        alt="Carousel content"
+      />
       <Slider
         ref={(slider) => (heroContentTextSlider = slider)}
         {...heroContentTextSlidersettings}

@@ -120,21 +120,20 @@ const Wrapper = styled.article`
   .quick-view-box {
     background-color: white;
     margin: 10px;
-
     border-radius: 10px;
-
     z-index: 100;
   }
 
   .quick-view {
     display: none;
     position: absolute;
-    bottom: 85px;
+    top: 59%;
+    left: 50%;
+    transform: translate(-50%, -59%);
     width: 100%;
-    left: 0;
     text-align: center;
     cursor: pointer;
-    background-color: rgba(112, 72, 232, 0.5);
+    background-color: rgba(112, 72, 232, 0.4);
     color: white;
     padding: 0.4rem 0;
     font-weight: 500;

@@ -8,6 +8,7 @@ import {
   HeaderHero2,
   HowItWorks,
   LeftNavbar,
+  OurServices,
 } from "../components";
 
 const Home = () => {
@@ -21,6 +22,7 @@ const Home = () => {
         <HeaderHero2 />
       </div>
       <div className="home-center-content">
+        <OurServices />
         <HowItWorks />
         <FeaturedProducts name={"category"} />
         <ClientReview />

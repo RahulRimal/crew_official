@@ -13,18 +13,11 @@ const RelatedProducts = ({ id }) => {
           `${mainUrl}equipments/?category_id=${id}`
         );
 
-        // let data = response.data.filter(
-        //   (result) => result.featured_equipment != null
-        // );
-
-        // data = data.map((da) => da.featured_equipment);
-
         setAllProducts(response.data.results);
       } catch (error) {
         console.log(error);
       }
     }
-    // if (name === "category") getCategories();
     getProducts();
   }, [id]);
 

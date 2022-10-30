@@ -1,9 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Slider from "react-slick";
 import styled from "styled-components";
 import { mainUrl } from "../constants";
-import GridProduct from "./GridProduct";
 import ProductsCarousel from "./ProductsCarousel";
 
 const FeaturedProducts = ({ name }) => {

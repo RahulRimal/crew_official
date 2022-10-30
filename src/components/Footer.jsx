@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import logo from "../logo.png";
+// import logo from "../logo.png";
+import logo from "../logo_black.png";
 
 import { IoLogoWhatsapp } from "react-icons/io";
 import { MdMail, MdPhone } from "react-icons/md";
@@ -14,7 +15,8 @@ const Footer = () => {
   return (
     <Wrapper>
       <div className="footer-top">
-        <img src={logo} alt="logo" />
+        {/* <img src={logo} alt="logo" /> */}
+        <img src={logo} alt="logo" style={{ margin: "30px 0" }} />
         <div className="footer-help">
           <p>Need help renting right equipment?</p>
           <a href="/contact" className="footer-help-btn">
