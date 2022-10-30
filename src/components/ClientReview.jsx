@@ -1,6 +1,6 @@
 import React from "react";
 import Slider from "react-slick";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { clientReviews } from "../data";
 
 const ClientReview = () => {
@@ -103,6 +103,7 @@ const Wrapper = styled.div`
       letter-spacing: 2px;
     }
   }
+
   /**************************/
   /* BELOW 1344px (Smaller desktops) */
   /**************************/

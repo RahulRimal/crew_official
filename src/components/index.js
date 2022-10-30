@@ -27,3 +27,4 @@ export { default as HowItWorks } from "./HowItWorks";
 export { default as ModalPopup } from "./ModalPopup";
 export { default as ProductsCarousel } from "./ProductsCarousel";
 export { default as OurServices } from "./OurServices";
+export { default as GoToTop } from "./GoToTop";
