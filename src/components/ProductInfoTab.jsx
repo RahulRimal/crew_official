@@ -19,7 +19,10 @@ const ProductInfoTab = ({ product }) => {
             onClick={() => toggleTab(1)}
           >
             {toggleState === 1 ? (
-              <motion.div className="underline" layoutId="underline" />
+              <>
+                <motion.div className="overline" layoutId="overline" />
+                <motion.div className="underline" layoutId="underline" />
+              </>
             ) : null}
             Prouct Description
           </button>
@@ -28,7 +31,10 @@ const ProductInfoTab = ({ product }) => {
             onClick={() => toggleTab(2)}
           >
             {toggleState === 2 ? (
-              <motion.div className="underline" layoutId="underline" />
+              <>
+                <motion.div className="overline" layoutId="overline" />
+                <motion.div className="underline" layoutId="underline" />
+              </>
             ) : null}
             Terms &amp; Conditions
           </button>
@@ -264,11 +270,20 @@ const Wrapper = styled.div`
   } */
   .underline {
     position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: calc(100% + 2px);
+    height: 2px;
+    background: var(--primary-color);
+  }
+  .overline {
+    position: absolute;
     top: -5px;
     left: 0;
     right: 0;
     width: calc(100% + 2px);
-    height: 5px;
+    height: 2px;
     background: var(--primary-color);
   }
 

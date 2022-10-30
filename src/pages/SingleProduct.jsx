@@ -8,6 +8,7 @@ import {
   ProductInfoTab,
   ProductOptionsSelection,
   Loading,
+  RelatedProducts,
 } from "../components";
 
 import { useParams } from "react-router-dom";
@@ -51,9 +52,14 @@ const SingleProduct = ({ productId }) => {
 
   return (
     <Wrapper>
-      <ProductImagesGallery pictures={images} />
-      <ProductOptionsSelection product={equipment} />
-      <ProductInfoTab product={equipment} />
+      <div className="product-section">
+        <ProductImagesGallery pictures={images} />
+        <ProductOptionsSelection product={equipment} />
+        <ProductInfoTab product={equipment} />
+      </div>
+      {equipment.category && params.id && (
+        <RelatedProducts id={equipment.category.id} />
+      )}
     </Wrapper>
   );
 };
@@ -65,9 +71,11 @@ const SingleProduct = ({ productId }) => {
 // 10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
 
 const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  row-gap: 2.4rem;
+  .product-section {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    row-gap: 2.4rem;
+  }
 
   /**************************/
   /* BELOW 1344px (Smaller desktops) */
@@ -96,7 +104,9 @@ const Wrapper = styled.div`
   /**************************/
 
   @media (max-width: 44em) {
-    grid-template-columns: 1.2fr 1fr;
+    .product-section {
+      grid-template-columns: 1.2fr 1fr;
+    }
   }
 
   /**************************/
@@ -104,7 +114,9 @@ const Wrapper = styled.div`
   /**************************/
 
   @media (max-width: 34em) {
-    grid-template-columns: 1fr;
+    .product-section {
+      grid-template-columns: 1fr;
+    }
   }
 `;
 

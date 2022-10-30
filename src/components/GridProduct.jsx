@@ -5,7 +5,7 @@ import { getFormattedDaysString } from "../utils/helpers";
 import { RiArrowDropDownLine, RiArrowDropUpLine } from "react-icons/ri";
 
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import SingleProduct from "../pages/SingleProduct";
 import ModalPopup from "./ModalPopup";
 
@@ -28,10 +28,7 @@ const GridProduct = ({ info, showQuickView }) => {
     >
       <Wrapper>
         {quickView && (
-          <ModalPopup
-            // className="quick-view-modal"
-            handleFunc={() => setQuickView(false)}
-          >
+          <ModalPopup handleFunc={() => setQuickView(false)}>
             <div className="quick-view-box">
               <SingleProduct productId={id} />
             </div>
@@ -39,11 +36,21 @@ const GridProduct = ({ info, showQuickView }) => {
         )}
 
         <div>
-          {showQuickView && (
-            <div className="quick-view" onClick={() => setQuickView(true)}>
-              Quick view
-            </div>
-          )}
+          <AnimatePresence>
+            {showQuickView && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                exit={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.1 }}
+                className="quick-view"
+                onClick={() => setQuickView(true)}
+              >
+                Quick view
+              </motion.div>
+            )}
+          </AnimatePresence>
+
           <Link to={`/product/${id}`} className="product-link">
             <img src={featured_image} alt="product-img" />
           </Link>
@@ -119,26 +126,27 @@ const Wrapper = styled.article`
     z-index: 100;
   }
 
-  :hover {
-    .quick-view {
-      display: block;
-    }
-  }
-
   .quick-view {
     display: none;
     position: absolute;
     bottom: 85px;
     width: 100%;
+    left: 0;
     text-align: center;
     cursor: pointer;
-    background-color: var(--secondary-color);
+    background-color: rgba(112, 72, 232, 0.5);
     color: white;
     padding: 0.4rem 0;
     font-weight: 500;
     font-size: 1.4rem;
     z-index: 98;
     transition: all 0.4s;
+  }
+
+  :hover {
+    .quick-view {
+      display: block;
+    }
   }
   .quick-view:hover {
     background-color: var(--primary-color);

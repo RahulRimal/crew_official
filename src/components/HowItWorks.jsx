@@ -13,8 +13,6 @@ const HowItWorks = () => {
     offset: ["end end", "start start"],
   });
 
-  console.log(scrollYProgress);
-
   return (
     <Wrapper>
       <h1 className="title">How it works</h1>
