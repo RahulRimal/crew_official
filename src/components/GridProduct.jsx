@@ -10,7 +10,7 @@ import SingleProduct from "../pages/SingleProduct";
 import ModalPopup from "./ModalPopup";
 
 const GridProduct = ({ info, showQuickView }) => {
-  const { id, name, price, featured_image } = info;
+  const { id, name, slug, price, featured_image } = info;
 
   const [showAllPrices, setShowAllPrices] = useState(false);
 
@@ -51,11 +51,15 @@ const GridProduct = ({ info, showQuickView }) => {
             )}
           </AnimatePresence>
 
-          <Link to={`/product/${id}`} className="product-link">
+          <Link
+            to={`/equipment/${slug}`}
+            state={{ id: id }}
+            className="product-link"
+          >
             <img src={featured_image} alt="product-img" />
           </Link>
         </div>
-        <Link to={`/product/${id}`}>
+        <Link to={`/equipment/${id}`}>
           <h5>{name}</h5>
         </Link>
         <footer>

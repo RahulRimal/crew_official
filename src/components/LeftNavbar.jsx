@@ -47,7 +47,7 @@ const LeftNavbar = () => {
           return (
             <NavLink
               key={id}
-              to={"/products/?category=" + name}
+              to={"/equipments/?category=" + name}
               state={{ categoryId: id }}
               className={(isActive) => `${isActive ? "active" : null}`}
               onMouseOver={() => setSelectedCategory(category)}
@@ -60,7 +60,7 @@ const LeftNavbar = () => {
       <div className="sidebar-wide-nav">
         <Link
           className="nav-header"
-          to={"/products/?category=" + selectedCategory.name}
+          to={"/equipments/?category=" + selectedCategory.name}
           state={{ categoryId: selectedCategory.id }}
         >
           <h3 className="heading">{selectedCategory.name}</h3>
@@ -74,7 +74,7 @@ const LeftNavbar = () => {
               <li key={index}>
                 <Link
                   state={{ categoryId: selectedCategory.id }}
-                  to={"/products/?category=" + selectedCategory.name}
+                  to={"/equipments/?category=" + selectedCategory.name}
                   className="nav-link"
                   onClick={() => {
                     const name = "company";

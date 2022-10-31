@@ -11,12 +11,14 @@ import {
   RelatedProducts,
 } from "../components";
 
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import { mainUrl } from "../constants";
 
 const SingleProduct = ({ productId }) => {
-  const params = useParams();
+  const {
+    state: { id: stateId },
+  } = useLocation();
 
   const [equipment, setEquipment] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -24,7 +26,7 @@ const SingleProduct = ({ productId }) => {
   useEffect(() => {
     let id = null;
     if (productId) id = productId;
-    else id = params.id;
+    else id = stateId;
     axios
       .get(`${mainUrl}equipments/${id}`)
       .then((response) => {
@@ -34,13 +36,12 @@ const SingleProduct = ({ productId }) => {
       .catch((err) => {
         console.log(err);
       });
-  }, [params.id, productId]);
+  }, [stateId, productId]);
 
   const { featured_image, images } = equipment;
 
   if (featured_image !== undefined) {
     const imageToAdd = { image: featured_image };
-    // if (!images.includes(imageToAdd)) {
     if (JSON.stringify(images[0]) !== JSON.stringify(imageToAdd)) {
       images.unshift(imageToAdd);
     }
@@ -57,7 +58,7 @@ const SingleProduct = ({ productId }) => {
         <ProductOptionsSelection product={equipment} />
         <ProductInfoTab product={equipment} />
       </div>
-      {equipment.category && params.id && (
+      {equipment.category && stateId && (
         <RelatedProducts id={equipment.category.id} />
       )}
     </Wrapper>

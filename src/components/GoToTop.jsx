@@ -7,8 +7,6 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 const GoToTop = () => {
-  console.log(window.scrollY);
-
   const [showGoToTop, setShowGoToTop] = useState(false);
 
   useEffect(() => {

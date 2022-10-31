@@ -7,15 +7,20 @@ import logo from "../logo_white.png";
 import { HeaderSearchBar, HeaderNav } from "./index";
 
 const TopbarHeader = () => {
+  const { pathname } = useLocation();
   const [showHeaderSearch, setShowHeaderSearch] = useState(true);
 
-  const location = useLocation();
-
+  // Show header searchbar only on homepage
   useEffect(() => {
-    if (window.location.pathname === "/") {
+    if (pathname === "/") {
       setShowHeaderSearch(true);
     } else setShowHeaderSearch(false);
-  }, [location]);
+  }, [pathname]);
+
+  // Scroll to top on every route change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <Wrapper>
