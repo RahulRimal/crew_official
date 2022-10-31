@@ -234,7 +234,7 @@ const Wrapper = styled.div`
   @media (max-width: 34em) {
     .sidebar-nav {
       position: fixed;
-      top: 50px;
+      top: 80px;
       flex-direction: row;
       align-items: center;
       gap: 1.2rem;

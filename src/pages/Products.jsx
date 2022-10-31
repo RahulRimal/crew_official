@@ -162,13 +162,14 @@ const Wrapper = styled.div`
     display: none !important;
     position: fixed;
     /* top: 12.8rem; */
-    bottom: 12.8rem;
+    bottom: 20rem;
     right: 1rem;
     border: none;
     background-color: var(--primary-color);
     color: var(--primary-white);
     padding: 0.8rem;
     border-radius: 5px;
+    z-index: 99;
   }
 
   .mobile-products-filter {
@@ -348,7 +349,8 @@ const Wrapper = styled.div`
       background: rgba(255, 255, 255, 0.93);
       width: 100vw;
       height: 100vh;
-      padding: 4.2rem 2.4rem;
+      /* padding: 4.2rem 2.4rem; */
+      padding: 4.2rem 10rem 4.2rem 2.4rem;
       z-index: 99;
 
       .close-filters-btn {

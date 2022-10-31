@@ -295,7 +295,8 @@ const Checkout = () => {
         <div className="checkout-items">
           <Slider {...settings}>
             {cartItems.map((item) => {
-              const { id, equipment, quantity } = item;
+              const { id, equipment, location, quantity } = item;
+              console.log(equipment);
               return (
                 <div key={id} className="items-info">
                   <img
@@ -307,6 +308,21 @@ const Checkout = () => {
                       <span>Quantity: </span>
                       {quantity}
                     </p>
+                    <AnimatePresence>
+                      {provideDelivery && (
+                        <motion.p
+                          initial={{ opacity: 0, height: 0 }}
+                          exit={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          transition={{ duration: 0.4 }}
+                          style={{ margin: 0 }}
+                          className="delivery-location"
+                        >
+                          <span>Location: </span>
+                          {location}
+                        </motion.p>
+                      )}
+                    </AnimatePresence>
                     {/* Can't add this because there is no price in cart item model */}
                     {/* <p className="price">
                       <span>Price: </span>
@@ -428,6 +444,9 @@ const Wrapper = styled.section`
       input:focus {
         outline: 2px solid var(--primary-black);
       }
+      textarea {
+        padding: 0.4rem;
+      }
 
       span {
         font-weight: 600;
@@ -547,9 +566,11 @@ const Wrapper = styled.section`
           /* height: 20rem; */
         }
         div {
+          margin: auto;
           p {
             font-size: 1.4rem;
             font-weight: 500;
+            margin: 0.4rem 0;
 
             span {
               color: var(--primary-gray);
@@ -689,12 +710,13 @@ const Wrapper = styled.section`
 
     .checkout-body {
       .contact-info {
+        grid-template-columns: 1fr;
         input {
           width: 90%;
         }
 
         span + input {
-          width: 73%;
+          width: 80%;
         }
       }
     }

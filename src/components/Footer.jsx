@@ -338,6 +338,8 @@ const Wrapper = styled.footer`
 
   @media (max-width: 34em) {
     .footer-top {
+      padding: 0.4rem 0.8rem;
+      justify-content: space-between;
       img {
         width: 9.8rem;
       }

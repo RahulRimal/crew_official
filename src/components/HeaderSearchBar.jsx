@@ -9,7 +9,7 @@ const HeaderSearchBar = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    navigate("/products/?search=" + searchTerm);
+    navigate("/equipments/?search=" + searchTerm);
     setSearchTerm("");
   };
 
