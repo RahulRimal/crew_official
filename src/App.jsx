@@ -24,14 +24,13 @@ import {
   getCartItems,
   calculateTotals,
   updateCart,
+  getCartId,
 } from "./features/cart/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 import { useCookies, Cookies } from "react-cookie";
-import axios from "axios";
-import { mainUrl } from "./constants";
 
-import { getUser } from "./features/user/userSlice";
+import { getCustomer } from "./features/user/userSlice";
 import { AnimatePresence } from "framer-motion";
 import {
   clearNotification,
@@ -60,19 +59,15 @@ const App = () => {
       dispatch(updateCart({ name, value }));
       dispatch(getCartItems(value));
     } else {
-      axios.post(`${mainUrl}carts/`).then((response) => {
-        setCartCookies("cartId", response.data.id, { path: "/" });
-        const name = "id";
-        const value = cartCookies.cartId;
-        dispatch(updateCart({ name, value }));
-      });
+      dispatch(getCartId());
     }
   }, [cartCookies.cartId, setCartCookies, dispatch]);
 
   useEffect(() => {
     const userCookie = new Cookies();
     if (userCookie.get("access")) {
-      dispatch(getUser(userCookie.get("access")));
+      // dispatch(getUser(userCookie.get("access")));
+      dispatch(getCustomer(userCookie.get("access")));
     }
   }, [dispatch]);
 

@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { mainUrl } from "../constants";
@@ -24,6 +25,7 @@ const RelatedProducts = ({ id }) => {
   return (
     <Wrapper>
       <h1>Related Equipments</h1>
+
       <ProductsCarousel products={allProducts} />
     </Wrapper>
   );

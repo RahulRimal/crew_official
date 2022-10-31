@@ -27,6 +27,7 @@ const refreshAccessToken = async function () {
     const access = response.data.access;
 
     userCookie.set("access", access, { path: "/" });
+    getUser(access);
   } catch (error) {}
 };
 
@@ -47,18 +48,17 @@ export const getUser = createAsyncThunk("user/getUser", async (accessToken) => {
 
 export const getCustomer = createAsyncThunk(
   "user/getCustomer",
-  async (accessToken) => {
+  async (accessToken, { dispatch }) => {
     try {
       const response = await axios(`${mainUrl}customers/me/`, {
         headers: {
           Authorization: `FC ` + accessToken,
         },
       });
-      console.log(response);
       return response.data;
     } catch (error) {
       if (error.response.status === 500) {
-        getUser(accessToken);
+        dispatch(getUser(accessToken));
       }
     }
   }
@@ -85,7 +85,6 @@ export const registerUser = createAsyncThunk(
         dispatch(updateNotification({ name, value }));
       }
     } catch (error) {
-
       if (error.response.status === 400) {
         const data = error.response.data;
         if (data.email) {

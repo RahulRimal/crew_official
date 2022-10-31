@@ -59,7 +59,12 @@ const GridProduct = ({ info, showQuickView }) => {
             <img src={featured_image} alt="product-img" />
           </Link>
         </div>
-        <Link to={`/equipment/${id}`}>
+        {/* <Link to={`/equipment/${id}`}> */}
+        <Link
+          to={`/equipment/${slug}`}
+          state={{ id: id }}
+          className="product-link"
+        >
           <h5>{name}</h5>
         </Link>
         <footer>
@@ -157,8 +162,9 @@ const Wrapper = styled.article`
 
   .product-link {
     display: block;
-    text-align: center;
+    /* text-align: center; */
     position: relative;
+    padding: 0 1.6rem;
 
     img {
       width: 100%;
@@ -177,10 +183,6 @@ const Wrapper = styled.article`
     margin-top: 0.4rem;
     padding: 0 1.6rem;
     font-family: "Roboto";
-
-    .show {
-      /* display: grid; */
-    }
 
     li {
       display: grid;

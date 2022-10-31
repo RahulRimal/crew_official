@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import axios from "axios";
+import { Cookies } from "react-cookie";
 import { mainUrl } from "../../constants";
 import { getSelectedIndexAndPrice, getTenureDays } from "../../utils/helpers";
 import { updateNotification } from "../notification/notificationSlice";
@@ -8,13 +9,26 @@ import { updateNotification } from "../notification/notificationSlice";
 // const url = "https://course-api.com/react-useReducer-cart-project";
 
 const initialState = {
-  id: 0,
+  id: null,
   cartItems: [],
   totalCartItems: 0,
   cartTotal: 0,
   deliveryLocation: "",
   isLoading: true,
 };
+
+export const getCartId = createAsyncThunk("cart/getCartId", async () => {
+  try {
+    const response = await axios.post(`${mainUrl}carts/`);
+    // cookies.set("cartId", response.data.id, { path: "/" });
+    return response.data;
+    // const name = "id";
+    // const value = response.data.id;
+    // dispatch(updateCart({ name, value }));
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 export const getCartItems = createAsyncThunk(
   "cart/getCartItems",
@@ -88,6 +102,10 @@ const cartSlice = createSlice({
     clearCart: (state) => {
       state.cartItems = [];
     },
+    resetCart: (state) => {
+      state = initialState;
+      return state;
+    },
     addToCart: (state, action) => {
       state.cartItems.push(action.payload);
       // return { ...state };
@@ -154,6 +172,19 @@ const cartSlice = createSlice({
     [getCartItems.rejected]: (state) => {
       state.isLoading = false;
     },
+    [getCartId.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getCartId.fulfilled]: (state, action) => {
+      const { id } = action.payload;
+      const cookies = new Cookies();
+      cookies.set("cartId", id, { path: "/" });
+      state.id = id;
+      state.isLoading = false;
+    },
+    [getCartId.rejected]: (state) => {
+      state.isLoading = false;
+    },
     [addItemToCart.pending]: (state) => {
       state.isLoading = true;
     },
@@ -195,6 +226,7 @@ export const {
   addToCart,
   updateCart,
   removeItem,
+  resetCart,
   increase,
   decrease,
   calculateTotals,

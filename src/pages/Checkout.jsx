@@ -15,8 +15,12 @@ import "slick-carousel/slick/slick-theme.css";
 import { useNavigate } from "react-router-dom";
 import { mainUrl } from "../constants";
 
-import { getCustomer, updateUser } from "../features/user/userSlice";
+import { getCustomer } from "../features/user/userSlice";
 import { Cookies } from "react-cookie";
+import axios from "axios";
+import { updateNotification } from "../features/notification/notificationSlice";
+import { getCartId, resetCart } from "../features/cart/cartSlice";
+import { AnimatePresence, motion } from "framer-motion";
 
 const Checkout = () => {
   const { cartItems } = useSelector((store) => store.cart);
@@ -24,19 +28,27 @@ const Checkout = () => {
   const [provideDelivery, setProvideDelivery] = useState(false);
   const [payByEsewa, setPayByEsewa] = useState(true);
 
+  const [firstName, setFristName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [convenientLocation, setConvenientLocation] = useState("");
+  const [sideNote, setSideNote] = useState("");
+
   const { id: userId, loading } = useSelector((store) => store.user);
 
   const refContainer = useRef(null);
-
-  // const [showLogin, setShowLogin] = useState(true);
 
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
-  const { first_name, last_name, email, phone } = useSelector(
-    (store) => store.user
-  );
+  const {
+    first_name: userFirstName,
+    last_name: userLastName,
+    email: userEmail,
+    phone: userPhone,
+  } = useSelector((store) => store.user);
 
   useEffect(() => {
     const userCookie = new Cookies();
@@ -45,10 +57,6 @@ const Checkout = () => {
       dispatch(getCustomer(access));
     }
   }, [dispatch]);
-
-  const handleBooking = (e) => {
-    e.preventDefault();
-  };
 
   const settings = {
     dots: true,
@@ -59,13 +67,63 @@ const Checkout = () => {
     speed: 200,
     autoplaySpeed: 2000,
     cssEase: "linear",
-    // adaptiveHeight: true,
   };
 
-  const updateUserInfo = (e) => {
-    let name = e.target.name;
-    let value = e.target.value;
-    dispatch(updateUser({ name, value }));
+  // const updateUserInfo = (e) => {
+  //   let name = e.target.name;
+  //   let value = e.target.value;
+  //   dispatch(updateUser({ name, value }));
+  // };
+
+  useEffect(() => {
+    setFristName(userFirstName);
+    setLastName(userLastName);
+    setEmail(userEmail);
+    setPhone(userPhone);
+  }, [userFirstName, userLastName, userEmail, userPhone]);
+
+  const handleBooking = async (e) => {
+    e.preventDefault();
+
+    const cookies = new Cookies();
+    const cartId = cookies.get("cartId");
+    const accessToken = cookies.get("access");
+    try {
+      const response = await axios.post(
+        `${mainUrl}orders/`,
+        {
+          cart_id: cartId,
+          billing_info: {
+            first_name: firstName,
+            last_name: lastName,
+            phone: phone,
+            email: email,
+            convenient_location: convenientLocation || null,
+            side_note: sideNote || null,
+          },
+        },
+        {
+          headers: {
+            Authorization: `FC ` + accessToken,
+          },
+        }
+      );
+      if (response.status === 200) {
+        cookies.remove("cartId", { path: "/" });
+        dispatch(resetCart());
+        dispatch(getCartId());
+
+        let name = "message";
+        let value = "Order Placed Successfully";
+        dispatch(updateNotification({ name, value }));
+        name = "showModal";
+        value = true;
+        dispatch(updateNotification({ name, value }));
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -89,8 +147,8 @@ const Checkout = () => {
                   <input
                     type="text"
                     name="first_name"
-                    value={first_name}
-                    onChange={updateUserInfo}
+                    value={firstName}
+                    onChange={(e) => setFristName(e.target.value)}
                     required
                   />
                 </div>
@@ -100,8 +158,8 @@ const Checkout = () => {
                   <input
                     type="text"
                     name="last_name"
-                    value={last_name}
-                    onChange={updateUserInfo}
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
                     required
                   />
                 </div>
@@ -114,7 +172,7 @@ const Checkout = () => {
                     name="phone"
                     prefix="+977"
                     value={phone}
-                    onChange={updateUserInfo}
+                    onChange={(e) => setPhone(e.target.value)}
                     required
                   />
                 </div>
@@ -125,15 +183,47 @@ const Checkout = () => {
                     type="text"
                     name="email"
                     value={email}
-                    onChange={updateUserInfo}
+                    onChange={(e) => setPhone(e.target.value)}
                     required
                   />
                 </div>
-                {/* <div>
-                  <label htmlFor="deliveryLocaion">Delivery Location</label>
+                <div>
+                  <label htmlFor="sideNote">Side notes</label>
                   <br />
-                  <input type="text" name="deliveryLocaion" />
-                </div> */}
+                  <textarea
+                    name="sideNote"
+                    rows={7}
+                    cols={41}
+                    value={sideNote}
+                    onChange={(e) => setSideNote(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <AnimatePresence>
+                    {provideDelivery && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        exit={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        transition={{ duration: 0.4 }}
+                        style={{ margin: 0 }}
+                      >
+                        <label htmlFor="deliveryLocaion">
+                          Convenient Delivery Location
+                        </label>
+                        <br />
+                        <input
+                          type="text"
+                          name="deliveryLocaion"
+                          value={convenientLocation}
+                          onChange={(e) =>
+                            setConvenientLocation(e.target.value)
+                          }
+                        />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
               </div>
             </section>
             <section>
@@ -141,6 +231,7 @@ const Checkout = () => {
               <div className="delivery-method">
                 <div className="delivery-pickup">
                   <button
+                    type="button"
                     className={`${
                       !provideDelivery ? "pickup selected" : "pickup"
                     }`}
@@ -150,6 +241,7 @@ const Checkout = () => {
                     <TbPackage className="icon" /> Pickup{" "}
                   </button>
                   <button
+                    type="button"
                     className={`${
                       provideDelivery ? "delivery selected" : "delivery"
                     }`}
@@ -180,12 +272,14 @@ const Checkout = () => {
               <h4>3. Payment Method</h4>
               <div className="payment-method">
                 <button
+                  type="button"
                   className={`${payByEsewa ? "esewa selected" : "esewa"}`}
                   onClick={() => setPayByEsewa(true)}
                 >
                   e-Sewa
                 </button>
                 <button
+                  type="button"
                   className={`${!payByEsewa ? "khalti selected" : "khalti"}`}
                   onClick={() => setPayByEsewa(false)}
                 >
