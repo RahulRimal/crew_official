@@ -6,17 +6,17 @@ import {
   getFormattedTenure,
   getSelectedIndexAndPrice,
   formatPrice,
-} from "../utils/helpers";
+} from "../../utils/helpers";
 
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 
-import { increase, decrease, removeItem } from "../features/cart/cartSlice";
+import { increase, decrease, removeItem } from "../../features/cart/cartSlice";
 
-import { getTenureDays } from "../utils/helpers";
-import { mainUrl } from "../constants";
+import { getTenureDays } from "../../utils/helpers";
+import { mainUrl } from "../../constants";
 import axios from "axios";
-import ProductOptionsSelectionForm from "./ProductOptionsSelectionForm";
+import ProductOptionsSelectionForm from "../ProductOptionsSelectionForm";
 
 const CartItem = ({ item }) => {
   const { id, equipment, quantity, tenure, location } = item;

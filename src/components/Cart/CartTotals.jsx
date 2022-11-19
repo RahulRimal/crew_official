@@ -8,7 +8,7 @@ import {
   getAmountWithTax,
   getBookingAmount,
   getTaxAmount,
-} from "../utils/helpers";
+} from "../../utils/helpers";
 // import LoginSignup from "./LoginSignup";
 
 const CartTotals = ({ payment_method }) => {

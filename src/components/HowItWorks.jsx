@@ -3,7 +3,8 @@ import styled from "styled-components";
 
 import { BiSearchAlt } from "react-icons/bi";
 import { BsFillCalendarEventFill } from "react-icons/bs";
-import { motion, useScroll } from "framer-motion";
+import { AnimatePresence, motion, useScroll } from "framer-motion";
+import { useState } from "react";
 
 const HowItWorks = () => {
   const ref = useRef(null);
@@ -13,67 +14,503 @@ const HowItWorks = () => {
     offset: ["end end", "start start"],
   });
 
+  const [toggleState, setToggleState] = useState(1);
+
+  const toggleTab = (index) => {
+    setToggleState(index);
+  };
+
   return (
     <Wrapper>
       <h1 className="title">How it works</h1>
-      <div className="body" ref={ref}>
-        <figure className="progress">
-          <svg
-            id="progress"
-            width="5"
-            // width="25"
-            fill="none"
+      <div className="container">
+        <div className="bloc-tabs">
+          <button
+            className={toggleState === 1 ? "tabs active-tabs" : "tabs"}
+            onClick={() => toggleTab(1)}
           >
-            {/* <path d="M2 0V254" stroke="black" stroke-width="3" /> */}
-            <path d="M2 0L2.00002 500" stroke="black" stroke-width="3" />
-            {/* <circle cx="12" cy="12" r="12" fill="black" /> */}
-
-            <motion.path
-              d="M2 0L2.00002 500"
-              stroke="black"
-              stroke-width="5"
-              className="indicator"
-              style={{ pathLength: scrollYProgress }}
-            />
-          </svg>
-        </figure>
-
-        <div className="step">
-          <div className="icon">
-            <BiSearchAlt />
-          </div>
-          <div className="info">
-            <div className="step-number">1</div>
-            <p className="heading">Browse and select your renting needs</p>
-            <p className="desc">
-              Browse & Select from a wide range of Rental products on our
-              website.
-            </p>
-          </div>
+            {toggleState === 1 ? (
+              <>
+                <motion.div className="overline" layoutId="overline" />
+                <motion.div className="underline" layoutId="underline" />
+              </>
+            ) : null}
+            Equipments Renting
+          </button>
+          <button
+            className={toggleState === 2 ? "tabs active-tabs" : "tabs"}
+            onClick={() => toggleTab(2)}
+          >
+            {toggleState === 2 ? (
+              <>
+                <motion.div className="overline" layoutId="overline" />
+                <motion.div className="underline" layoutId="underline" />
+              </>
+            ) : null}
+            Studios Renting
+          </button>
+          <button
+            className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
+            onClick={() => toggleTab(3)}
+          >
+            {toggleState === 3 ? (
+              <>
+                <motion.div className="overline" layoutId="overline" />
+                <motion.div className="underline" layoutId="underline" />
+              </>
+            ) : null}
+            Voice Dubbing
+          </button>
+          <button
+            className={toggleState === 4 ? "tabs active-tabs" : "tabs"}
+            onClick={() => toggleTab(4)}
+          >
+            {toggleState === 4 ? (
+              <>
+                <motion.div className="overline" layoutId="overline" />
+                <motion.div className="underline" layoutId="underline" />
+              </>
+            ) : null}
+            Casting and Auditions
+          </button>
         </div>
-        <div className="step">
-          <div className="info">
-            <div className="step-number" style={{ marginLeft: "auto" }}>
-              2
-            </div>
-            <p className="heading">Choose Your Dates</p>
-            <p className="desc">
-              Select your dates and always plan early for hassle-free Renting.
-            </p>
-          </div>
-          <div className="icon">
-            <BsFillCalendarEventFill />
-          </div>
-        </div>
-        <div className="step">
-          <div className="icon">
-            <BiSearchAlt />
-          </div>
-          <div className="info">
-            <div className="step-number">3</div>
-            <p className="heading">Pay 20% and book instantly</p>
-            <p className="desc">Don't lose your wallet before it gets Heavy.</p>
-          </div>
+
+        <div className="content-tabs">
+          <AnimatePresence>
+            {toggleState === 1 && (
+              <motion.div
+                initial={{
+                  height: 0,
+                  opacity: 0,
+                }}
+                animate={{
+                  height: "auto",
+                  opacity: 1,
+                  transition: {
+                    height: {
+                      duration: 0.4,
+                    },
+                    opacity: {
+                      duration: 0.25,
+                      delay: 0.15,
+                    },
+                  },
+                }}
+                exit={{
+                  height: 0,
+                  opacity: 0,
+                  transition: {
+                    height: {
+                      duration: 0.4,
+                    },
+                    opacity: {
+                      duration: 0.25,
+                    },
+                  },
+                }}
+              >
+                <div
+                  className={
+                    toggleState === 1 ? "content  active-content" : "content"
+                  }
+                >
+                  <div className="body" ref={ref}>
+                    <figure className="progress">
+                      <svg
+                        id="progress"
+                        width="5"
+                        // width="25"
+                        fill="none"
+                      >
+                        {/* <path d="M2 0V254" stroke="black" stroke-width="3" /> */}
+                        <path
+                          d="M2 0L2.00002 500"
+                          stroke="black"
+                          stroke-width="3"
+                        />
+                        {/* <circle cx="12" cy="12" r="12" fill="black" /> */}
+
+                        <motion.path
+                          d="M2 0L2.00002 500"
+                          stroke="black"
+                          stroke-width="5"
+                          className="indicator"
+                          style={{ pathLength: scrollYProgress }}
+                        />
+                      </svg>
+                    </figure>
+
+                    <div className="step">
+                      <div className="icon">
+                        <BiSearchAlt />
+                      </div>
+                      <div className="info">
+                        <div className="step-number">1</div>
+                        <p className="heading">
+                          Browse and select your renting needs
+                        </p>
+                        <p className="desc">
+                          Browse & Select from a wide range of Rental products
+                          on our website.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="step">
+                      <div className="info">
+                        <div
+                          className="step-number"
+                          style={{ marginLeft: "auto" }}
+                        >
+                          2
+                        </div>
+                        <p className="heading">Choose Your Dates</p>
+                        <p className="desc">
+                          Select your dates and always plan early for
+                          hassle-free Renting.
+                        </p>
+                      </div>
+                      <div className="icon">
+                        <BsFillCalendarEventFill />
+                      </div>
+                    </div>
+                    <div className="step">
+                      <div className="icon">
+                        <BiSearchAlt />
+                      </div>
+                      <div className="info">
+                        <div className="step-number">3</div>
+                        <p className="heading">Pay 20% and book instantly</p>
+                        <p className="desc">
+                          Don't lose your wallet before it gets Heavy.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <AnimatePresence>
+            {toggleState === 2 && (
+              <motion.div
+                initial={{
+                  height: 0,
+                  opacity: 0,
+                }}
+                animate={{
+                  height: "auto",
+                  opacity: 1,
+                  transition: {
+                    height: {
+                      duration: 0.4,
+                    },
+                    opacity: {
+                      duration: 0.25,
+                      delay: 0.15,
+                    },
+                  },
+                }}
+                exit={{
+                  height: 0,
+                  opacity: 0,
+                  transition: {
+                    height: {
+                      duration: 0.4,
+                    },
+                    opacity: {
+                      duration: 0.25,
+                    },
+                  },
+                }}
+              >
+                <div
+                  className={
+                    toggleState === 2 ? "content  active-content" : "content"
+                  }
+                >
+                  <div className="body" ref={ref}>
+                    <figure className="progress">
+                      <svg id="progress" width="5" fill="none">
+                        <path
+                          d="M2 0L2.00002 500"
+                          stroke="black"
+                          stroke-width="3"
+                        />
+
+                        <motion.path
+                          d="M2 0L2.00002 500"
+                          stroke="black"
+                          stroke-width="5"
+                          className="indicator"
+                          style={{ pathLength: scrollYProgress }}
+                        />
+                      </svg>
+                    </figure>
+
+                    <div className="step">
+                      <div className="icon">
+                        <BiSearchAlt />
+                      </div>
+                      <div className="info">
+                        <div className="step-number">1</div>
+                        <p className="heading">
+                          Browse and select your renting needs
+                        </p>
+                        <p className="desc">
+                          Browse & Select from a wide range of Rental products
+                          on our website.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="step">
+                      <div className="info">
+                        <div
+                          className="step-number"
+                          style={{ marginLeft: "auto" }}
+                        >
+                          2
+                        </div>
+                        <p className="heading">Choose Your Dates</p>
+                        <p className="desc">
+                          Select your dates and always plan early for
+                          hassle-free Renting.
+                        </p>
+                      </div>
+                      <div className="icon">
+                        <BsFillCalendarEventFill />
+                      </div>
+                    </div>
+                    <div className="step">
+                      <div className="icon">
+                        <BiSearchAlt />
+                      </div>
+                      <div className="info">
+                        <div className="step-number">3</div>
+                        <p className="heading">Pay 20% and book instantly</p>
+                        <p className="desc">
+                          Don't lose your wallet before it gets Heavy.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <AnimatePresence>
+            {toggleState === 3 && (
+              <motion.div
+                initial={{
+                  height: 0,
+                  opacity: 0,
+                }}
+                animate={{
+                  height: "auto",
+                  opacity: 1,
+                  transition: {
+                    height: {
+                      duration: 0.4,
+                    },
+                    opacity: {
+                      duration: 0.25,
+                      delay: 0.15,
+                    },
+                  },
+                }}
+                exit={{
+                  height: 0,
+                  opacity: 0,
+                  transition: {
+                    height: {
+                      duration: 0.4,
+                    },
+                    opacity: {
+                      duration: 0.25,
+                    },
+                  },
+                }}
+              >
+                <div
+                  className={
+                    toggleState === 3 ? "content  active-content" : "content"
+                  }
+                >
+                  <div className="body" ref={ref}>
+                    <figure className="progress">
+                      <svg id="progress" width="5" fill="none">
+                        <path
+                          d="M2 0L2.00002 500"
+                          stroke="black"
+                          stroke-width="3"
+                        />
+
+                        <motion.path
+                          d="M2 0L2.00002 500"
+                          stroke="black"
+                          stroke-width="5"
+                          className="indicator"
+                          style={{ pathLength: scrollYProgress }}
+                        />
+                      </svg>
+                    </figure>
+
+                    <div className="step">
+                      <div className="icon">
+                        <BiSearchAlt />
+                      </div>
+                      <div className="info">
+                        <div className="step-number">1</div>
+                        <p className="heading">
+                          Browse and select your renting needs
+                        </p>
+                        <p className="desc">
+                          Browse & Select from a wide range of Rental products
+                          on our website.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="step">
+                      <div className="info">
+                        <div
+                          className="step-number"
+                          style={{ marginLeft: "auto" }}
+                        >
+                          2
+                        </div>
+                        <p className="heading">Choose Your Dates</p>
+                        <p className="desc">
+                          Select your dates and always plan early for
+                          hassle-free Renting.
+                        </p>
+                      </div>
+                      <div className="icon">
+                        <BsFillCalendarEventFill />
+                      </div>
+                    </div>
+                    <div className="step">
+                      <div className="icon">
+                        <BiSearchAlt />
+                      </div>
+                      <div className="info">
+                        <div className="step-number">3</div>
+                        <p className="heading">Pay 20% and book instantly</p>
+                        <p className="desc">
+                          Don't lose your wallet before it gets Heavy.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <AnimatePresence>
+            {toggleState === 4 && (
+              <motion.div
+                initial={{
+                  height: 0,
+                  opacity: 0,
+                }}
+                animate={{
+                  height: "auto",
+                  opacity: 1,
+                  transition: {
+                    height: {
+                      duration: 0.4,
+                    },
+                    opacity: {
+                      duration: 0.25,
+                      delay: 0.15,
+                    },
+                  },
+                }}
+                exit={{
+                  height: 0,
+                  opacity: 0,
+                  transition: {
+                    height: {
+                      duration: 0.4,
+                    },
+                    opacity: {
+                      duration: 0.25,
+                    },
+                  },
+                }}
+              >
+                <div
+                  className={
+                    toggleState === 4 ? "content  active-content" : "content"
+                  }
+                >
+                  <div className="body" ref={ref}>
+                    <figure className="progress">
+                      <svg id="progress" width="5" fill="none">
+                        <path
+                          d="M2 0L2.00002 500"
+                          stroke="black"
+                          stroke-width="3"
+                        />
+
+                        <motion.path
+                          d="M2 0L2.00002 500"
+                          stroke="black"
+                          stroke-width="5"
+                          className="indicator"
+                          style={{ pathLength: scrollYProgress }}
+                        />
+                      </svg>
+                    </figure>
+
+                    <div className="step">
+                      <div className="icon">
+                        <BiSearchAlt />
+                      </div>
+                      <div className="info">
+                        <div className="step-number">1</div>
+                        <p className="heading">
+                          Browse and select your renting needs
+                        </p>
+                        <p className="desc">
+                          Browse & Select from a wide range of Rental products
+                          on our website.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="step">
+                      <div className="info">
+                        <div
+                          className="step-number"
+                          style={{ marginLeft: "auto" }}
+                        >
+                          2
+                        </div>
+                        <p className="heading">Choose Your Dates</p>
+                        <p className="desc">
+                          Select your dates and always plan early for
+                          hassle-free Renting.
+                        </p>
+                      </div>
+                      <div className="icon">
+                        <BsFillCalendarEventFill />
+                      </div>
+                    </div>
+                    <div className="step">
+                      <div className="icon">
+                        <BiSearchAlt />
+                      </div>
+                      <div className="info">
+                        <div className="step-number">3</div>
+                        <p className="heading">Pay 20% and book instantly</p>
+                        <p className="desc">
+                          Don't lose your wallet before it gets Heavy.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </div>
     </Wrapper>
@@ -172,6 +609,58 @@ const Wrapper = styled.section`
         height: 400px;
       }
     }
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: var(--primary-white);
+    border: 1px solid var(--border-gray);
+  }
+
+  .bloc-tabs {
+    display: flex;
+    margin-bottom: 1.2rem;
+  }
+  .tabs {
+    padding: 1.2rem;
+    text-align: center;
+    width: 50%;
+    background: rgba(128, 128, 128, 0.075);
+    cursor: pointer;
+    box-sizing: content-box;
+    position: relative;
+    outline: none;
+    font-size: 1.6rem;
+    font-weight: 500;
+    position: relative;
+  }
+  .tabs:not(:last-child) {
+    border-right: 1px solid rgba(0, 0, 0, 0.274);
+  }
+
+  .active-tabs {
+    background: var(--primary-white);
+    border-bottom: 1px solid transparent;
+    color: var(--primary-color);
+    font-size: 1.6rem;
+    font-weight: 600;
+  }
+  .underline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: calc(100% + 2px);
+    height: 2px;
+    background: var(--primary-color);
+  }
+  button {
+    border: none;
+  }
+  .content-tabs {
+    flex-grow: 1;
   }
 
   /**************************/

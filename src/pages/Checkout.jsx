@@ -435,6 +435,7 @@ const Wrapper = styled.section`
       input {
         border-radius: 4px;
         border: 2px solid var(--border-gray);
+        padding: 0.4rem;
         margin: 0.4rem 0;
         margin-bottom: 0.8rem;
         width: 70%;

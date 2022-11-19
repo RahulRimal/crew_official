@@ -3,8 +3,8 @@ import styled from "styled-components";
 
 import { Link, useLocation } from "react-router-dom";
 // import logo from "../logo.png";
-import logo from "../logo_white.png";
-import { HeaderSearchBar, HeaderNav } from "./index";
+import logo from "../../logo_white.png";
+import { HeaderSearchBar, HeaderNav } from "../index";
 
 const TopbarHeader = () => {
   const { pathname } = useLocation();

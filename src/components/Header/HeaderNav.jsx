@@ -5,10 +5,10 @@ import styled from "styled-components";
 import { MdShoppingCart } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import LoginSignup from "./LoginSignup";
+import LoginSignup from "../LoginSignup";
 
-import { removeUser } from "../features/user/userSlice";
-import ModalPopup from "./ModalPopup";
+import { removeUser } from "../../features/user/userSlice";
+import ModalPopup from "../ModalPopup";
 
 const HeaderNav = () => {
   const { id: userId } = useSelector((store) => store.user);

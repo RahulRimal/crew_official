@@ -8,3 +8,4 @@ export { default as Checkout } from "./Checkout";
 export { default as Error } from "./Error";
 export { default as Esewa } from "./Esewa";
 export { default as Khalti } from "./Khalti";
+export { default as ArtistGallery } from "./ArtistGallery";

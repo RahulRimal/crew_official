@@ -18,6 +18,7 @@ import {
   Checkout,
   Esewa,
   Khalti,
+  ArtistGallery,
 } from "./pages";
 
 import {
@@ -102,6 +103,7 @@ const App = () => {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/esewa" element={<Esewa />} />
         <Route path="/khalti" element={<Khalti />} />
+        <Route path="/artist-gallery" element={<ArtistGallery />} />
         <Route path="*" element={<Error />} />
       </Routes>
       <Footer />

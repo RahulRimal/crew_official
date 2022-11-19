@@ -1,14 +1,21 @@
 import React from "react";
 import styled from "styled-components";
 
-import { BsFillCameraReelsFill, BsFillPeopleFill } from "react-icons/bs";
+import {
+  BsFillCameraReelsFill,
+  BsFillPeopleFill,
+  BsFillMicFill,
+} from "react-icons/bs";
 import { FaWarehouse } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { useState } from "react";
 
 const OurServices = () => {
   return (
     <Wrapper>
       <h1>Our services</h1>
+
       <div className="body">
         <div className="service-box">
           <div className="service">
@@ -52,6 +59,26 @@ const OurServices = () => {
               </p>
               <Link to="/products" className="service-cta">
                 Hire now
+              </Link>
+            </div>
+          </div>
+        </div>
+        <div className="service-box">
+          <div className="service">
+            <div className="front">
+              <BsFillMicFill className="service-icon" />
+              <h1 className="service-title">Voice dubbing</h1>
+              <p className="service-desc">
+                Get your any project dubbed to nepali language
+              </p>
+            </div>
+            <div className="back">
+              <p className="service-desc">
+                We dub any commercials, films or any sort of videos to nepali
+                language with our wide range of voice and dubbing artists.
+              </p>
+              <Link to="/products" className="service-cta">
+                Contact now
               </Link>
             </div>
           </div>

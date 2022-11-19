@@ -3,7 +3,7 @@ import { MdOutlineArrowRightAlt } from "react-icons/md";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import styled from "styled-components";
-import bgImage from "../media/hero-bg.jpg";
+// import bgImage from "../../media/hero-bg.jpg";
 
 const HeaderHero2 = () => {
   let heroContentTextSlider = null;
@@ -37,7 +37,8 @@ const HeaderHero2 = () => {
     dots: false,
     infinite: true,
     autoplay: true,
-    speed: 3000,
+    // speed: 3000,
+    speed: 9000,
     autoplaySpeed: 0,
     cssEase: "linear",
     slidesToShow: 4,
@@ -45,12 +46,6 @@ const HeaderHero2 = () => {
     vertical: true,
     verticalSwiping: true,
     arrows: false,
-    // beforeChange: function (currentSlide, nextSlide) {
-    //   console.log("before change", currentSlide, nextSlide);
-    // },
-    // afterChange: function (currentSlide) {
-    //   console.log("after change", currentSlide);
-    // },
   };
 
   return (
