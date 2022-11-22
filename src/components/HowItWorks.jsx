@@ -254,11 +254,11 @@ const HowItWorks = () => {
                       <div className="info">
                         <div className="step-number">1</div>
                         <p className="heading">
-                          Browse and select your renting needs
+                          Browse and select desired studios
                         </p>
                         <p className="desc">
-                          Browse & Select from a wide range of Rental products
-                          on our website.
+                          Browse & Select from a wide range of studios on our
+                          website.
                         </p>
                       </div>
                     </div>
@@ -273,7 +273,7 @@ const HowItWorks = () => {
                         <p className="heading">Choose Your Dates</p>
                         <p className="desc">
                           Select your dates and always plan early for
-                          hassle-free Renting.
+                          hassle-free booking.
                         </p>
                       </div>
                       <div className="icon">
@@ -361,11 +361,10 @@ const HowItWorks = () => {
                       <div className="info">
                         <div className="step-number">1</div>
                         <p className="heading">
-                          Browse and select your renting needs
+                          Select project needs
                         </p>
                         <p className="desc">
-                          Browse & Select from a wide range of Rental products
-                          on our website.
+                          Provide your project footage and preferred choices
                         </p>
                       </div>
                     </div>
@@ -377,10 +376,9 @@ const HowItWorks = () => {
                         >
                           2
                         </div>
-                        <p className="heading">Choose Your Dates</p>
+                        <p className="heading">Choose your deadline</p>
                         <p className="desc">
-                          Select your dates and always plan early for
-                          hassle-free Renting.
+                          Provide your project deadline
                         </p>
                       </div>
                       <div className="icon">
@@ -393,9 +391,9 @@ const HowItWorks = () => {
                       </div>
                       <div className="info">
                         <div className="step-number">3</div>
-                        <p className="heading">Pay 20% and book instantly</p>
+                        <p className="heading">Pay 20% and get your work started instantly</p>
                         <p className="desc">
-                          Don't lose your wallet before it gets Heavy.
+                          Make your full payment only when the job is done
                         </p>
                       </div>
                     </div>
@@ -468,11 +466,10 @@ const HowItWorks = () => {
                       <div className="info">
                         <div className="step-number">1</div>
                         <p className="heading">
-                          Browse and select your renting needs
+                          Pick choices
                         </p>
                         <p className="desc">
-                          Browse & Select from a wide range of Rental products
-                          on our website.
+                          Provide the information about the project and the required characters
                         </p>
                       </div>
                     </div>
@@ -484,10 +481,9 @@ const HowItWorks = () => {
                         >
                           2
                         </div>
-                        <p className="heading">Choose Your Dates</p>
+                        <p className="heading">Held audition</p>
                         <p className="desc">
-                          Select your dates and always plan early for
-                          hassle-free Renting.
+                          Attend the audition managed by us or leave all the heavy lifting to us
                         </p>
                       </div>
                       <div className="icon">
@@ -500,9 +496,9 @@ const HowItWorks = () => {
                       </div>
                       <div className="info">
                         <div className="step-number">3</div>
-                        <p className="heading">Pay 20% and book instantly</p>
+                        <p className="heading">Select the artists and pay</p>
                         <p className="desc">
-                          Don't lose your wallet before it gets Heavy.
+                          Pay a certian amount only for the artists you select
                         </p>
                       </div>
                     </div>

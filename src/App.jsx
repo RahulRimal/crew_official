@@ -19,6 +19,9 @@ import {
   Esewa,
   Khalti,
   ArtistGallery,
+  Studios,
+  Casting,
+  Dubbing,
 } from "./pages";
 
 import {
@@ -96,8 +99,11 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/equipments" element={<Products />} />
         <Route path="/equipment/:slug" element={<SingleProduct />} />
+        <Route path="/studios" element={<Studios />} />
         {/* <Route path="/equipment/:id" element={<SingleProduct />} /> */}
         <Route path="/contact" element={<Contact />} />
+        <Route path="/dub" element={<Dubbing />} />
+        <Route path="/cast" element={<Casting />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<LoginSignup />} />
         <Route path="/checkout" element={<Checkout />} />

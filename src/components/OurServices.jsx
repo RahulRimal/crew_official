@@ -14,93 +14,95 @@ import { useState } from "react";
 const OurServices = () => {
   return (
     <Wrapper>
-      <h1>Our services</h1>
+      <div className="container">
+        <h1>Our services</h1>
 
-      <div className="body">
-        <div className="service-box">
-          <div className="service">
-            <div className="front">
-              <BsFillCameraReelsFill className="service-icon" />
-              <h1 className="service-title">Equipments Renting</h1>
-              <p className="service-desc">
-                Rent any equipment from our huge collection of equipments
-              </p>
-            </div>
-            <div className="back">
-              <p className="service-desc">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa
-                aut ipsam blanditiis in minus laboriosam ex hic sapiente, alias
-                nulla odit explicabo aliquid. Inventore earum sapiente eos
-                doloremque! Itaque aspernatur quaerat perferendis. Voluptatibus
-                quam praesentium tenetur quae mollitia temporibus nobis enim
-                tempore architecto.
-              </p>
-              <Link to="/products" className="service-cta">
-                Rent now
-              </Link>
-            </div>
-          </div>
-        </div>
-        <div className="service-box">
-          <div className="service">
-            <div className="front">
-              <FaWarehouse className="service-icon" />
-              <h1 className="service-title">Studios Renting</h1>
-              <p className="service-desc">
-                Get convieneint studios on your desired location without any
-                hassel
-              </p>
-            </div>
-            <div className="back">
-              <p className="service-desc">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa
-                aut ipsam blanditiis in minus laboriosam ex hic sapiente, alias
-                nulla odit explicab
-              </p>
-              <Link to="/products" className="service-cta">
-                Hire now
-              </Link>
+        <div className="body">
+          <div className="service-box">
+            <div className="service">
+              <div className="front">
+                <BsFillCameraReelsFill className="service-icon" />
+                <h1 className="service-title">Equipments Renting</h1>
+                <p className="service-desc">
+                  Rent any equipment from our huge collection of equipments
+                </p>
+              </div>
+              <div className="back">
+                <p className="service-desc">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa
+                  aut ipsam blanditiis in minus laboriosam ex hic sapiente,
+                  alias nulla odit explicabo aliquid. Inventore earum sapiente
+                  eos doloremque! Itaque aspernatur quaerat perferendis.
+                  Voluptatibus quam praesentium tenetur quae mollitia temporibus
+                  nobis enim tempore architecto.
+                </p>
+                <Link to="/products" className="service-cta">
+                  Rent now
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="service-box">
-          <div className="service">
-            <div className="front">
-              <BsFillMicFill className="service-icon" />
-              <h1 className="service-title">Voice dubbing</h1>
-              <p className="service-desc">
-                Get your any project dubbed to nepali language
-              </p>
-            </div>
-            <div className="back">
-              <p className="service-desc">
-                We dub any commercials, films or any sort of videos to nepali
-                language with our wide range of voice and dubbing artists.
-              </p>
-              <Link to="/products" className="service-cta">
-                Contact now
-              </Link>
+          <div className="service-box">
+            <div className="service">
+              <div className="front">
+                <FaWarehouse className="service-icon" />
+                <h1 className="service-title">Studios Renting</h1>
+                <p className="service-desc">
+                  Get convieneint studios on your desired location without any
+                  hassel
+                </p>
+              </div>
+              <div className="back">
+                <p className="service-desc">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa
+                  aut ipsam blanditiis in minus laboriosam ex hic sapiente,
+                  alias nulla odit explicab
+                </p>
+                <Link to="/studios" className="service-cta">
+                  Hire now
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="service-box">
-          <div className="service">
-            <div className="front">
-              <BsFillPeopleFill className="service-icon" />
-              <h1 className="service-title">Casting &amp; Auditions</h1>
-              <p className="service-desc">
-                Get the artists for the characters you want for your projects
-              </p>
+          <div className="service-box">
+            <div className="service">
+              <div className="front">
+                <BsFillMicFill className="service-icon" />
+                <h1 className="service-title">Voice dubbing</h1>
+                <p className="service-desc">
+                  Get your any project dubbed to nepali language
+                </p>
+              </div>
+              <div className="back">
+                <p className="service-desc">
+                  We dub any commercials, films or any sort of videos to nepali
+                  language with our wide range of voice and dubbing artists.
+                </p>
+                <Link to="/products" className="service-cta">
+                  Get a quote
+                </Link>
+              </div>
             </div>
-            <div className="back">
-              <p className="service-desc">
-                We provide artists for any sort of characters. Choose from our
-                collection of actors or perform an audtion to get the best.
-                We'll arrange everything for the audition
-              </p>
-              <Link to="/products" className="service-cta">
-                Cast now
-              </Link>
+          </div>
+          <div className="service-box">
+            <div className="service">
+              <div className="front">
+                <BsFillPeopleFill className="service-icon" />
+                <h1 className="service-title">Casting &amp; Auditions</h1>
+                <p className="service-desc">
+                  Get the artists for the characters you want for your projects
+                </p>
+              </div>
+              <div className="back">
+                <p className="service-desc">
+                  We provide artists for any sort of characters. Choose from our
+                  collection of actors or perform an audtion to get the best.
+                  We'll arrange everything for the audition
+                </p>
+                <Link to="/products" className="service-cta">
+                  Cast now
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -118,6 +120,13 @@ const OurServices = () => {
 const Wrapper = styled.section`
   padding: 0.8rem;
   margin-top: 4.8rem;
+  /* padding-left: 4.4rem; */
+  /* background: var(--primary-color); */
+
+  /* .container {
+    background: #f1edfd;
+    border-bottom-left-radius: 20.5rem;
+  } */
 
   h1 {
     text-transform: capitalize;

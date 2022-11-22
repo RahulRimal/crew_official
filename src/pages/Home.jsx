@@ -20,9 +20,10 @@ const Home = () => {
       <div className="home-wide-content">
         {/* <HeaderHero/> */}
         <HeaderHero2 />
+        <OurServices />
       </div>
       <div className="home-center-content">
-        <OurServices />
+        {/* <OurServices /> */}
         <HowItWorks />
         <FeaturedProducts name={"category"} />
         <ClientReview />
