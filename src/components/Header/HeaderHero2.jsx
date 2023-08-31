@@ -63,12 +63,10 @@ const HeaderHero2 = () => {
         <div className="hero-carousel-item">
           <div className="overlay"></div>
           <div className="carousel-content">
-            <p className="title">Lorem, ipsum. Babal Text</p>
+            <p className="title">Efficient Renting</p>
             <p className="desc">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem,
-              rerum. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Commodi quidem deleniti sequi amet enim eum porro impedit sint
-              praesentium nulla.
+              We provide easy, efficient and hassle free renting service of all
+              kinds of equipments
             </p>
             <Link
               to="#"
@@ -89,8 +87,11 @@ const HeaderHero2 = () => {
         <div className="hero-carousel-item">
           <div className="overlay"></div>
           <div className="carousel-content">
-            <p className="title">Lorem, ipsum. Babal Text</p>
-            <p className="desc">jfkdfjl lfjdklfjij kdfjdffjk</p>
+            <p className="title">Efficient Renting</p>
+            <p className="desc">
+              We provide easy, efficient and hassle free renting service of all
+              kinds of equipments
+            </p>
             <Link
               to="#"
               className="carousel-cta"
@@ -191,8 +192,8 @@ const HeaderHero2 = () => {
             <div className="client-item">
               <img src="https://source.unsplash.com/3200x1200/?nepal" alt="" />
               <div className="client-project">
-                <p className="client-project-title">Anautho Trishna</p>
-                <p className="client">StormCrow Productions</p>
+                <p className="client-project-title">Kasturi</p>
+                <p className="client">Ojas Film Studio</p>
               </div>
             </div>
           </div>
@@ -200,8 +201,8 @@ const HeaderHero2 = () => {
             <div className="client-item">
               <img src="https://source.unsplash.com/3200x1200/?movie" alt="" />
               <div className="client-project">
-                <p className="client-project-title">Anautho Trishna</p>
-                <p className="client">StormCrow Productions</p>
+                <p className="client-project-title">Paani</p>
+                <p className="client">Kites Entertainment</p>
               </div>
             </div>
           </div>
@@ -209,8 +210,8 @@ const HeaderHero2 = () => {
             <div className="client-item">
               <img src="https://source.unsplash.com/3200x1200/?people" alt="" />
               <div className="client-project">
-                <p className="client-project-title">Anautho Trishna</p>
-                <p className="client">StormCrow Productions</p>
+                <p className="client-project-title">Dolma</p>
+                <p className="client">Ojas Film Studio</p>
               </div>
             </div>
           </div>

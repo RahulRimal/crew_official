@@ -55,12 +55,10 @@ const HeaderHero = () => {
             alt="Carousel content"
           />
           <div className="carousel-content">
-            <p className="title">Lorem, ipsum. Babal Text</p>
+            <p className="title">Efficient Renting</p>
             <p className="desc">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem,
-              rerum. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Commodi quidem deleniti sequi amet enim eum porro impedit sint
-              praesentium nulla.
+              We provide easy, efficient and hassle free renting service of all
+              kinds of equipments
             </p>
             <Link
               to="#"

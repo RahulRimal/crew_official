@@ -10,7 +10,7 @@ const FeaturedProducts = ({ name }) => {
     async function getCategories() {
       try {
         const response = await axios.get(`${mainUrl}categories`);
-
+ 
         let data = response.data.filter(
           (result) => result.featured_equipment != null
         );

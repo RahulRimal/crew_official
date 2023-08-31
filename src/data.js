@@ -23,7 +23,7 @@ export const products = [
       1: 500,
       "2-4": 450,
       "5-7": 400,
-      "8++": 100,
+      "8++": 100, 
     },
     category: "Old Model",
     company: "Nikon",
